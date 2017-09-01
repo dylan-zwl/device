@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:fadeScrollbars="true"
+        android:orientation="horizontal"
+        android:scrollbarFadeDuration="0"
+        android:scrollbars="none">
+
+        <RadioGroup
+            android:id="@+id/select_mode_rgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/select_goal_mode"
+                style="@style/mode_rbtn_style"
+                android:background="@drawable/rbtn_mode"
+                android:checked="true"
+                android:drawableLeft="@drawable/ic_goal"
+                android:text="目标训练">
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/select_va_mode"
+                style="@style/mode_rbtn_style"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rbtn_mode"
+                android:drawableLeft="@drawable/ic_va"
+                android:text="虚拟场景"/>
+
+            <RadioButton
+                android:id="@+id/select_program_mode"
+                style="@style/mode_rbtn_style"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rbtn_mode"
+                android:drawableLeft="@drawable/ic_program"
+                android:text="运动模式"/>
+
+            <RadioButton
+                android:id="@+id/select_map_mode"
+                style="@style/mode_rbtn_style"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/rbtn_mode"
+                android:drawableLeft="@drawable/ic_map"
+                android:text="地图跑"/>
+
+        </RadioGroup>
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/mode_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_mode_area">
+    </FrameLayout>
+</LinearLayout>

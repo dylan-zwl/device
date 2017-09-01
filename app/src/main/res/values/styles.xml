@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="mode_rbtn_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">34dp</item>
+        <item name="android:drawablePadding">16dp</item>
+        <item name="android:textColor">@color/colorText2</item>
+        <item name="android:textSize">@dimen/tx_size4</item>
+        <item name="android:button">@null</item>
+    </style>
+
+    <declare-styleable name="DeviceCtl">
+        <attr name="ctl_icon" format="integer"></attr>
+        <attr name="ctl_unit" format="string"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="RoundRect">
+        <attr name="round_rect_radius" format="integer"></attr>
+        <attr name="round_rect_mode">
+            <enum name="Circle" value="0"/>
+            <enum name="RoundRect" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <!--pupupwindow anim-->
+    <style name="popup_window_anim">
+        <item name="android:windowEnterAnimation">@anim/in</item>
+        <item name="android:windowExitAnimation">@anim/out</item>
+    </style>
+</resources>

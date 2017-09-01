@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:RoundRect="http://schemas.android.com/apk/res-auto"
+                android:layout_width="164dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+    <com.tapc.platform.ui.view.RoundRectImageView
+        android:id="@+id/app_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        RoundRect:round_rect_mode="RoundRect"
+        RoundRect:round_rect_radius="12"/>
+
+    <ImageButton
+        android:id="@+id/app_click"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/btn_app_click"/>
+</RelativeLayout>

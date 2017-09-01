@@ -1,0 +1,13 @@
+<resources>
+    <!--布局-->
+    <dimen name="bottom_bar_h">176dp</dimen>
+
+    <!--文字大小-->
+    <dimen name="tx_size1">20sp</dimen>
+    <dimen name="tx_size2">24sp</dimen>
+    <dimen name="tx_size3">28sp</dimen>
+    <dimen name="tx_size4">32sp</dimen>
+    <dimen name="tx_size5">34sp</dimen>
+    <dimen name="tx_size6">48sp</dimen>
+    <dimen name="tx_size7">72dp</dimen>
+</resources>

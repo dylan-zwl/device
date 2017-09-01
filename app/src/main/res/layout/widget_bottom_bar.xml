@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_skin"
+                android:paddingLeft="36dp"
+                android:paddingRight="36dp">
+
+    <LinearLayout
+        android:id="@+id/ctl_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_pause"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:background="@drawable/btn_stop"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_back"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="28dp"
+            android:background="@drawable/btn_home"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_toLeftOf="@id/home_ll"
+        android:layout_toRightOf="@id/ctl_ll"
+        android:orientation="horizontal">
+
+        <com.tapc.platform.ui.view.DeviceCtl
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.tapc.platform.ui.view.DeviceCtl>
+
+        <LinearLayout
+            android:layout_width="376dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00:00"
+                android:textColor="@color/colorText1"
+                android:textSize="@dimen/tx_size7"/>
+
+            <ProgressBar
+                style="?android:progressBarStyleHorizontal"
+                android:layout_width="210dp"
+                android:layout_height="6dp"
+                android:progressDrawable="@drawable/pbar_time"/>
+        </LinearLayout>
+
+        <com.tapc.platform.ui.view.DeviceCtl
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+        </com.tapc.platform.ui.view.DeviceCtl>
+    </LinearLayout>
+</RelativeLayout>
