@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:RoundProgressBar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/result_title"
+        layout="@layout/include_title"/>
+
+    <FrameLayout
+        android:id="@+id/result_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/result_title"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp">
+
+        <com.tapc.platform.ui.view.RoundProgressBar
+            android:layout_width="400dp"
+            android:layout_height="400dp"
+            RoundProgressBar:bgColor="#4D2076BE"
+            RoundProgressBar:maxProgress="100"
+            RoundProgressBar:progressColor="@color/colorText2"
+            RoundProgressBar:roundWidth="20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="68dp"
+                android:src="@drawable/ic_result_time">
+            </ImageView>
+
+            <TextView
+                android:id="@+id/result_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:textColor="@color/colorText1"
+                android:textSize="@dimen/tx_size7"/>
+
+            <TextView
+                android:id="@+id/result_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/colorText2"
+                android:textSize="@dimen/tx_size3"/>
+        </LinearLayout>
+    </FrameLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/result_goal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp">
+
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

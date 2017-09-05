@@ -27,7 +27,7 @@ public class SelectModeFragment extends BaseFragment {
     @Override
     protected void initView() {
         mManager = getChildFragmentManager();
-        replaceFragment(R.id.mode_fragment, Fragment.instantiate(mContext, GoalModeFragment.class.getName()), mManager);
+        replaceFragment(R.id.mode_fragment, Fragment.instantiate(mContext, ProgramFragment.class.getName()), mManager);
     }
 
     @OnClick({R.id.select_goal_mode, R.id.select_va_mode, R.id.select_program_mode, R.id.select_map_mode})
@@ -41,7 +41,7 @@ public class SelectModeFragment extends BaseFragment {
                 className = VaFragment.class.getName();
                 break;
             case R.id.select_program_mode:
-                className = GoalModeFragment.class.getName();
+                className = ProgramFragment.class.getName();
                 break;
             case R.id.select_map_mode:
                 className = GoalModeFragment.class.getName();

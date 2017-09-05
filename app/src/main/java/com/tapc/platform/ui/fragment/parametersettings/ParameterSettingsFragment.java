@@ -27,6 +27,7 @@ public class ParameterSettingsFragment extends BaseFragment {
     @BindView(R.id.paramenter_settings_recyclerview)
     RecyclerView mRecyclerview;
 
+    private List<ParameterSet> mDataList;
     private String mCurrentShowName;
     private PopupWindow mWindow;
 
@@ -73,6 +74,15 @@ public class ParameterSettingsFragment extends BaseFragment {
                         mAdpater.notifyDataSetChanged();
                     }
                 });
+            }
+        });
+
+        mAdpater.setDefValueListener(new ParameterSetAdpater.DefValueListener() {
+            @Override
+            public void onDefValueBtnClick(Object value, int position) {
+                String showValue = String.valueOf(value);
+                mDataList.get(position).setValue(showValue);
+                mAdpater.notifyDataSetChanged();
             }
         });
     }

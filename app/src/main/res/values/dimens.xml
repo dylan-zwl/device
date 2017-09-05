@@ -1,6 +1,7 @@
 <resources>
     <!--布局-->
     <dimen name="bottom_bar_h">176dp</dimen>
+    <dimen name="bg_radius">12dp</dimen>
 
     <!--文字大小-->
     <dimen name="tx_size1">20sp</dimen>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:RunInfor="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_skin">
+
+    <include
+        android:id="@+id/run_infor_title"
+        layout="@layout/include_title"/>
+
+    <ImageView
+        android:id="@+id/run_infor_bottom_line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorText2"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/run_infor_bottom_line"
+        android:layout_below="@+id/run_infor_title"
+        android:layout_marginBottom="36dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_marginTop="36dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_area"
+            android:orientation="vertical"
+            android:paddingLeft="22dp"
+            android:paddingRight="22dp">
+
+            <com.tapc.platform.ui.view.RunInforTitleView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                RunInfor:runinfor_icon="@drawable/ic_run_infor_time"
+                RunInfor:runinfor_name="时间">
+
+            </com.tapc.platform.ui.view.RunInforTitleView>
+
+
+            <com.tapc.platform.ui.view.RunInforView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                RunInfor:runinfor_name="已用时间"
+                RunInfor:runinfor_uint=""
+                RunInfor:runinfor_value="00:00:00">
+
+            </com.tapc.platform.ui.view.RunInforView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    RunInfor:runinfor_name="剩余时间"
+                    RunInfor:runinfor_uint=""
+                    RunInfor:runinfor_value="00:00:00">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    RunInfor:runinfor_name="总时间"
+                    RunInfor:runinfor_uint=""
+                    RunInfor:runinfor_value="00:00:00">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinfor_name="xx时间"
+                    RunInfor:runinfor_uint=""
+                    RunInfor:runinfor_value="00:00:00">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinfor_name="xx时间"
+                    RunInfor:runinfor_uint=""
+                    RunInfor:runinfor_value="00:00:00">
+
+                </com.tapc.platform.ui.view.RunInforView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="36dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area"
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
+
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinfor_icon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinfor_name="速度">
+
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinfor_name="当前速度"
+                    RunInfor:runinfor_uint="km/h"
+                    RunInfor:runinfor_value="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinfor_name="平均速度"
+                    RunInfor:runinfor_uint="km/h"
+                    RunInfor:runinfor_value="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinfor_name="最高速度"
+                    RunInfor:runinfor_uint="km/h"
+                    RunInfor:runinfor_value="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="36dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area">
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="36dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area">
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

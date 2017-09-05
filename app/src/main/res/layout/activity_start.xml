@@ -6,29 +6,9 @@
     android:background="@drawable/bg_skin"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="140dp">
-
-        <TextView
-            android:id="@+id/start_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
-            android:text="请选择锻炼类型"
-            android:textColor="@color/colorText1"
-            android:textSize="@dimen/tx_size4"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="36dp"
-            android:layout_marginLeft="88dp"
-            android:layout_marginRight="88dp"
-            android:background="@drawable/bg_start_title_line"/>
-    </RelativeLayout>
+    <include
+        android:id="@+id/title"
+        layout="@layout/include_title"/>
 
     <FrameLayout
         android:id="@+id/start_mode_fragment"
@@ -36,6 +16,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="88dp"
         android:layout_marginRight="88dp"
+        android:layout_marginTop="36dp"
         android:layout_weight="1">
 
     </FrameLayout>

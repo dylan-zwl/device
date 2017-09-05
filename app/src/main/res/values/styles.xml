@@ -19,19 +19,6 @@
         <item name="android:button">@null</item>
     </style>
 
-    <declare-styleable name="DeviceCtl">
-        <attr name="ctl_icon" format="integer"></attr>
-        <attr name="ctl_unit" format="string"></attr>
-    </declare-styleable>
-
-    <declare-styleable name="RoundRect">
-        <attr name="round_rect_radius" format="integer"></attr>
-        <attr name="round_rect_mode">
-            <enum name="Circle" value="0"/>
-            <enum name="RoundRect" value="1"/>
-        </attr>
-    </declare-styleable>
-
     <!--pupupwindow anim-->
     <style name="popup_window_anim">
         <item name="android:windowEnterAnimation">@anim/in</item>

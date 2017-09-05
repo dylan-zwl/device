@@ -13,34 +13,56 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity android:name=".ui.activity.MainActivity">
+
+            <!--
+                            <intent-filter>
+                            <action android:name="android.intent.action.MAIN"/>
+
+                            <category android:name="android.intent.category.LAUNCHER"/>
+                        </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".ui.activity.start.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.run.RunActivity">
+
+            <!--
+                     <intent-filter>
+                     <action android:name="android.intent.action.MAIN"/>
+
+                     <category android:name="android.intent.category.LAUNCHER"/>
+                 </intent-filter>
+            -->
+        </activity>
+        <activity android:name=".ui.activity.run.RunInforActivity">
             <!--            <intent-filter>
                             <action android:name="android.intent.action.MAIN"/>
 
                             <category android:name="android.intent.category.LAUNCHER"/>
                         </intent-filter>-->
         </activity>
-        <activity android:name=".ui.activity.start.StartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
+        <activity android:name=".ui.activity.stop.StopActivity">
+            <!--<intent-filter>-->
+            <!--<action android:name="android.intent.action.MAIN"/>-->
+
+            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
-
-        <activity android:name=".ui.activity.run.RunActivity">
-            <!--     <intent-filter>
-                     <action android:name="android.intent.action.MAIN"/>
-
-                     <category android:name="android.intent.category.LAUNCHER"/>
-                 </intent-filter>-->
-        </activity>
-
 
         <service android:name=".service.StartService">
             <intent-filter>
                 <action android:name=".service.StartService"/>
             </intent-filter>
         </service>
+
     </application>
 
 </manifest>

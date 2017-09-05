@@ -51,8 +51,8 @@ public class StartService extends Service {
         params.x = 0;
         params.y = 0;
 
-        mStartMenu = new StartMenu(this);
-        mWindowManager.addView(mStartMenu, params);
+//        mStartMenu = new StartMenu(this);
+//        mWindowManager.addView(mStartMenu, params);
 
         final WindowManager.LayoutParams bottomBarParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen.bottom_bar_h),

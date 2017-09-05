@@ -13,6 +13,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/8/31.
@@ -45,6 +46,7 @@ public class ParameterSetAdpater extends BaseRecyclerViewAdapter<ParameterSetAdp
         super.onBindViewHolder(holder, position);
         ParameterSet item = mDatas.get(position);
         holder.itemView.setTag(item);
+        holder.setPosition(position);
         holder.itemView.setOnClickListener(this);
         String name = item.getName();
         if (name != null) {
@@ -85,6 +87,16 @@ public class ParameterSetAdpater extends BaseRecyclerViewAdapter<ParameterSetAdp
         }
     }
 
+    public void setDefValueListener(DefValueListener defValueListener) {
+        this.mDefValueListener = defValueListener;
+    }
+
+    public interface DefValueListener {
+        void onDefValueBtnClick(Object value, int position);
+    }
+
+    private DefValueListener mDefValueListener;
+
     public class ParameterViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.parameter_settings_name)
         TextView name;
@@ -99,9 +111,38 @@ public class ParameterSetAdpater extends BaseRecyclerViewAdapter<ParameterSetAdp
         @BindView(R.id.parameter_settings_defvalue_3)
         Button defValueBtn3;
 
+        private int mPosition;
+
         public ParameterViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+        }
+
+        public void setPosition(int position) {
+            mPosition = position;
+        }
+
+        @OnClick({R.id.parameter_settings_defvalue_1, R.id.parameter_settings_defvalue_2, R.id
+                .parameter_settings_defvalue_3})
+        void onDefvalueClick(View v) {
+            int btnIndex = 0;
+            switch (v.getId()) {
+                case R.id.parameter_settings_defvalue_1:
+                    btnIndex = 0;
+                    break;
+                case R.id.parameter_settings_defvalue_2:
+                    btnIndex = 1;
+                    break;
+                case R.id.parameter_settings_defvalue_3:
+                    btnIndex = 2;
+                    break;
+            }
+//            Object object = mDatas.get(mPosition).getDefValues().get(btnIndex);
+//            String valueStr = String.valueOf(object);
+//            value.setText(valueStr);
+            if (mDefValueListener != null) {
+                mDefValueListener.onDefValueBtnClick(mDatas.get(mPosition).getDefValues().get(btnIndex), mPosition);
+            }
         }
     }
 }

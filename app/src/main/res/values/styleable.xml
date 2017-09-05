@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DeviceCtl">
+        <attr name="ctl_icon" format="reference"/>
+        <attr name="ctl_unit" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundRect">
+        <attr name="round_rect_radius" format="integer"/>
+        <attr name="round_rect_mode">
+            <enum name="Circle" value="0"/>
+            <enum name="RoundRect" value="1"/>
+        </attr>
+    </declare-styleable>
+
+
+    <declare-styleable name="RunInfor">
+        <attr name="runinfor_icon" format="reference"/>
+        <attr name="runinfor_name" format="string"/>
+        <attr name="runinfor_uint" format="string"/>
+        <attr name="runinfor_value" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="RoundProgressBar">
+        <attr name="bgColor" format="color"/>
+        <attr name="progressColor" format="color"/>
+        <attr name="roundWidth" format="dimension"/>
+        <attr name="maxProgress" format="integer"/>
+    </declare-styleable>
+</resources>
