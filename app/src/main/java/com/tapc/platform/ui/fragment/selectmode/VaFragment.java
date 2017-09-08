@@ -7,6 +7,7 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
+import com.tapc.platform.ui.activity.run.RunVaActivity;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.VaAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
@@ -34,7 +35,7 @@ public class VaFragment extends BaseFragment {
 
     private ArrayList<PlayEntity> mPlayList;
     private VaAdpater mVaAdpater;
-    private static String[] VA_FILE_PATH = new String[]{"/mnt/sdcard/tapc/.va"};
+    private static String[] VA_FILE_PATH = new String[]{"/mnt/external_sd/tapc/.va"};
 
     @Override
     protected int getContentView() {
@@ -49,7 +50,8 @@ public class VaFragment extends BaseFragment {
         mVaAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PlayEntity>() {
             @Override
             public void onItemClick(View view, PlayEntity playEntity) {
-
+//                StartActivity.replaceFragment(mContext, ParameterSettingsFragment.class);
+                RunVaActivity.launch(mContext, playEntity);
             }
         });
 
@@ -72,7 +74,7 @@ public class VaFragment extends BaseFragment {
                 (FragmentEvent.DESTROY_VIEW)).subscribe(new Consumer<Object>() {
             @Override
             public void accept(@NonNull Object o) throws Exception {
-                mVaAdpater.notifyDataSetChanged();
+                mVaAdpater.notifyDataSetChanged(mPlayList);
             }
         });
     }

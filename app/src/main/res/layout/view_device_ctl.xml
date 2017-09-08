@@ -6,7 +6,7 @@
               android:orientation="horizontal">
 
     <Button
-        android:id="@+id/device_ctl_type"
+        android:id="@+id/device_ctl_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/btn_incline"/>

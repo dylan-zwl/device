@@ -1,14 +1,14 @@
 package com.tapc.platform.ui.fragment.selectmode;
 
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.ui.activity.start.StartActivity;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.GoalModeAdpater;
-import com.tapc.platform.ui.entity.GoalModeItem;
+import com.tapc.platform.entity.GoalModeItem;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.fragment.parametersettings.ParameterSettingsFragment;
 
@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
-import static com.tapc.platform.ui.activity.start.StartActivity.replaceFragment;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -46,8 +44,7 @@ public class GoalModeFragment extends BaseFragment {
         goalModeAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<GoalModeItem>() {
             @Override
             public void onItemClick(View view, GoalModeItem goalModeItem) {
-                replaceFragment(R.id.start_mode_fragment, Fragment.instantiate(mContext, ParameterSettingsFragment.class
-                        .getName()));
+                StartActivity.replaceFragment(mContext, ParameterSettingsFragment.class);
             }
         });
     }

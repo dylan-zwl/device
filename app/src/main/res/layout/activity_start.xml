@@ -27,6 +27,7 @@
         android:gravity="center">
 
         <LinearLayout
+            android:id="@+id/start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_start"
@@ -36,13 +37,14 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ic_start"/>
+                android:background="@drawable/ic_start"
+                android:clickable="false"/>
 
             <TextView
-                android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36dp"
+                android:clickable="false"
                 android:text="开始"
                 android:textColor="@color/colorText1"
                 android:textSize="@dimen/tx_size5"/>

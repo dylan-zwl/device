@@ -1,16 +1,26 @@
 package com.tapc.platform.ui.activity;
 
-import android.app.Activity;
-import android.os.Bundle;
-
 import com.tapc.platform.R;
+import com.tapc.platform.ui.activity.start.StartActivity;
+import com.tapc.platform.utils.IntentUtils;
 
-public class MainActivity extends Activity {
+import butterknife.OnClick;
+
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int getContentView() {
+        return R.layout.activity_main;
+    }
 
+    @Override
+    protected void initView() {
+//        IntentUtils.startActivity(mContext, RunInforActivity.class);
+    }
+
+    @OnClick(R.id.main_start)
+    void start() {
+        IntentUtils.startActivity(mContext, StartActivity.class);
+        finish();
     }
 }

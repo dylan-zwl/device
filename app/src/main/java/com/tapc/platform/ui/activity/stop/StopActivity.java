@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
-import com.tapc.platform.ui.entity.WorkoutResultItem;
+import com.tapc.platform.entity.WorkoutResultItem;
 
 import java.util.ArrayList;
 import java.util.List;

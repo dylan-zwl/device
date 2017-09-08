@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:DeviceCtl="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_skin"
@@ -45,50 +46,70 @@
             android:background="@drawable/btn_home"/>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerVertical="true"
         android:layout_marginLeft="60dp"
         android:layout_marginRight="60dp"
         android:layout_toLeftOf="@id/home_ll"
-        android:layout_toRightOf="@id/ctl_ll"
-        android:orientation="horizontal">
+        android:layout_toRightOf="@id/ctl_ll">
 
-        <com.tapc.platform.ui.view.DeviceCtl
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-        </com.tapc.platform.ui.view.DeviceCtl>
 
         <LinearLayout
-            android:layout_width="376dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="00:00:00"
-                android:textColor="@color/colorText1"
-                android:textSize="@dimen/tx_size7"/>
-
-            <ProgressBar
-                style="?android:progressBarStyleHorizontal"
-                android:layout_width="210dp"
-                android:layout_height="6dp"
-                android:progressDrawable="@drawable/pbar_time"/>
-        </LinearLayout>
-
-        <com.tapc.platform.ui.view.DeviceCtl
+            android:id="@+id/bottombar_ctl_ll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
 
-        </com.tapc.platform.ui.view.DeviceCtl>
-    </LinearLayout>
+            <com.tapc.platform.ui.view.DeviceCtl
+                android:id="@+id/bottombar_left_ctl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                DeviceCtl:ctl_icon="@drawable/btn_incline">
+
+            </com.tapc.platform.ui.view.DeviceCtl>
+
+            <LinearLayout
+                android:layout_width="376dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00:00"
+                    android:textColor="@color/colorText1"
+                    android:textSize="@dimen/tx_size7"/>
+
+                <ProgressBar
+                    style="?android:progressBarStyleHorizontal"
+                    android:layout_width="210dp"
+                    android:layout_height="6dp"
+                    android:progressDrawable="@drawable/pbar_time"/>
+            </LinearLayout>
+
+            <com.tapc.platform.ui.view.DeviceCtl
+                android:id="@+id/bottombar_right_ctl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                DeviceCtl:ctl_icon="@drawable/btn_speed">
+
+            </com.tapc.platform.ui.view.DeviceCtl>
+        </LinearLayout>
+
+        <com.tapc.platform.ui.view.FastSetDeviceCtl
+            android:id="@+id/bottombar_fast_set_ctl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+        </com.tapc.platform.ui.view.FastSetDeviceCtl>
+    </RelativeLayout>
 </RelativeLayout>

@@ -53,7 +53,7 @@ public class VaAdpater extends BaseRecyclerViewAdapter<VaAdpater.VaViewHolder, P
     }
 
     public class VaViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.va_mode_bg)
+        @BindView(R.id.va_mode_icon)
         ImageView icon;
         @BindView(R.id.va_mode_name)
         TextView name;

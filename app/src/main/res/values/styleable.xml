@@ -27,4 +27,17 @@
         <attr name="roundWidth" format="dimension"/>
         <attr name="maxProgress" format="integer"/>
     </declare-styleable>
+
+    <declare-styleable name="ProgramImage">
+        <attr name="bgFrameColor" format="color"/>
+        <attr name="blockColor" format="color"/>
+        <attr name="lineColor" format="color"/>
+        <attr name="paddingLeft" format="dimension"/>
+        <attr name="paddingRight" format="dimension"/>
+        <attr name="paddingTop" format="dimension"/>
+        <attr name="paddingBottom" format="dimension"/>
+        <attr name="blockWith" format="dimension"/>
+        <attr name="blockHeight" format="dimension"/>
+        <attr name="bgFrameRadius" format="dimension"/>
+    </declare-styleable>
 </resources>

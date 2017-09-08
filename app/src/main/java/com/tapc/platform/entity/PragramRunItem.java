@@ -1,4 +1,4 @@
-package com.tapc.platform.ui.entity;
+package com.tapc.platform.entity;
 
 import java.util.List;
 

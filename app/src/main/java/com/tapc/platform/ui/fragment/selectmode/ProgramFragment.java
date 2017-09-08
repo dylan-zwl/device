@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.adpater.ProgramAdpater;
-import com.tapc.platform.ui.entity.PragramRunItem;
+import com.tapc.platform.entity.PragramRunItem;
 import com.tapc.platform.ui.fragment.BaseFragment;
 
 import java.util.ArrayList;

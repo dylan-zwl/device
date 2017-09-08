@@ -10,7 +10,7 @@ import android.widget.PopupWindow;
 import com.tapc.platform.R;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.ParameterSetAdpater;
-import com.tapc.platform.ui.entity.ParameterSet;
+import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.KeyboardView;
 
@@ -27,6 +27,7 @@ public class ParameterSettingsFragment extends BaseFragment {
     @BindView(R.id.paramenter_settings_recyclerview)
     RecyclerView mRecyclerview;
 
+    private ParameterSetAdpater mAdpater;
     private List<ParameterSet> mDataList;
     private String mCurrentShowName;
     private PopupWindow mWindow;
@@ -40,7 +41,7 @@ public class ParameterSettingsFragment extends BaseFragment {
     protected void initView() {
         super.initView();
         List<ParameterSet> list = getParameterList();
-        final ParameterSetAdpater mAdpater = new ParameterSetAdpater(list);
+        mAdpater = new ParameterSetAdpater(list);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(gridLayoutManager);
@@ -49,7 +50,6 @@ public class ParameterSettingsFragment extends BaseFragment {
         mAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<ParameterSet>() {
             @Override
             public void onItemClick(View view, final ParameterSet parameterSet) {
-//                View popupView = getActivity().getLayoutInflater().inflate(R.layout.view_keyboard, null);
                 if (parameterSet.getName() == mCurrentShowName) {
                     return;
                 }

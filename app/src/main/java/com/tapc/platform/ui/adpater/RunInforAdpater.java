@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.entity.RunInforBarItem;
+import com.tapc.platform.entity.RunInforBarItem;
 
 import java.util.List;
 

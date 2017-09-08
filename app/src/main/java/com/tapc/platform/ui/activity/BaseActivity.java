@@ -1,9 +1,11 @@
 package com.tapc.platform.ui.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+
+import com.tapc.platform.application.TapcApplication;
+import com.trello.rxlifecycle2.components.RxActivity;
 
 import butterknife.ButterKnife;
 
@@ -11,8 +13,9 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/5.
  */
 
-public abstract class BaseActivity extends Activity {
+public abstract class BaseActivity extends RxActivity {
     protected Context mContext;
+    protected TapcApplication mTapcApp;
 
     protected abstract int getContentView();
 
@@ -21,6 +24,7 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
         ButterKnife.bind(this);
+        mTapcApp = (TapcApplication) getApplication();
         mContext = this;
         initView();
     }

@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.entity.ParameterSet;
+import com.tapc.platform.entity.ParameterSet;
 
 import java.util.List;
 

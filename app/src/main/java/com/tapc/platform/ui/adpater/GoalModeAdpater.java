@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.entity.GoalModeItem;
+import com.tapc.platform.entity.GoalModeItem;
 
 import java.util.List;
 

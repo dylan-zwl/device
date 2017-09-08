@@ -1,17 +1,22 @@
 package com.tapc.platform.ui.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.RunInforBarItem;
+import com.tapc.platform.ui.activity.run.RunInforActivity;
 import com.tapc.platform.ui.adpater.RunInforAdpater;
-import com.tapc.platform.ui.entity.RunInforBarItem;
+import com.tapc.platform.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/8/28.
@@ -46,5 +51,11 @@ public class RunInforBar extends BaseView {
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(manager);
         mRecyclerView.setAdapter(mRunInforAdpater);
+    }
+
+    @OnClick(R.id.run_infor_btn)
+    void runInforOnClick(View v) {
+        IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+                .FLAG_ACTIVITY_CLEAR_TOP);
     }
 }

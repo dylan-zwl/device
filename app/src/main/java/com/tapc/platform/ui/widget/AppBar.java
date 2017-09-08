@@ -1,6 +1,7 @@
 package com.tapc.platform.ui.widget;
 
 import android.content.Context;
+import android.net.NetworkInfo;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -9,18 +10,24 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.AppInfoEntity;
+import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.entity.AppInfoEntity;
 import com.tapc.platform.utils.AppUtils;
+import com.tapc.platform.utils.NetUtils;
+import com.tapc.platform.utils.RxBus;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
 import static com.tapc.platform.ui.widget.AppBar.AppShowStatus.HIDE;
 import static com.tapc.platform.ui.widget.AppBar.AppShowStatus.SHOW;
@@ -39,6 +46,14 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     Button mPullIn;
     @BindView(R.id.app_bar_pull_out)
     Button mPullOut;
+    @BindView(R.id.app_bar_wifi)
+    ImageButton mWifi;
+    @BindView(R.id.app_bar_bluetooth)
+    ImageButton mBluetooth;
+    @BindView(R.id.app_bar_sound)
+    ImageButton mSound;
+    @BindView(R.id.app_bar_fan)
+    ImageButton mFan;
 
     private AppAdpater mAppAdpater;
     private AppShowStatus mNowStatus = SHOW;
@@ -81,6 +96,46 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mRecyclerview.setAdapter(mAppAdpater);
         mPullOut.setOnTouchListener(this);
         mHandler = new Handler();
+
+        initStatusView();
+    }
+
+    private void initStatusView() {
+        //wifi
+        setWifi();
+        RxBus.getInstance().subscribe(this, NetworkInfo.class, new Consumer<NetworkInfo>() {
+            @Override
+            public void accept(@NonNull NetworkInfo networkInfo) throws Exception {
+                setWifi();
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+            }
+        });
+        //bluetooth
+        RxBus.getInstance().subscribe(this, BluetoothConnectStatus.class, new Consumer<BluetoothConnectStatus>() {
+            @Override
+            public void accept(@NonNull BluetoothConnectStatus status) throws Exception {
+                if (status.isConnected()) {
+                    mBluetooth.setBackgroundResource(R.drawable.ic_bt_on);
+                } else {
+                    mBluetooth.setBackgroundResource(R.drawable.ic_bt_off);
+                }
+            }
+        }, new Consumer<Throwable>() {
+            @Override
+            public void accept(@NonNull Throwable throwable) throws Exception {
+            }
+        });
+    }
+
+    private void setWifi() {
+        if (NetUtils.isConnected(mContext)) {
+            mWifi.setBackgroundResource(R.drawable.ic_wifi_on);
+        } else {
+            mWifi.setBackgroundResource(R.drawable.ic_wifi_off);
+        }
     }
 
     @OnClick({R.id.app_bar_pull_in, R.id.app_bar_pull_out})
@@ -125,7 +180,6 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-
         switch (v.getId()) {
             case R.id.app_bar_pull_out:
                 if (mNowStatus == HIDE) {
@@ -153,5 +207,10 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     private void updateViewLayout(int y) {
         mWindowManagerParams.y = y;
         mWindowManager.updateViewLayout(this, mWindowManagerParams); // 刷新显示
+    }
+
+    @Override
+    public void onDestroy() {
+        RxBus.getInstance().unSubscribe(this);
     }
 }

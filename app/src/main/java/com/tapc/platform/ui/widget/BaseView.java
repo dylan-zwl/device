@@ -37,4 +37,7 @@ public abstract class BaseView extends LinearLayout {
 
     protected void initView() {
     }
+
+    public void onDestroy() {
+    }
 }

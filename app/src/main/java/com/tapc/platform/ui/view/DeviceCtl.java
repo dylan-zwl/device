@@ -28,8 +28,8 @@ import io.reactivex.functions.Consumer;
  */
 
 public class DeviceCtl extends BaseView implements View.OnTouchListener {
-    @BindView(R.id.device_ctl_type)
-    Button mType;
+    @BindView(R.id.device_ctl_icon)
+    Button mIconBtn;
     @BindView(R.id.device_ctl_value)
     TextView mValue;
     @BindView(R.id.device_ctl_unit)
@@ -48,6 +48,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
     private float mMaxValue;
     private float mMinValue;
     private float mDefValue;
+    private int mIcon;
 
     private enum ValueChange {
         ADD,
@@ -62,9 +63,9 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
     public DeviceCtl(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DeviceCtl);
-        int icon = array.getInt(R.styleable.DeviceCtl_ctl_icon, -1);
-        if (icon != -1) {
-            mType.setBackgroundResource(icon);
+        mIcon = array.getResourceId(R.styleable.DeviceCtl_ctl_icon, -1);
+        if (mIcon != -1) {
+            mIconBtn.setBackgroundResource(mIcon);
         }
         String unit = array.getString(R.styleable.DeviceCtl_ctl_unit);
         if (!TextUtils.isEmpty(unit)) {
@@ -170,6 +171,8 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         void onSubClick();
 
         void setDeviceValue(double value);
+
+        void onCtlTypeClick();
     }
 
     public void setConfig(float minValue, float maxValue, float stepValue, float defValue) {
@@ -191,5 +194,15 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         mCtlSub.setClickable(true);
         mCtlAdd.setBackgroundResource(R.drawable.btn_add);
         mCtlSub.setBackgroundResource(R.drawable.btn_sub);
+    }
+
+    @OnClick(R.id.device_ctl_icon)
+    void onCtlType() {
+        mListener.onCtlTypeClick();
+    }
+
+
+    public int getIcon() {
+        return mIcon;
     }
 }

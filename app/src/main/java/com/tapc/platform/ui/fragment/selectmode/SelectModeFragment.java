@@ -1,16 +1,15 @@
 package com.tapc.platform.ui.fragment.selectmode;
 
 
-import android.app.Fragment;
 import android.app.FragmentManager;
 import android.view.View;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.fragment.BaseFragment;
+import com.tapc.platform.utils.FragmentUtils;
 
 import butterknife.OnClick;
 
-import static com.tapc.platform.ui.activity.start.StartActivity.replaceFragment;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -27,26 +26,28 @@ public class SelectModeFragment extends BaseFragment {
     @Override
     protected void initView() {
         mManager = getChildFragmentManager();
-        replaceFragment(R.id.mode_fragment, Fragment.instantiate(mContext, ProgramFragment.class.getName()), mManager);
+        FragmentUtils.replaceFragment(mContext, mManager, R.id.mode_fragment, ProgramFragment.class);
     }
 
     @OnClick({R.id.select_goal_mode, R.id.select_va_mode, R.id.select_program_mode, R.id.select_map_mode})
     void onSelectModeClick(View v) {
-        String className = "";
+        Class<?> cls = null;
         switch (v.getId()) {
             case R.id.select_goal_mode:
-                className = GoalModeFragment.class.getName();
+                cls = GoalModeFragment.class;
                 break;
             case R.id.select_va_mode:
-                className = VaFragment.class.getName();
+                cls = VaFragment.class;
                 break;
             case R.id.select_program_mode:
-                className = ProgramFragment.class.getName();
+                cls = ProgramFragment.class;
                 break;
             case R.id.select_map_mode:
-                className = GoalModeFragment.class.getName();
+                cls = GoalModeFragment.class;
                 break;
         }
-        replaceFragment(R.id.mode_fragment, Fragment.instantiate(mContext, className), mManager);
+        if (cls != null) {
+            FragmentUtils.replaceFragment(mContext, mManager, R.id.mode_fragment, cls);
+        }
     }
 }

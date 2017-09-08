@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.entity.PragramRunItem;
+import com.tapc.platform.entity.PragramRunItem;
 import com.tapc.platform.ui.view.ProgramImage;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.tapc.platform.ui.entity;
+package com.tapc.platform.entity;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;

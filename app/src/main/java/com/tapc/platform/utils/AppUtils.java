@@ -6,7 +6,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 
-import com.tapc.platform.ui.entity.AppInfoEntity;
+import com.tapc.platform.entity.AppInfoEntity;
 
 import java.util.ArrayList;
 import java.util.List;

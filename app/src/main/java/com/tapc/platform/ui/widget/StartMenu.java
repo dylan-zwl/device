@@ -8,7 +8,7 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.entity.AppInfoEntity;
+import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.IntentUtils;
 

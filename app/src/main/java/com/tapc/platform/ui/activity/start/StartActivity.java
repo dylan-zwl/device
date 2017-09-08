@@ -1,38 +1,47 @@
 package com.tapc.platform.ui.activity.start;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
+import android.content.Context;
+import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.fragment.selectmode.SelectModeFragment;
+import com.tapc.platform.utils.FragmentUtils;
+import com.tapc.platform.utils.IntentUtils;
 
-public class StartActivity extends Activity {
-    protected static FragmentManager mFragmentManager;
+import butterknife.OnClick;
+
+public class StartActivity extends BaseActivity {
+    private static FragmentManager sManager;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
-        mFragmentManager = getFragmentManager();
-        replaceFragment(R.id.start_mode_fragment, Fragment.instantiate(this, SelectModeFragment.class.getName()),
-                mFragmentManager);
+    protected int getContentView() {
+        return R.layout.activity_start;
     }
 
-    public static void replaceFragment(int id, Fragment fragment, FragmentManager fragmentManager) {
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
-        ft.replace(id, fragment);
-        ft.commit();
+    @Override
+    protected void initView() {
+        super.initView();
+        mTapcApp.getService().setStartMenuVisibility(true);
+        sManager = getFragmentManager();
+        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, SelectModeFragment.class);
     }
 
-    public static void replaceFragment(int id, Fragment fragment) {
-        FragmentTransaction ft = mFragmentManager.beginTransaction();
-//        ft.setTransition(FragmentTransaction.TRANSIT_ENTER_MASK);
-        ft.replace(id, fragment);
-        ft.commit();
+    public static void replaceFragment(Context context, Class<?> cls) {
+        FragmentUtils.replaceFragment(context, sManager, R.id.start_mode_fragment, cls);
     }
 
+    @OnClick(R.id.start)
+    void onStartClick(View v) {
+        IntentUtils.startActivity(mContext, CountdownActivity.class);
+        mTapcApp.getService().setStartMenuVisibility(false);
+        finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        sManager = null;
+    }
 }

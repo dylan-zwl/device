@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.entity.WorkoutResultItem;
+import com.tapc.platform.entity.WorkoutResultItem;
 
 import java.util.List;
 
