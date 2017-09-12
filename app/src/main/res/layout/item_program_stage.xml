@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ProgramImage="http://schemas.android.com/apk/res-auto"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="224dp"
+        android:background="@color/colorText2"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:orientation="horizontal">
+
+            <com.tapc.platform.ui.view.Histogram
+                android:id="@+id/program_stage_reftvalue"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                ProgramImage:bgFrameColor="@color/colorText2"/>
+
+            <com.tapc.platform.ui.view.Histogram
+                android:id="@+id/program_stage_rightvalue"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                ProgramImage:bgFrameColor="@color/colorText2"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/program_stage_index"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_program_stage_tx"
+                android:gravity="center"
+                android:text="0"
+                android:textSize="@dimen/tx_size6"/>
+
+            <TextView
+                android:id="@+id/program_stage_time"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_program_stage_tx"
+                android:gravity="center"
+                android:text="0 min"
+                android:textSize="40dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

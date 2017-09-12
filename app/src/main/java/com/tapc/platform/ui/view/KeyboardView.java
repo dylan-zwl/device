@@ -109,7 +109,7 @@ public class KeyboardView extends BaseView implements View.OnClickListener {
                 clickValue = "9";
                 break;
             case R.id.keyboard_dot:
-                if (mValue.contains(".") == false) {
+                if (mValue.contains(".") == false && mValue.isEmpty() == false) {
                     clickValue = ".";
                 }
                 break;

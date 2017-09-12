@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.PragramRunItem;
-import com.tapc.platform.ui.view.ProgramImage;
+import com.tapc.platform.ui.view.ProgramImagView;
 
 import java.util.List;
 
@@ -41,12 +41,18 @@ public class ProgramAdpater extends BaseRecyclerViewAdapter<ProgramAdpater.Pragr
         if (name != null) {
             holder.name.setText(name);
         }
+        holder.image.setDeleteOnClick(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int dd;
+            }
+        });
 //        holder.image.setRunList(item.getList());
     }
 
     public class PragramViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.program_image)
-        ProgramImage image;
+        ProgramImagView image;
         @BindView(R.id.program_name)
         TextView name;
 

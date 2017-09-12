@@ -21,7 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="@drawable/bg_border_radius"
+                android:background="@drawable/bg_round_border"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -43,7 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="36dp"
-                android:background="@drawable/bg_border_radius"
+                android:background="@drawable/bg_round_border"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -82,13 +82,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/back"
+                android:id="@+id/start_menu_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_back"/>
 
             <Button
-                android:id="@+id/home"
+                android:id="@+id/start_menu_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="36dp"

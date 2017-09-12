@@ -30,6 +30,6 @@ public class GestureListener extends BaseView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.d("#######", "##1####");
-        return false;
+        return super.onTouchEvent(event);
     }
 }

@@ -14,7 +14,9 @@
             android:id="@+id/va_mode_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_va_normal"/>
+            android:background="@null"
+            android:padding="0dp"
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/va_mode_name"
@@ -22,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/bg_va_name"
+            android:gravity="center"
             android:text=""
             android:textColor="@color/colorText1"
             android:textSize="@dimen/tx_size2"/>

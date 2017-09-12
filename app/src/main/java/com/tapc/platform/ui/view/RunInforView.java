@@ -25,20 +25,14 @@ public class RunInforView extends BaseView {
     public RunInforView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RunInfor);
-        initTvShow(mNameTv, array, R.styleable.RunInfor_runinfor_name);
-        initTvShow(mUnitTv, array, R.styleable.RunInfor_runinfor_uint);
-        initTvShow(mValueTv, array, R.styleable.RunInfor_runinfor_value);
+        setTextView(mNameTv, array, R.styleable.RunInfor_runinfor_name);
+        setTextView(mUnitTv, array, R.styleable.RunInfor_runinfor_uint);
+        setTextView(mValueTv, array, R.styleable.RunInfor_runinfor_value);
+        array.recycle();
     }
 
     @Override
     protected int getContentView() {
         return R.layout.view_run_infor;
-    }
-
-    private void initTvShow(TextView textView, TypedArray array, int styleId) {
-        String text = array.getString(styleId);
-        if (text != null) {
-            textView.setText(text);
-        }
     }
 }

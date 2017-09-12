@@ -15,11 +15,20 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bottombar_pause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_pause"/>
 
         <Button
+            android:id="@+id/bottombar_resume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_start"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bottombar_stop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
@@ -35,11 +44,13 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bottombar_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_back"/>
 
         <Button
+            android:id="@+id/bottombar_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
@@ -91,7 +102,7 @@
                     style="?android:progressBarStyleHorizontal"
                     android:layout_width="210dp"
                     android:layout_height="6dp"
-                    android:progressDrawable="@drawable/pbar_time"/>
+                    android:progressDrawable="@drawable/pbar_common"/>
             </LinearLayout>
 
             <com.tapc.platform.ui.view.DeviceCtl

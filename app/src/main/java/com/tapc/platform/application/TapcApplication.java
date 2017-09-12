@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
+import com.jht.tapc.jni.KeyEvent;
 import com.tapc.platform.service.LocalBinder;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.utils.IntentUtils;
@@ -16,13 +17,17 @@ import com.tapc.platform.utils.IntentUtils;
 
 public class TapcApplication extends Application {
     //private RefWatcher mRefWatcher;
+    private static TapcApplication mInstance;
     private StartService mService;
+    private KeyEvent mKeyEvent;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         //内存泄漏检测工具
 //        mRefWatcher = LeakCanary.install(this);
+        mInstance = this;
         IntentUtils.bindService(this, StartService.class, new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -39,7 +44,16 @@ public class TapcApplication extends Application {
         }, Context.BIND_AUTO_CREATE);
     }
 
+
+    public static TapcApplication getInstance() {
+        return mInstance;
+    }
+
     public StartService getService() {
         return mService;
+    }
+
+    public KeyEvent getKeyEvent() {
+        return mKeyEvent;
     }
 }

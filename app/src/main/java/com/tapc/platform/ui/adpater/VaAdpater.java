@@ -39,13 +39,13 @@ public class VaAdpater extends BaseRecyclerViewAdapter<VaAdpater.VaViewHolder, P
     }
 
     @Override
-    public void onBindViewHolder(VaViewHolder holder, int position) {
+    public void onBindViewHolder(final VaViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         PlayEntity item = mDatas.get(position);
         holder.itemView.setTag(item);
         holder.itemView.setOnClickListener(this);
         Glide.with(mContext).load(item.getPath() + "/" + item.getStill()).skipMemoryCache(true).diskCacheStrategy
-                (DiskCacheStrategy.RESULT).transform(new GlideRoundTransform(mContext, 12)).into(holder.icon);
+                (DiskCacheStrategy.NONE).transform(new GlideRoundTransform(mContext, 12)).into(holder.icon);
         String name = item.getName();
         if (!TextUtils.isEmpty(name)) {
             holder.name.setText(name);

@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.run.RunCommonActivity;
@@ -30,8 +31,8 @@ public class CountdownActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        Glide.with(this).load(R.drawable.gif_countdown).asGif().skipMemoryCache(true).fitCenter().centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(mCountdown);
+        Glide.with(this).load(R.drawable.gif_countdown).skipMemoryCache(true).fitCenter().centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(new GlideDrawableImageViewTarget(mCountdown, 1));
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override

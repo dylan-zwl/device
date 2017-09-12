@@ -6,9 +6,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.application.TapcApplication;
+import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.IntentUtils;
 
@@ -51,13 +52,15 @@ public class StartMenu extends BaseView {
         mRecyclerview.setAdapter(mAppAdpater);
     }
 
-    @OnClick(R.id.back)
+    @OnClick(R.id.start_menu_back)
     void backOnClick() {
+        TapcApplication.getInstance().getKeyEvent().backEvent();
     }
 
-    @OnClick(R.id.home)
+    @OnClick(R.id.start_menu_home)
     void homeOnClick() {
-        IntentUtils.Home(mContext);
+        IntentUtils.home(mContext);
+        // TapcApp.getmInstance().keyboardEvent.homeEvent();
     }
 
 }

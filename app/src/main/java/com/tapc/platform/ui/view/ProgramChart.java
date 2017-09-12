@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -14,7 +13,7 @@ import com.tapc.platform.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProgramImage extends View {
+public class ProgramChart extends View {
     private Paint mPain;
     private int mBgFrameColor;
     private int mBlockColor;
@@ -31,35 +30,35 @@ public class ProgramImage extends View {
     private float mBlockH;
     private int mColumn;
     private int mRow;
-    private int mSpacingW;
-    private int mSpacingH;
+    private float mSpacingW;
+    private float mSpacingH;
 
     private List<Float> mBlockList;
     private List<Float> mLineList;
 
-    public ProgramImage(Context context) {
+    public ProgramChart(Context context) {
         super(context);
         init(context, null);
     }
 
-    public ProgramImage(Context context, AttributeSet attrs) {
+    public ProgramChart(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ProgramImage);
-        mBgFrameColor = array.getColor(R.styleable.ProgramImage_bgFrameColor, 0);
-        mLineColor = array.getColor(R.styleable.ProgramImage_lineColor, 0);
-        mBgFrameRadius = array.getDimension(R.styleable.ProgramImage_bgFrameRadius, 12);
-        mBlockColor = array.getColor(R.styleable.ProgramImage_blockColor, 0);
-        mPaddingLeft = array.getDimension(R.styleable.ProgramImage_paddingLeft, 0);
-        mPaddingRight = array.getDimension(R.styleable.ProgramImage_paddingRight, 0);
-        mPaddingTop = array.getDimension(R.styleable.ProgramImage_paddingTop, 0);
-        mPaddingBottom = array.getDimension(R.styleable.ProgramImage_paddingBottom, 0);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.ProgramChart);
+        mBgFrameColor = array.getColor(R.styleable.ProgramChart_bgFrameColor, 0);
+        mLineColor = array.getColor(R.styleable.ProgramChart_lineColor, 0);
+        mBgFrameRadius = array.getDimension(R.styleable.ProgramChart_bgFrameRadius, 12);
+        mBlockColor = array.getColor(R.styleable.ProgramChart_blockColor, 0);
+        mPaddingLeft = array.getDimension(R.styleable.ProgramChart_paddingLeft, 0);
+        mPaddingRight = array.getDimension(R.styleable.ProgramChart_paddingRight, 0);
+        mPaddingTop = array.getDimension(R.styleable.ProgramChart_paddingTop, 0);
+        mPaddingBottom = array.getDimension(R.styleable.ProgramChart_paddingBottom, 0);
 
-        mBlockW = array.getDimension(R.styleable.ProgramImage_blockWith, 0);
-        mBlockH = array.getDimension(R.styleable.ProgramImage_blockHeight, 0);
+        mBlockW = array.getDimension(R.styleable.ProgramChart_blockWith, 0);
+        mBlockH = array.getDimension(R.styleable.ProgramChart_blockHeight, 0);
 
         mPain = new Paint();
         mPain.setAntiAlias(true);
@@ -80,54 +79,75 @@ public class ProgramImage extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
-        //背景框
-        mPain.setStyle(Paint.Style.STROKE);
-        mPain.setStrokeWidth(2);
-        mPain.setColor(mBgFrameColor);
         mShowW = getWidth();
         mShowH = getHeight();
-        RectF rectF = new RectF(0, 0, getWidth(), getHeight());
-        canvas.drawRoundRect(rectF, mBgFrameRadius, mBgFrameRadius, mPain);
+        /*背景框*/
+//        mPain.setStyle(Paint.Style.STROKE);
+//        mPain.setStrokeWidth(2);
+//        mPain.setColor(mBgFrameColor);
+//        RectF rectF = new RectF(0, 0, mShowW, mShowH);
+//        canvas.drawRoundRect(rectF, mBgFrameRadius, mBgFrameRadius, mPain);
 
-        //画方块
+        mPain.setStrokeWidth(2);
         mPain.setStyle(Paint.Style.FILL);
         mPain.setColor(mBlockColor);
         if (mBlockList == null || mLineList == null || mColumn == 0) {
             return;
         }
-        mSpacingW = (int) ((mShowW - mPaddingLeft - mPaddingRight - mBlockW * mColumn) / (mColumn - 1));
-        mSpacingH = (int) ((mShowH - mPaddingTop - mPaddingBottom - mBlockH * mRow) / (mRow - 1));
+        mSpacingW = (mShowW - mPaddingLeft - mPaddingRight - mBlockW * mColumn) / (mColumn - 1);
+        mSpacingH = 0;
+//        mSpacingH = (int) ((mShowH - mPaddingTop - mPaddingBottom - mBlockH * mRow) / (mRow - 1));
 
+
+        /*格子*/
+//        for (int column = 0; column < mColumn; column++) {
+//            if (column > (mBlockList.size() - 1)) {
+//                break;
+//            }
+//            int showRow = mBlockList.get(column).intValue();
+//            for (int row = 0; row < showRow; row++) {
+//                int left = (int) (mBlockW * column + mSpacingW * column + mPaddingLeft);
+//                int top = (int) (mBlockH * (mRow - row - 1) + mSpacingH * (mRow - row) + mPaddingTop);
+//                canvas.drawRect(left, top, left + mBlockW, top + mBlockH, mPain);
+//            }
+//        }
+
+        /* 矩形柱状*/
         for (int column = 0; column < mColumn; column++) {
             if (column > (mBlockList.size() - 1)) {
                 break;
             }
             int showRow = mBlockList.get(column).intValue();
-            for (int row = 0; row < showRow; row++) {
-                int left = (int) (mBlockW * column + mSpacingW * column + mPaddingLeft);
-                int top = (int) (mBlockH * (mRow - row - 1) + mSpacingH * (mRow - row) + mPaddingTop);
-                canvas.drawRect(left, top, left + mBlockW, top + mBlockH, mPain);
-            }
+            float rowHeight = mShowH - mPaddingTop - mPaddingBottom;
+            float height = showRow * rowHeight / mRow;
+            float weight = mBlockW;
+            float left = mBlockW * column + mSpacingW * column + mPaddingLeft;
+            float top = mPaddingTop + (rowHeight - height);
+            canvas.drawRect(left, top, left + weight, top + height, mPain);
         }
+
+        /*画线*/
         Path path = new Path();
         mPain.setStyle(Paint.Style.FILL);
         mPain.setColor(mLineColor);
-
-        path.moveTo(mPaddingLeft + mBlockW / 2, mShowH - mPaddingBottom - mBlockH / 2);
+        mPain.setStrokeWidth(2);
         for (int column = 0; column < mColumn; column++) {
             if (column > (mLineList.size() - 1)) {
                 break;
             }
             int showRow = mLineList.get(column).intValue() - 1;
             int left = (int) (mBlockW * column + mSpacingW * column + mPaddingLeft);
-            int top = (int) (mBlockH * (mRow - showRow - 1) + mSpacingH * (mRow - showRow) + mPaddingTop);
+            int top = (int) ((mRow - showRow) * mShowH / mRow);
             int x = (int) (left + mBlockW / 2);
-            int y = (int) (top + mBlockH / 2);
-            path.lineTo(x, y);
+            int y = (int) (top - (mShowH / mRow) / 2);
+            if (column == 0) {
+                path.moveTo(x, y);
+            } else {
+                path.lineTo(x, y);
+            }
+//            描点
 //            canvas.drawCircle(x, y, 3, mPain);
         }
-
         mPain.setStyle(Paint.Style.STROKE);
         mPain.setStrokeWidth(2);
         mPain.setColor(mLineColor);

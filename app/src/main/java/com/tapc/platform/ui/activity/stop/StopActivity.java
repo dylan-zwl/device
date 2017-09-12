@@ -4,14 +4,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.activity.BaseActivity;
-import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
 import com.tapc.platform.entity.WorkoutResultItem;
+import com.tapc.platform.ui.activity.BaseActivity;
+import com.tapc.platform.ui.activity.MainActivity;
+import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
+import com.tapc.platform.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class StopActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
@@ -43,5 +46,11 @@ public class StopActivity extends BaseActivity {
     private void initDataList(int iconId, String name, String value, String unit) {
         WorkoutResultItem item = new WorkoutResultItem(iconId, name, value, unit);
         mDataList.add(item);
+    }
+
+    @OnClick(R.id.title_back)
+    void back() {
+        IntentUtils.startActivity(mContext, MainActivity.class);
+        finish();
     }
 }

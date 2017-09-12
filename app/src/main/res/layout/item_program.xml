@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:ProgramImage="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
               android:orientation="vertical">
 
-    <com.tapc.platform.ui.view.ProgramImage
+    <com.tapc.platform.ui.view.ProgramImagView
         android:id="@+id/program_image"
         android:layout_width="260dp"
         android:layout_height="146dp"
-        android:layout_marginTop="20dp"
-        ProgramImage:bgFrameColor="@color/colorText2"
-        ProgramImage:bgFrameRadius="12dp"
-        ProgramImage:blockColor="@color/colorText2"
-        ProgramImage:blockHeight="5dp"
-        ProgramImage:blockWith="8dp"
-        ProgramImage:lineColor="@color/colorText1"
-        ProgramImage:paddingBottom="20dp"
-        ProgramImage:paddingLeft="30dp"
-        ProgramImage:paddingRight="30dp"
-        ProgramImage:paddingTop="5dp"/>
+        android:layout_marginTop="20dp">
+
+    </com.tapc.platform.ui.view.ProgramImagView>
 
     <TextView
         android:id="@+id/program_name"

@@ -34,8 +34,8 @@ public class StartActivity extends BaseActivity {
 
     @OnClick(R.id.start)
     void onStartClick(View v) {
-        IntentUtils.startActivity(mContext, CountdownActivity.class);
         mTapcApp.getService().setStartMenuVisibility(false);
+        IntentUtils.startActivity(mContext, CountdownActivity.class);
         finish();
     }
 

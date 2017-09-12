@@ -97,8 +97,7 @@ public class IntentUtils {
         context.bindService(intent, conn, flags);
     }
 
-    public static void Home(Context context) {
-        // TapcApp.getInstance().keyboardEvent.homeEvent();
+    public static void home(Context context) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);// 注意
         intent.addCategory(Intent.CATEGORY_HOME);

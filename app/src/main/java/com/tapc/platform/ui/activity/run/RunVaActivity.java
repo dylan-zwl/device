@@ -107,4 +107,11 @@ public class RunVaActivity extends BaseActivity {
         mPlayer.setBackMusicVisibility(false);
         mPlayer.start(playEntity);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTapcApp.getService().setRunInforBarVisibility(true);
+        mTapcApp.getService().setAppBarVisibility(true);
+    }
 }

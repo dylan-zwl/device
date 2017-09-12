@@ -28,7 +28,7 @@
         <attr name="maxProgress" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="ProgramImage">
+    <declare-styleable name="ProgramChart">
         <attr name="bgFrameColor" format="color"/>
         <attr name="blockColor" format="color"/>
         <attr name="lineColor" format="color"/>
@@ -39,5 +39,11 @@
         <attr name="blockWith" format="dimension"/>
         <attr name="blockHeight" format="dimension"/>
         <attr name="bgFrameRadius" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="SetStageParameter">
+        <attr name="name" format="string"/>
+        <attr name="unit" format="string"/>
+        <attr name="value" format="string"/>
     </declare-styleable>
 </resources>
