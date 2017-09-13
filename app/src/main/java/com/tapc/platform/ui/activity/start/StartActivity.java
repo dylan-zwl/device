@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.BaseActivity;
-import com.tapc.platform.ui.fragment.selectmode.SelectModeFragment;
+import com.tapc.platform.ui.fragment.program.ProgramStageFragment;
 import com.tapc.platform.utils.FragmentUtils;
 import com.tapc.platform.utils.IntentUtils;
 
@@ -25,7 +25,8 @@ public class StartActivity extends BaseActivity {
         super.initView();
         mTapcApp.getService().setStartMenuVisibility(true);
         sManager = getFragmentManager();
-        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, SelectModeFragment.class);
+//        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, SelectModeFragment.class);
+        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, ProgramStageFragment.class);
     }
 
     public static void replaceFragment(Context context, Class<?> cls) {

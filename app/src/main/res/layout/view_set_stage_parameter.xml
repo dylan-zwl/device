@@ -53,9 +53,15 @@
             android:id="@+id/set_stage_parameter_sbar_btn"
             style="?android:progressBarStyleHorizontal"
             android:layout_width="360dp"
-            android:layout_height="34dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:maxHeight="33dp"
+            android:minHeight="33dp"
+            android:paddingBottom="0dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="0dp"
             android:progressDrawable="@drawable/pbar_common"
             android:thumb="@drawable/btn_set_parameter"/>
 

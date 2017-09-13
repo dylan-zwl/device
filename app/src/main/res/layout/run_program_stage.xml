@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:ProgramImage="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_program_stage_dialog"
+              android:orientation="vertical"
+              android:padding="18dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/run_program_recommended_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="-10dp"
+            android:gravity="top"
+            android:text="0.0"
+            android:textColor="@color/colorText1"
+            android:textSize="@dimen/tx_size6"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@id/run_program_recommended_value"
+            android:text="+0.0"
+            android:textColor="@color/colorText1"
+            android:textSize="@dimen/tx_size3"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="18dp"
+            android:text="速度"
+            android:textColor="@color/colorText1"
+            android:textSize="@dimen/tx_size3"/>
+    </RelativeLayout>
+
+    <com.tapc.platform.ui.view.ProgramChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
+        ProgramImage:bgFrameColor="@color/colorText2"
+        ProgramImage:bgFrameRadius="12dp"
+        ProgramImage:blockColor="@color/colorText2"
+        ProgramImage:blockHeight="0dp"
+        ProgramImage:blockWith="10dp"
+        ProgramImage:lineColor="@color/colorText1">
+
+    </com.tapc.platform.ui.view.ProgramChart>
+</LinearLayout>

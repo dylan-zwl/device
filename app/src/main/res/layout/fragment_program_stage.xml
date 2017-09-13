@@ -3,43 +3,83 @@
                 xmlns:SetStageParameter="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:background="@drawable/bg_round_border">
+
+    <LinearLayout
+        android:id="@+id/program_stage_name_ll"
+        android:layout_width="360dp"
+        android:layout_height="64dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名称:"
+            android:textColor="@color/colorText1"
+            android:textSize="@dimen/tx_size3"/>
+
+        <EditText
+            android:id="@+id/program_stage_name_et"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:gravity="center"
+            android:lines="1"
+            android:maxLength="12"
+            android:textColor="@color/colorText1"
+            android:textSize="@dimen/tx_size3"/>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/program_stage_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/program_stage_name_ll"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
             android:background="@drawable/btn_left_arrow"/>
 
         <android.support.v7.widget.RecyclerView
-            android:layout_width="wrap_content"
+            android:id="@+id/program_stage_recyclerview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="36dp"
-            android:layout_marginRight="36dp">
+            android:layout_marginRight="36dp"
+            android:layout_weight="1">
 
         </android.support.v7.widget.RecyclerView>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="60dp"
             android:background="@drawable/btn_right_arrow"/>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/program_stage_setting_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/program_stage_ll"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/bg_round_border"
         android:orientation="vertical"
-        android:padding="40dp">
+        android:paddingBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:paddingTop="20dp">
 
         <com.tapc.platform.ui.view.SetStageParameter
             android:layout_width="wrap_content"
@@ -53,6 +93,7 @@
         <com.tapc.platform.ui.view.SetStageParameter
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             SetStageParameter:name="速度"
             SetStageParameter:unit="km/h"
             SetStageParameter:value="10.0">
@@ -62,10 +103,28 @@
         <com.tapc.platform.ui.view.SetStageParameter
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             SetStageParameter:name="坡度"
             SetStageParameter:unit="%"
             SetStageParameter:value="15.0">
 
         </com.tapc.platform.ui.view.SetStageParameter>
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/program_stage_setting_ll"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/program_stage_setting_ll"
+        android:background="@drawable/btn_program_stage_delete"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/btn_program_stage_create"/>
 </RelativeLayout>

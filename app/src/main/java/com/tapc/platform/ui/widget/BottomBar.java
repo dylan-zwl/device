@@ -3,6 +3,8 @@ package com.tapc.platform.ui.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
@@ -31,6 +33,11 @@ public class BottomBar extends BaseView {
     LinearLayout mCtlLL;
     @BindView(R.id.bottombar_fast_set_ctl)
     FastSetDeviceCtl mFastSetDeviceCtl;
+
+    @BindView(R.id.bottombar_resume)
+    Button mResumeBtn;
+    @BindView(R.id.bottombar_pause)
+    Button mPauseBtn;
 
     @Override
     protected int getContentView() {
@@ -61,8 +68,8 @@ public class BottomBar extends BaseView {
             }
 
             @Override
-            public void onCtlTypeClick() {
-                mRightDeviceCtl.getIcon();
+            public void onCtlTypeClick(int icon) {
+                setFastSetDeviceCtlType(icon);
                 setFastSetCtlVisibility(true);
             }
         });
@@ -84,7 +91,8 @@ public class BottomBar extends BaseView {
             }
 
             @Override
-            public void onCtlTypeClick() {
+            public void onCtlTypeClick(int icon) {
+                setFastSetDeviceCtlType(icon);
                 setFastSetCtlVisibility(true);
             }
         });
@@ -118,29 +126,43 @@ public class BottomBar extends BaseView {
         });
     }
 
+    private void setFastSetDeviceCtlType(int icon) {
+        mFastSetDeviceCtl.setBackgroundResource(icon);
+    }
+
     private void setFastSetCtlVisibility(boolean visibility) {
         if (visibility) {
             mFastSetDeviceCtl.setVisibility(VISIBLE);
             mCtlLL.setVisibility(INVISIBLE);
+            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_in));
+            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_out));
         } else {
             mFastSetDeviceCtl.setVisibility(GONE);
             mCtlLL.setVisibility(VISIBLE);
+            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_out));
+            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_in));
         }
     }
 
     @OnClick(R.id.bottombar_pause)
     void pause() {
-
+        mResumeBtn.setVisibility(VISIBLE);
+        mPauseBtn.setVisibility(GONE);
     }
 
     @OnClick(R.id.bottombar_resume)
     void resume() {
-
+        mResumeBtn.setVisibility(GONE);
+        mPauseBtn.setVisibility(VISIBLE);
     }
 
     @OnClick(R.id.bottombar_stop)
     void stop() {
         IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
+        TapcApplication.getInstance().getService().setBottomBarVisibility(false);
+        TapcApplication.getInstance().getService().setAppBarVisibility(false);
+        TapcApplication.getInstance().getService().setRunInforBarVisibility(false);
+        TapcApplication.getInstance().getService().setProgramStageDialogVisibility(false);
     }
 
     @OnClick(R.id.bottombar_back)

@@ -11,6 +11,7 @@ import com.tapc.platform.R;
 import com.tapc.platform.ui.widget.AppBar;
 import com.tapc.platform.ui.widget.BottomBar;
 import com.tapc.platform.ui.widget.GestureListener;
+import com.tapc.platform.ui.widget.ProgramStageDialog;
 import com.tapc.platform.ui.widget.RunInforBar;
 import com.tapc.platform.ui.widget.StartMenu;
 
@@ -26,6 +27,7 @@ public class StartService extends Service {
     private AppBar mAppBar;
     private RunInforBar mRunInforBar;
     private GestureListener mGestureListener;
+    private ProgramStageDialog mProgramStageDialog;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -42,20 +44,22 @@ public class StartService extends Service {
         mBinder = new LocalBinder(this);
         mWindowManager = (WindowManager) getSystemService("window");
 //        setGestureListenerVisibility(true);
+        setProgramStageDialogVisibility(true);
     }
 
     public void setStartMenuVisibility(boolean visibility) {
         if (visibility) {
             if (mStartMenu == null) {
                 final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                        480, WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
                         WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
-                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams
+                                .FLAG_TOUCHABLE_WHEN_WAKING | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING |
+                                WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED |
+                                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
                         PixelFormat.TRANSPARENT);
-                params.gravity = Gravity.RIGHT | Gravity.CENTER_HORIZONTAL;
+                params.gravity = Gravity.RIGHT;
                 params.x = 0;
                 params.y = 0;
                 mStartMenu = new StartMenu(this);
@@ -166,6 +170,30 @@ public class StartService extends Service {
         }
     }
 
+    public void setProgramStageDialogVisibility(boolean visibility) {
+        if (visibility) {
+            if (mRunInforBar == null) {
+                final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                        .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                        PixelFormat.TRANSPARENT);
+                params.gravity = Gravity.LEFT | Gravity.TOP;
+                params.x = 36;
+                params.y = 132;
+                mProgramStageDialog = new ProgramStageDialog(this);
+                mWindowManager.addView(mProgramStageDialog, params);
+            }
+        } else {
+            if (mProgramStageDialog != null) {
+                mWindowManager.removeView(mProgramStageDialog);
+                mProgramStageDialog = null;
+            }
+        }
+    }
 
     @Override
     public void onDestroy() {

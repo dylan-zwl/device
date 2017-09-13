@@ -18,6 +18,7 @@
         android:layout_marginTop="60dp">
 
         <com.tapc.platform.ui.view.RoundProgressBar
+            android:id="@+id/result_round_pbar"
             android:layout_width="400dp"
             android:layout_height="400dp"
             RoundProgressBar:bgColor="#4D2076BE"

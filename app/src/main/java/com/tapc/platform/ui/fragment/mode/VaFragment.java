@@ -1,4 +1,4 @@
-package com.tapc.platform.ui.fragment.selectmode;
+package com.tapc.platform.ui.fragment.mode;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

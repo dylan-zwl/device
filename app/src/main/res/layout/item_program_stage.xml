@@ -6,7 +6,8 @@
               android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="50dp"
+        android:id="@+id/program_stage_line"
+        android:layout_width="40dp"
         android:layout_height="3dp"
         android:layout_marginTop="224dp"
         android:background="@color/colorText2"/>
@@ -48,7 +49,8 @@
                 android:background="@drawable/bg_program_stage_tx"
                 android:gravity="center"
                 android:text="0"
-                android:textSize="@dimen/tx_size6"/>
+                android:textColor="@color/colorText1"
+                android:textSize="@dimen/tx_size4"/>
 
             <TextView
                 android:id="@+id/program_stage_time"
@@ -57,7 +59,8 @@
                 android:background="@drawable/bg_program_stage_tx"
                 android:gravity="center"
                 android:text="0 min"
-                android:textSize="40dp"/>
+                android:textColor="@color/colorText1"
+                android:textSize="@dimen/tx_size2"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

@@ -21,6 +21,7 @@ import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.NetUtils;
 import com.tapc.platform.utils.RxBus;
+import com.tapc.platform.utils.SoundCtlUtils;
 
 import java.util.ArrayList;
 
@@ -59,11 +60,14 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     private AppShowStatus mNowStatus = SHOW;
 
     private boolean isMove = false;
+    private float mTouchY;
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowManagerParams;
     private Handler mHandler;
     private TranslateAnimation mHideAnimation = new TranslateAnimation(0, 100, 0, 0);
     private TranslateAnimation mShowAnimation = new TranslateAnimation(100, 0, 0, 0);
+
+    private float moveToBottom;
 
     public enum AppShowStatus {
         SHOW,
@@ -96,8 +100,9 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mRecyclerview.setAdapter(mAppAdpater);
         mPullOut.setOnTouchListener(this);
         mHandler = new Handler();
-
+        moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
         initStatusView();
+
     }
 
     private void initStatusView() {
@@ -185,11 +190,21 @@ public class AppBar extends BaseView implements View.OnTouchListener {
                 if (mNowStatus == HIDE) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            mTouchY = event.getRawY();
                             isMove = false;
                             break;
                         case MotionEvent.ACTION_MOVE:
-                            updateViewLayout((int) (event.getRawY() - v.getHeight() / 2));
-                            isMove = true;
+                            float moveY = mTouchY - event.getRawY();
+                            if (moveY > 10) {
+                                isMove = true;
+                                float top = event.getRawY() - v.getHeight() / 2;
+                                if (top > (moveToBottom - v.getHeight())) {
+                                    top = moveToBottom - v.getHeight();
+                                }
+                                updateViewLayout((int) top);
+                            } else {
+                                isMove = false;
+                            }
                             return true;
                         case MotionEvent.ACTION_UP:
                             if (isMove) {
@@ -208,6 +223,12 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mWindowManagerParams.y = y;
         mWindowManager.updateViewLayout(this, mWindowManagerParams); // 刷新显示
     }
+
+    @OnClick(R.id.app_bar_sound)
+    void soundOnClick() {
+        SoundCtlUtils.openVolume(mContext);
+    }
+
 
     @Override
     public void onDestroy() {

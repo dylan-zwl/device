@@ -31,6 +31,7 @@
     <declare-styleable name="ProgramChart">
         <attr name="bgFrameColor" format="color"/>
         <attr name="blockColor" format="color"/>
+        <attr name="runBlockColor" format="color"/>
         <attr name="lineColor" format="color"/>
         <attr name="paddingLeft" format="dimension"/>
         <attr name="paddingRight" format="dimension"/>

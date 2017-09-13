@@ -47,7 +47,7 @@ public class RoundProgressBar extends View {
 
         mPaint.setColor(mProgressColor);
         RectF rectF = new RectF(centre - radius, centre - radius, centre + radius, centre + radius);
-        canvas.drawArc(rectF, 0, 360 * mProgress / mMaxProgress, false, mPaint);
+        canvas.drawArc(rectF, -90, 360 * mProgress / mMaxProgress, false, mPaint);
     }
 
     public synchronized int getMax() {

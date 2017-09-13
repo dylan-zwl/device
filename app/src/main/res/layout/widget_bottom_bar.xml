@@ -24,7 +24,7 @@
             android:id="@+id/bottombar_resume"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_start"
+            android:background="@drawable/btn_resume"
             android:visibility="gone"/>
 
         <Button
@@ -117,8 +117,9 @@
 
         <com.tapc.platform.ui.view.FastSetDeviceCtl
             android:id="@+id/bottombar_fast_set_ctl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:visibility="gone">
 
         </com.tapc.platform.ui.view.FastSetDeviceCtl>

@@ -1,4 +1,4 @@
-package com.tapc.platform.ui.fragment.selectmode;
+package com.tapc.platform.ui.fragment.mode;
 
 
 import android.app.FragmentManager;

@@ -172,7 +172,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
 
         void setDeviceValue(double value);
 
-        void onCtlTypeClick();
+        void onCtlTypeClick(int icon);
     }
 
     public void setConfig(float minValue, float maxValue, float stepValue, float defValue) {
@@ -198,9 +198,8 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
 
     @OnClick(R.id.device_ctl_icon)
     void onCtlType() {
-        mListener.onCtlTypeClick();
+        mListener.onCtlTypeClick(mIcon);
     }
-
 
     public int getIcon() {
         return mIcon;

@@ -24,7 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.start.StartActivity">
+        <activity
+            android:name=".ui.activity.start.StartActivity"
+            android:windowSoftInputMode="adjustNothing|stateUnchanged">
             <!--<intent-filter>-->
             <!--<action android:name="android.intent.action.MAIN"/>-->
 

@@ -20,7 +20,7 @@
             ProgramImage:bgFrameColor="@color/colorText2"
             ProgramImage:bgFrameRadius="12dp"
             ProgramImage:blockColor="@color/colorText2"
-            ProgramImage:blockHeight="5dp"
+            ProgramImage:blockHeight="0dp"
             ProgramImage:blockWith="8dp"
             ProgramImage:lineColor="@color/colorText1"/>
     </LinearLayout>
