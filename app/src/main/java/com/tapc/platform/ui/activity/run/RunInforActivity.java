@@ -1,13 +1,21 @@
 package com.tapc.platform.ui.activity.run;
 
+import android.view.View;
+import android.widget.Button;
+
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/9/5.
  */
 
 public class RunInforActivity extends BaseActivity {
+    @BindView(R.id.title_back)
+    Button mBackBtn;
 
     @Override
     protected int getContentView() {
@@ -16,13 +24,17 @@ public class RunInforActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mTapcApp.getService().setRunInforBarVisibility(false);
-        mTapcApp.getService().setAppBarVisibility(false);
+        mBackBtn.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        finish();
+    }
+
+    @OnClick(R.id.title_back)
+    void back() {
         finish();
     }
 }

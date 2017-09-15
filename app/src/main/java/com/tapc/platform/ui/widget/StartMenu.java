@@ -1,8 +1,10 @@
 package com.tapc.platform.ui.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.tapc.platform.R;
@@ -17,6 +19,14 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -27,6 +37,7 @@ public class StartMenu extends BaseView {
     RecyclerView mRecyclerview;
 
     private AppAdpater mAppAdpater;
+    private Disposable mDisposable;
 
     @Override
     protected int getContentView() {
@@ -39,17 +50,27 @@ public class StartMenu extends BaseView {
 
     @Override
     protected void initView() {
-        ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
-        mAppAdpater = new AppAdpater(allAppInfo);
-
-        mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+        mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void onItemClick(View view, AppInfoEntity appInfoEntity) {
-                mContext.startActivity(appInfoEntity.getIntent());
+            public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
+                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
+                mAppAdpater = new AppAdpater(allAppInfo);
+                mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+                    @Override
+                    public void onItemClick(View view, AppInfoEntity appInfoEntity) {
+                        mContext.startActivity(appInfoEntity.getIntent());
+                    }
+                });
+                s.onNext("start_show");
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) throws Exception {
+                mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager
+                        .HORIZONTAL));
+                mRecyclerview.setAdapter(mAppAdpater);
             }
         });
-        mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL));
-        mRecyclerview.setAdapter(mAppAdpater);
     }
 
     @OnClick(R.id.start_menu_back)
@@ -59,8 +80,22 @@ public class StartMenu extends BaseView {
 
     @OnClick(R.id.start_menu_home)
     void homeOnClick() {
-        IntentUtils.home(mContext);
-        // TapcApp.getmInstance().keyboardEvent.homeEvent();
+        try {
+            if (AppUtils.isApplicationBroughtToBackground(mContext)) {
+                IntentUtils.startActivity(mContext, TapcApplication.getInstance().getHomeActivity(), null, Intent
+                        .FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            }
+//            IntentUtils.home(mContext);
+        } catch (Exception e) {
+            Log.d(this.toString(), e.getMessage());
+        }
     }
 
+    @Override
+    public void onDestroy() {
+        if (mDisposable != null) {
+            mDisposable.dispose();
+            mDisposable = null;
+        }
+    }
 }

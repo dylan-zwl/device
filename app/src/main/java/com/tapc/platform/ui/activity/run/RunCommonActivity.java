@@ -2,6 +2,7 @@ package com.tapc.platform.ui.activity.run;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.GlideImageLoader;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -29,8 +30,7 @@ public class RunCommonActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mTapcApp.getService().setBottomBarVisibility(true);
-
+        mTapcApp.setHomeActivity(this.getClass());
         mImages = new ArrayList<Object>();
         mImages.add(R.drawable.bg_advertisement_nomal);
         mImages.add(R.drawable.bg_countdown);
@@ -51,7 +51,7 @@ public class RunCommonActivity extends BaseActivity {
         //设置自动轮播，默认为true
         mBanner.isAutoPlay(true);
         //设置轮播时间
-        mBanner.setDelayTime(1500);
+        mBanner.setDelayTime(10000);
         //设置指示器位置（当mBanner模式中有指示器时）
         mBanner.setIndicatorGravity(BannerConfig.CENTER);
         mBanner.start();
@@ -60,8 +60,10 @@ public class RunCommonActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mTapcApp.getService().setRunInforBarVisibility(true);
-        mTapcApp.getService().setAppBarVisibility(true);
+        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
         mBanner.startAutoPlay();
     }
 

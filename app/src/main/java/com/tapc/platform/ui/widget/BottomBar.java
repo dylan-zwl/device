@@ -9,9 +9,11 @@ import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.activity.stop.StopActivity;
 import com.tapc.platform.ui.view.DeviceCtl;
 import com.tapc.platform.ui.view.FastSetDeviceCtl;
+import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -127,20 +129,20 @@ public class BottomBar extends BaseView {
     }
 
     private void setFastSetDeviceCtlType(int icon) {
-        mFastSetDeviceCtl.setBackgroundResource(icon);
+        mFastSetDeviceCtl.setIcon(icon);
     }
 
     private void setFastSetCtlVisibility(boolean visibility) {
         if (visibility) {
             mFastSetDeviceCtl.setVisibility(VISIBLE);
             mCtlLL.setVisibility(INVISIBLE);
-            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_in));
-            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_out));
+            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
+            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
         } else {
             mFastSetDeviceCtl.setVisibility(GONE);
             mCtlLL.setVisibility(VISIBLE);
-            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_out));
-            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fast_ctl_push_in));
+            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
+            mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
         }
     }
 
@@ -159,10 +161,11 @@ public class BottomBar extends BaseView {
     @OnClick(R.id.bottombar_stop)
     void stop() {
         IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
-        TapcApplication.getInstance().getService().setBottomBarVisibility(false);
-        TapcApplication.getInstance().getService().setAppBarVisibility(false);
-        TapcApplication.getInstance().getService().setRunInforBarVisibility(false);
-        TapcApplication.getInstance().getService().setProgramStageDialogVisibility(false);
+        TapcApplication.getInstance().getService().setAppBarVisibility(WidgetShowStatus.REMOVE);
+        TapcApplication.getInstance().getService().setRunInforBarVisibility(WidgetShowStatus.REMOVE);
+        TapcApplication.getInstance().getService().setProgramStageDialogVisibility(WidgetShowStatus.REMOVE);
+        TapcApplication.getInstance().getService().setShortcutKeyVisibility(WidgetShowStatus.REMOVE);
+        TapcApplication.getInstance().getService().setBottomBarVisibility(WidgetShowStatus.REMOVE);
     }
 
     @OnClick(R.id.bottombar_back)
@@ -172,7 +175,14 @@ public class BottomBar extends BaseView {
 
     @OnClick(R.id.bottombar_home)
     void homeOnClick() {
-        IntentUtils.home(mContext);
-        // TapcApp.getmInstance().keyboardEvent.homeEvent();
+        try {
+            if (AppUtils.isApplicationBroughtToBackground(mContext)) {
+                IntentUtils.startActivity(mContext, TapcApplication.getInstance().getHomeActivity(), null, Intent
+                        .FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            }
+//            IntentUtils.home(mContext);
+        } catch (Exception e) {
+            Log.d(this.toString(), e.getMessage());
+        }
     }
 }

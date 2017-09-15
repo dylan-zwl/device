@@ -5,8 +5,9 @@ import android.content.Context;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.activity.BaseActivity;
-import com.tapc.platform.ui.fragment.program.ProgramStageFragment;
+import com.tapc.platform.ui.fragment.mode.SelectModeFragment;
 import com.tapc.platform.utils.FragmentUtils;
 import com.tapc.platform.utils.IntentUtils;
 
@@ -23,10 +24,11 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mTapcApp.getService().setStartMenuVisibility(true);
+        mTapcApp.setHomeActivity(this.getClass());
+        mTapcApp.getService().setStartMenuVisibility(WidgetShowStatus.VISIBLE);
         sManager = getFragmentManager();
-//        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, SelectModeFragment.class);
-        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, ProgramStageFragment.class);
+        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, SelectModeFragment.class);
+//        FragmentUtils.replaceFragment(this, sManager, R.id.start_mode_fragment, ProgramStageFragment.class);
     }
 
     public static void replaceFragment(Context context, Class<?> cls) {
@@ -35,7 +37,7 @@ public class StartActivity extends BaseActivity {
 
     @OnClick(R.id.start)
     void onStartClick(View v) {
-        mTapcApp.getService().setStartMenuVisibility(false);
+        mTapcApp.getService().setStartMenuVisibility(WidgetShowStatus.REMOVE);
         IntentUtils.startActivity(mContext, CountdownActivity.class);
         finish();
     }

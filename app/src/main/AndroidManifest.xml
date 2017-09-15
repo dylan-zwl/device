@@ -9,6 +9,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
+    //获取当前activity
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+
     <application
         android:name=".application.TapcApplication"
         android:allowBackup="true"
@@ -26,46 +29,20 @@
         </activity>
         <activity
             android:name=".ui.activity.start.StartActivity"
-            android:windowSoftInputMode="adjustNothing|stateUnchanged">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
+            android:launchMode="singleInstance"
+            android:windowSoftInputMode="adjustNothing|stateUnchanged"/>
+        <activity
+            android:name=".ui.activity.run.RunCommonActivity"
+            android:launchMode="singleInstance"/>
 
+        <activity
+            android:name=".ui.activity.run.RunInforActivity"
+            android:launchMode="singleTask"/>
 
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
-        <activity android:name=".ui.activity.run.RunCommonActivity">
+        <activity
+            android:name=".ui.activity.run.RunVaActivity"/>
 
-            <!--
-                     <intent-filter>
-                     <action android:name="android.intent.action.MAIN"/>
-
-                     <category android:name="android.intent.category.LAUNCHER"/>
-                 </intent-filter>
-            -->
-        </activity>
-        <activity android:name=".ui.activity.run.RunInforActivity">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
-
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>-->
-        </activity>
-        <activity android:name=".ui.activity.run.RunVaActivity">
-            <!--            <intent-filter>
-                            <action android:name="android.intent.action.MAIN"/>
-
-                            <category android:name="android.intent.category.LAUNCHER"/>
-                        </intent-filter>-->
-        </activity>
-
-        <activity android:name=".ui.activity.stop.StopActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN"/>-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        </activity>
+        <activity android:name=".ui.activity.stop.StopActivity"/>
 
         <activity android:name=".ui.activity.start.CountdownActivity">
             <!--<intent-filter>-->

@@ -19,7 +19,7 @@ public class GestureListener extends BaseView {
 
     public GestureListener(Context context) {
         super(context);
-//        mLinearLayout.setOnTouchListener(this);
+//        mShortcutKeyLL.setOnTouchListener(this);
     }
 
     @Override

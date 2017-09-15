@@ -1,22 +1,19 @@
 package com.tapc.platform.ui.widget;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.RunInforBarItem;
-import com.tapc.platform.ui.activity.run.RunInforActivity;
 import com.tapc.platform.ui.adpater.RunInforAdpater;
-import com.tapc.platform.utils.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/8/28.
@@ -25,11 +22,17 @@ import butterknife.OnClick;
 public class RunInforBar extends BaseView {
     @BindView(R.id.run_infor_lv)
     RecyclerView mRecyclerView;
+    @BindView(R.id.run_infor_bg)
+    LinearLayout mBg;
 
+    private WindowManager mWindowManager;
+    private WindowManager.LayoutParams mWindowManagerParams;
     private RunInforAdpater mRunInforAdpater;
 
-    public RunInforBar(Context context) {
+    public RunInforBar(Context context, WindowManager windowManager, WindowManager.LayoutParams windowManagerParams) {
         super(context);
+        mWindowManager = windowManager;
+        mWindowManagerParams = windowManagerParams;
     }
 
     @Override
@@ -53,9 +56,26 @@ public class RunInforBar extends BaseView {
         mRecyclerView.setAdapter(mRunInforAdpater);
     }
 
-    @OnClick(R.id.run_infor_btn)
-    void runInforOnClick(View v) {
-        IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
-                .FLAG_ACTIVITY_CLEAR_TOP);
+//    @OnClick(R.id.run_infor_chx)
+//    void runInforOnClick(View v) {
+//        IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+//                .FLAG_ACTIVITY_CLEAR_TOP);
+//    }
+
+//    @OnCheckedChanged(R.id.run_infor_chx)
+//    void runInforChx(CompoundButton buttonView, boolean isChecked) {
+//        if (isChecked) {
+//            mBg.setBackgroundResource(R.drawable.bg_run_infor_bar);
+//            mRecyclerView.setVisibility(VISIBLE);
+//        } else {
+//            mBg.setBackground(null);
+//            mRecyclerView.setVisibility(GONE);
+//        }
+//    }
+
+    // 刷新显示
+    private void updateViewLayout(int x) {
+        mWindowManagerParams.x = x;
+        mWindowManager.updateViewLayout(this, mWindowManagerParams);
     }
 }

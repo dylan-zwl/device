@@ -7,6 +7,7 @@ import android.os.SystemClock;
 import android.view.SurfaceView;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.VaPlayer;
 import com.tapc.platform.ui.activity.BaseActivity;
@@ -43,6 +44,7 @@ public class RunVaActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        mTapcApp.setHomeActivity(this.getClass());
         Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
@@ -111,7 +113,7 @@ public class RunVaActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mTapcApp.getService().setRunInforBarVisibility(true);
-        mTapcApp.getService().setAppBarVisibility(true);
+        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
     }
 }

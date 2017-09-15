@@ -5,14 +5,17 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.widget.AppBar;
 import com.tapc.platform.ui.widget.BottomBar;
 import com.tapc.platform.ui.widget.GestureListener;
 import com.tapc.platform.ui.widget.ProgramStageDialog;
 import com.tapc.platform.ui.widget.RunInforBar;
+import com.tapc.platform.ui.widget.ShortcutKey;
 import com.tapc.platform.ui.widget.StartMenu;
 
 /**
@@ -26,6 +29,7 @@ public class StartService extends Service {
     private BottomBar mBottomBar;
     private AppBar mAppBar;
     private RunInforBar mRunInforBar;
+    private ShortcutKey mShortcutKey;
     private GestureListener mGestureListener;
     private ProgramStageDialog mProgramStageDialog;
 
@@ -44,110 +48,177 @@ public class StartService extends Service {
         mBinder = new LocalBinder(this);
         mWindowManager = (WindowManager) getSystemService("window");
 //        setGestureListenerVisibility(true);
-        setProgramStageDialogVisibility(true);
+//        setProgramStageDialogVisibility(true);
+//        setShortcutKeyVisibility(true);
     }
 
-    public void setStartMenuVisibility(boolean visibility) {
-        if (visibility) {
-            if (mStartMenu == null) {
-                final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams
-                                .FLAG_TOUCHABLE_WHEN_WAKING | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING |
-                                WindowManager.LayoutParams.SOFT_INPUT_STATE_UNCHANGED |
-                                WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                        PixelFormat.TRANSPARENT);
-                params.gravity = Gravity.RIGHT;
-                params.x = 0;
-                params.y = 0;
-                mStartMenu = new StartMenu(this);
-                mWindowManager.addView(mStartMenu, params);
-            }
-        } else {
-            if (mStartMenu != null) {
-                mWindowManager.removeView(mStartMenu);
-                mStartMenu = null;
-            }
+    public boolean isStartMenuShown() {
+        if (mStartMenu != null && mStartMenu.isShown()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setStartMenuVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mStartMenu == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.RIGHT;
+                    params.x = 0;
+                    params.y = 0;
+                    mStartMenu = new StartMenu(this);
+                    mWindowManager.addView(mStartMenu, params);
+                } else {
+                    mStartMenu.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mStartMenu != null) {
+                    mStartMenu.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mStartMenu != null) {
+                    mWindowManager.removeView(mStartMenu);
+                    mStartMenu = null;
+                }
+                break;
         }
     }
 
-    public void setBottomBarVisibility(boolean visibility) {
-        if (visibility) {
-            if (mBottomBar == null) {
-                final WindowManager.LayoutParams bottomBarParams = new WindowManager.LayoutParams(
-                        WindowManager.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen
-                        .bottom_bar_h),
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
-                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                        PixelFormat.TRANSPARENT);
-                bottomBarParams.gravity = Gravity.BOTTOM | Gravity.CENTER_VERTICAL;
-                bottomBarParams.x = 0;
-                bottomBarParams.y = 0;
-                mBottomBar = new BottomBar(this);
-                mWindowManager.addView(mBottomBar, bottomBarParams);
-            }
-        } else {
-            if (mBottomBar != null) {
-                mWindowManager.removeView(mBottomBar);
-                mBottomBar = null;
-            }
+    public boolean isBottomBarShown() {
+        if (mBottomBar != null && mBottomBar.isShown()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setBottomBarVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mBottomBar == null) {
+                    final WindowManager.LayoutParams bottomBarParams = new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen
+                            .bottom_bar_h),
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    bottomBarParams.gravity = Gravity.BOTTOM | Gravity.CENTER_VERTICAL;
+                    bottomBarParams.x = 0;
+                    bottomBarParams.y = 0;
+                    mBottomBar = new BottomBar(this);
+                    mWindowManager.addView(mBottomBar, bottomBarParams);
+                } else {
+                    mBottomBar.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mBottomBar != null) {
+                    mBottomBar.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mBottomBar != null) {
+                    mWindowManager.removeView(mBottomBar);
+                    mBottomBar = null;
+                }
+                break;
         }
     }
 
-    public void setAppBarVisibility(boolean visibility) {
-        if (visibility) {
-            if (mAppBar == null) {
-                final WindowManager.LayoutParams appBarParams = new WindowManager.LayoutParams(WindowManager
-                        .LayoutParams
-                        .WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
-                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                        PixelFormat.TRANSPARENT);
-                appBarParams.gravity = Gravity.RIGHT | Gravity.TOP;
-                appBarParams.x = 0;
-                appBarParams.y = 0;
-                mAppBar = new AppBar(this, mWindowManager, appBarParams);
-                mWindowManager.addView(mAppBar, appBarParams);
-            }
-        } else {
-            if (mAppBar != null) {
-                mAppBar.onDestroy();
-                mWindowManager.removeView(mAppBar);
-                mAppBar = null;
-            }
+    public boolean isAppBarShown() {
+        if (mAppBar != null && mAppBar.isShown()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setAppBarVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mAppBar == null) {
+                    final WindowManager.LayoutParams appBarParams = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams
+                            .WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    appBarParams.gravity = Gravity.RIGHT | Gravity.TOP;
+                    appBarParams.x = 0;
+                    appBarParams.y = 132;
+                    mAppBar = new AppBar(this, mWindowManager, appBarParams);
+                    mWindowManager.addView(mAppBar, appBarParams);
+                } else {
+                    mAppBar.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mAppBar != null) {
+                    mAppBar.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mAppBar != null) {
+                    mWindowManager.removeView(mAppBar);
+                    mAppBar = null;
+                }
+                break;
         }
     }
 
-    public void setRunInforBarVisibility(boolean visibility) {
-        if (visibility) {
-            if (mRunInforBar == null) {
-                final WindowManager.LayoutParams runInforBarParams = new WindowManager.LayoutParams(WindowManager
-                        .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
-                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                        PixelFormat.TRANSPARENT);
-                runInforBarParams.gravity = Gravity.TOP;
-                runInforBarParams.x = 0;
-                runInforBarParams.y = 0;
-                mRunInforBar = new RunInforBar(this);
-                mWindowManager.addView(mRunInforBar, runInforBarParams);
-            }
-        } else {
-            if (mRunInforBar != null) {
-                mWindowManager.removeView(mRunInforBar);
-                mRunInforBar = null;
-            }
+    public boolean isRunInforBarShown() {
+        if (mRunInforBar != null && mRunInforBar.isShown()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setRunInforBarVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mRunInforBar == null) {
+                    final WindowManager.LayoutParams runInforBarParams = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    runInforBarParams.gravity = Gravity.TOP;
+                    runInforBarParams.x = 0;
+                    runInforBarParams.y = 0;
+                    mRunInforBar = new RunInforBar(this, mWindowManager, runInforBarParams);
+                    mWindowManager.addView(mRunInforBar, runInforBarParams);
+                } else {
+                    mRunInforBar.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mRunInforBar != null) {
+                    mRunInforBar.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mRunInforBar != null) {
+                    mWindowManager.removeView(mRunInforBar);
+                    mRunInforBar = null;
+                }
+                break;
         }
     }
 
@@ -170,28 +241,80 @@ public class StartService extends Service {
         }
     }
 
-    public void setProgramStageDialogVisibility(boolean visibility) {
-        if (visibility) {
-            if (mRunInforBar == null) {
-                final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
-                        .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
-                        WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-                                | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
-                                | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
-                        PixelFormat.TRANSPARENT);
-                params.gravity = Gravity.LEFT | Gravity.TOP;
-                params.x = 36;
-                params.y = 132;
-                mProgramStageDialog = new ProgramStageDialog(this);
-                mWindowManager.addView(mProgramStageDialog, params);
-            }
-        } else {
-            if (mProgramStageDialog != null) {
-                mWindowManager.removeView(mProgramStageDialog);
-                mProgramStageDialog = null;
-            }
+    public boolean isProgramStageDialogShown() {
+        if (mProgramStageDialog != null && mProgramStageDialog.isShown()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setProgramStageDialogVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mProgramStageDialog == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.LEFT | Gravity.TOP;
+                    params.x = 36;
+                    params.y = 132;
+                    mProgramStageDialog = new ProgramStageDialog(this);
+                    mWindowManager.addView(mProgramStageDialog, params);
+                } else {
+                    mProgramStageDialog.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mProgramStageDialog != null) {
+                    mProgramStageDialog.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mProgramStageDialog != null) {
+                    mWindowManager.removeView(mProgramStageDialog);
+                    mProgramStageDialog = null;
+                }
+                break;
+        }
+    }
+
+    public void setShortcutKeyVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mShortcutKey == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.TOP | Gravity.LEFT;
+                    params.x = 36;
+                    params.y = 726;
+                    mShortcutKey = new ShortcutKey(this, mWindowManager, params);
+                    mWindowManager.addView(mShortcutKey, params);
+                } else {
+                    mShortcutKey.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mShortcutKey != null) {
+                    mShortcutKey.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mShortcutKey != null) {
+                    mWindowManager.removeView(mShortcutKey);
+                    mShortcutKey = null;
+                }
+                break;
         }
     }
 

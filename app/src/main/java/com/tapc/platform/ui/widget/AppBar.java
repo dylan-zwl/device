@@ -27,8 +27,14 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 import static com.tapc.platform.ui.widget.AppBar.AppShowStatus.HIDE;
 import static com.tapc.platform.ui.widget.AppBar.AppShowStatus.SHOW;
@@ -57,17 +63,18 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     ImageButton mFan;
 
     private AppAdpater mAppAdpater;
-    private AppShowStatus mNowStatus = SHOW;
-
-    private boolean isMove = false;
-    private float mTouchY;
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowManagerParams;
     private Handler mHandler;
     private TranslateAnimation mHideAnimation = new TranslateAnimation(0, 100, 0, 0);
     private TranslateAnimation mShowAnimation = new TranslateAnimation(100, 0, 0, 0);
 
+    private boolean isMove = false;
+    private float mTouchY;
     private float moveToBottom;
+
+    private AppShowStatus mNowStatus = SHOW;
+    private Disposable mDisposable;
 
     public enum AppShowStatus {
         SHOW,
@@ -87,22 +94,32 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @Override
     protected void initView() {
-        ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
-        mAppAdpater = new AppAdpater(allAppInfo);
+        mHandler = new Handler();
+        mPullOut.setOnTouchListener(this);
+        moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
 
-        mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+        mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
-            public void onItemClick(View view, AppInfoEntity appInfoEntity) {
-                mContext.startActivity(appInfoEntity.getIntent());
+            public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
+                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
+                mAppAdpater = new AppAdpater(allAppInfo);
+                mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+                    @Override
+                    public void onItemClick(View view, AppInfoEntity appInfoEntity) {
+                        mContext.startActivity(appInfoEntity.getIntent());
+                    }
+                });
+                s.onNext("start_show");
+            }
+        }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<String>() {
+            @Override
+            public void accept(@NonNull String s) throws Exception {
+                mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager
+                        .HORIZONTAL));
+                mRecyclerview.setAdapter(mAppAdpater);
+                initStatusView();
             }
         });
-        mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL));
-        mRecyclerview.setAdapter(mAppAdpater);
-        mPullOut.setOnTouchListener(this);
-        mHandler = new Handler();
-        moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
-        initStatusView();
-
     }
 
     private void initStatusView() {
@@ -168,7 +185,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        updateViewLayout(0);
+                        updateViewLayout(132);
                     }
                 }, animationTime);
                 mHandler.postDelayed(new Runnable() {
@@ -195,15 +212,13 @@ public class AppBar extends BaseView implements View.OnTouchListener {
                             break;
                         case MotionEvent.ACTION_MOVE:
                             float moveY = mTouchY - event.getRawY();
-                            if (moveY > 10) {
-                                isMove = true;
-                                float top = event.getRawY() - v.getHeight() / 2;
+                            if (Math.abs(moveY) > 10) {
+                                int top = (int) (event.getRawY() - v.getHeight() / 2);
                                 if (top > (moveToBottom - v.getHeight())) {
-                                    top = moveToBottom - v.getHeight();
+                                    top = (int) (moveToBottom - v.getHeight());
                                 }
-                                updateViewLayout((int) top);
-                            } else {
-                                isMove = false;
+                                updateViewLayout(top);
+                                isMove = true;
                             }
                             return true;
                         case MotionEvent.ACTION_UP:
@@ -219,9 +234,10 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         return false;
     }
 
+    // 刷新显示
     private void updateViewLayout(int y) {
         mWindowManagerParams.y = y;
-        mWindowManager.updateViewLayout(this, mWindowManagerParams); // 刷新显示
+        mWindowManager.updateViewLayout(this, mWindowManagerParams);
     }
 
     @OnClick(R.id.app_bar_sound)
@@ -232,6 +248,10 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @Override
     public void onDestroy() {
+        if (mDisposable != null) {
+            mDisposable.dispose();
+            mDisposable = null;
+        }
         RxBus.getInstance().unSubscribe(this);
     }
 }

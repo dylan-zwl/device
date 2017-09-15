@@ -19,7 +19,7 @@ public class ErrorDialog extends BaseView {
 
     public ErrorDialog(Context context) {
         super(context);
-//        mLinearLayout.setOnTouchListener(this);
+//        mShortcutKeyLL.setOnTouchListener(this);
     }
 
     @Override

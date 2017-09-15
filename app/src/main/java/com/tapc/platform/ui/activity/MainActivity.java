@@ -16,6 +16,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 //        IntentUtils.startActivity(mContext, RunInforActivity.class);
+        System.gc();
     }
 
     @OnClick(R.id.main_start)

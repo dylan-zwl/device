@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              android:id="@+id/run_infor_bg"
+              android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@drawable/bg_run_infor_bar"
               android:gravity="center"
@@ -12,10 +13,4 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
     </android.support.v7.widget.RecyclerView>
-
-    <ImageButton
-        android:id="@+id/run_infor_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_run_infor_all"/>
 </LinearLayout>

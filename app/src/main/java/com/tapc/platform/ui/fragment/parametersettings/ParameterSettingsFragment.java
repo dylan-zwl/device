@@ -8,9 +8,9 @@ import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.ParameterSetAdpater;
-import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.KeyboardView;
 
@@ -42,7 +42,7 @@ public class ParameterSettingsFragment extends BaseFragment {
         super.initView();
         List<ParameterSet> list = getParameterList();
         mAdpater = new ParameterSetAdpater(list);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, list.size());
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(gridLayoutManager);
         mRecyclerview.setAdapter(mAdpater);
@@ -55,10 +55,7 @@ public class ParameterSettingsFragment extends BaseFragment {
                 }
                 mCurrentShowName = parameterSet.getName();
                 KeyboardView popupView = new KeyboardView(mContext);
-                if (mWindow != null && mWindow.isShowing()) {
-                    mWindow.dismiss();
-                    mWindow = null;
-                }
+                cancelPopupWindow();
                 mWindow = new PopupWindow(popupView, view.getWidth(), WindowManager.LayoutParams
                         .WRAP_CONTENT);
                 mWindow.setFocusable(false);
@@ -93,6 +90,7 @@ public class ParameterSettingsFragment extends BaseFragment {
         defValues.add("10");
         defValues.add("20");
         defValues.add("30");
+        list.add(new ParameterSet("时间", "30", "min", defValues));
         list.add(new ParameterSet("距离", "30", "km", defValues));
         list.add(new ParameterSet("初始速度", "3.0", "km/h", defValues));
         list.add(new ParameterSet("初始坡度", "6", "%", defValues));
@@ -105,4 +103,17 @@ public class ParameterSettingsFragment extends BaseFragment {
 
         }
     };
+
+    private void cancelPopupWindow() {
+        if (mWindow != null && mWindow.isShowing()) {
+            mWindow.dismiss();
+            mWindow = null;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        cancelPopupWindow();
+    }
 }

@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
-import com.tapc.platform.ui.activity.run.RunVaActivity;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.VaAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
@@ -52,8 +50,7 @@ public class VaFragment extends BaseFragment {
             @Override
             public void onItemClick(View view, PlayEntity playEntity) {
 //                StartActivity.replaceFragment(mContext, ParameterSettingsFragment.class);
-                TapcApplication.getInstance().getService().setStartMenuVisibility(false);
-                RunVaActivity.launch(mContext, playEntity);
+//                RunVaActivity.launch(mContext, playEntity);
             }
         });
 

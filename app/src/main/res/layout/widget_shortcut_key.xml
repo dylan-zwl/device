@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/shortcut_area"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_short_key"
+              android:orientation="horizontal"
+              android:padding="20dp">
+
+    <Button
+        android:id="@+id/shortcut_key"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_shortcut_key"/>
+
+    <LinearLayout
+        android:id="@+id/shortcut_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <CheckBox
+            android:id="@+id/shortcut_program"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/chx_program"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/shortcut_runinfor_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/chx_runinfor_bar"
+            android:checked="true"/>
+
+        <CheckBox
+            android:id="@+id/shortcut_runinfor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/chx_runinfor"
+            android:checked="false"/>
+
+        <Button
+            android:id="@+id/shortcut_clear_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_clear_app"/>
+
+        <CheckBox
+            android:id="@+id/shortcut_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/chx_screen"
+            android:checked="true"/>
+    </LinearLayout>
+
+</LinearLayout>

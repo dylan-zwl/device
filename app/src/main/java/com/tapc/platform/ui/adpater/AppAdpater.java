@@ -39,13 +39,15 @@ public class AppAdpater extends BaseRecyclerViewAdapter<AppAdpater.AppViewHolder
         holder.appClick.setTag(item);
         holder.appClick.setOnClickListener(this);
 //        Glide.with(mContext).load(item.getAppIcon()).skipMemoryCache(true).diskCacheStrategy
-//                (DiskCacheStrategy.NONE).transform(new GlideRoundTransform(mContext, 12)).into(holder.icon);
-        holder.icon.setImageDrawable(item.getAppIcon());
+//                (DiskCacheStrategy.NONE).transform(new GlideRoundTransform(mContext, 40)).into(holder.icon);
+        holder.icon.setBackground(item.getAppIcon());
     }
 
     public static class AppViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.app_icon)
         RoundRectImageView icon;
+        //        @BindView(R.id.app_icon)
+        //        ImageView icon;
         @BindView(R.id.app_click)
         ImageButton appClick;
 

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.tapc.platform.R;
+import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.run.RunCommonActivity;
 import com.tapc.platform.utils.IntentUtils;
@@ -47,5 +48,6 @@ public class CountdownActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
     }
 }

@@ -20,6 +20,7 @@ public class TapcApplication extends Application {
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
+    private Class<?> mHomeActivity;
 
 
     @Override
@@ -42,6 +43,8 @@ public class TapcApplication extends Application {
 
             }
         }, Context.BIND_AUTO_CREATE);
+
+        mKeyEvent = new KeyEvent(null, 0);
     }
 
 
@@ -55,5 +58,13 @@ public class TapcApplication extends Application {
 
     public KeyEvent getKeyEvent() {
         return mKeyEvent;
+    }
+
+    public Class<?> getHomeActivity() {
+        return mHomeActivity;
+    }
+
+    public void setHomeActivity(Class<?> homeActivity) {
+        this.mHomeActivity = homeActivity;
     }
 }
