@@ -67,10 +67,10 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
         }
         if (mShortcutKeyLL.isShown()) {
             mShortcutKeyLL.setVisibility(GONE);
-            mShortcutKeyLL.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
+//            mShortcutKeyLL.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_out));
         } else {
             mShortcutKeyLL.setVisibility(VISIBLE);
-            mShortcutKeyLL.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
+            mShortcutKeyLL.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim.fade_in));
         }
     }
 

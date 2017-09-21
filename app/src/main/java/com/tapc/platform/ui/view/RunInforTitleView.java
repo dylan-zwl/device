@@ -24,11 +24,11 @@ public class RunInforTitleView extends BaseView {
     public RunInforTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RunInfor);
-        int icon = array.getResourceId(R.styleable.RunInfor_runinfor_icon, -1);
+        int icon = array.getResourceId(R.styleable.RunInfor_runinforIcon, -1);
         if (icon != -1) {
             mIcon.setImageResource(icon);
         }
-        initTvShow(mNameTv, array, R.styleable.RunInfor_runinfor_name);
+        initTvShow(mNameTv, array, R.styleable.RunInfor_runinforName);
     }
 
     @Override

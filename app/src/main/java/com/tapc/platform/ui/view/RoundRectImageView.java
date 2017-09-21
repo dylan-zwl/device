@@ -34,8 +34,8 @@ public class RoundRectImageView extends ImageView {
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RoundRect);
-        mRoundMode = array.getInt(R.styleable.RoundRect_round_rect_mode, MODE_CIRCLE);
-        mRadius = array.getInt(R.styleable.RoundRect_round_rect_radius, 12);
+        mRoundMode = array.getInt(R.styleable.RoundRect_roundRectMode, MODE_CIRCLE);
+        mRadius = array.getInt(R.styleable.RoundRect_roundRectRadius, 12);
     }
 
     @Override

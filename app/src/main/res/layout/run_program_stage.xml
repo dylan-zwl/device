@@ -20,7 +20,7 @@
             android:layout_marginTop="-10dp"
             android:gravity="top"
             android:text="0.0"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size6"/>
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_marginLeft="18dp"
             android:layout_toRightOf="@id/run_program_recommended_value"
             android:text="+0.0"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
 
         <TextView
@@ -38,7 +38,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="18dp"
             android:text="速度"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
     </RelativeLayout>
 
@@ -46,12 +46,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="6dp"
-        ProgramImage:bgFrameColor="@color/colorText2"
+        ProgramImage:bgFrameColor="@color/commonColor2"
         ProgramImage:bgFrameRadius="12dp"
-        ProgramImage:blockColor="@color/colorText2"
+        ProgramImage:blockColor="@color/commonColor2"
         ProgramImage:blockHeight="0dp"
         ProgramImage:blockWith="10dp"
-        ProgramImage:lineColor="@color/colorText1">
+        ProgramImage:lineColor="@color/commonColor1">
 
     </com.tapc.platform.ui.view.ProgramChart>
 </LinearLayout>

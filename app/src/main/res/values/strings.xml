@@ -1,5 +1,20 @@
 <resources>
     <string name="app_name">device</string>
 
+    <string name="speed">速度</string>
+    <string name="incline">坡度</string>
+    <string name="time">时间</string>
+    <string name="distance">距离</string>
+    <string name="calorie">卡路里</string>
+    <string name="heart_rate">心率</string>
+    <string name="weight">体重</string>
+    <string name="age">年龄</string>
+
+    //单位
+    <string name="speed_unit">km/h</string>
+    <string name="incline_unit">%</string>
+    <string name="distance_unit">km</string>
+    <string name="calorie_unit">kcal</string>
+    <string name="weight_unit">kg</string>
 
 </resources>

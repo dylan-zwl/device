@@ -12,7 +12,7 @@
         android:background="@drawable/bg_parameter_name"
         android:gravity="center"
         android:text="类型"
-        android:textColor="@color/colorText1"
+        android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size2"/>
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size6"/>
 
         <TextView
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="km"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_parameter_defvalue_1"
-            android:textColor="@color/colorText2"
+            android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size2"/>
 
         <Button
@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_parameter_defvalue_2"
-            android:textColor="@color/colorText2"
+            android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size2"/>
 
         <Button
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_parameter_defvalue_3"
-            android:textColor="@color/colorText2"
+            android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size2"/>
     </LinearLayout>
 </LinearLayout>

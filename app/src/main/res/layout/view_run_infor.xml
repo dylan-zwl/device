@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentTop="true"
-        android:background="@color/colorText2">
+        android:background="@color/commonColor2">
     </ImageView>
 
     <RelativeLayout
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="5dp"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_alignBottom="@id/run_infor_name"
             android:layout_marginLeft="18dp"
             android:layout_toRightOf="@id/run_infor_name"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size1"/>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_alignBottom="@id/run_infor_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
     </RelativeLayout>
 </RelativeLayout>

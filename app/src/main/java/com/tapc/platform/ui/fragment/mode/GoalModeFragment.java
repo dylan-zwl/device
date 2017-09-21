@@ -5,12 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
-import com.tapc.platform.ui.activity.start.StartActivity;
+import com.tapc.platform.entity.GoalModeItem;
+import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.GoalModeAdpater;
-import com.tapc.platform.entity.GoalModeItem;
-import com.tapc.platform.ui.fragment.BaseFragment;
-import com.tapc.platform.ui.fragment.parametersettings.ParameterSettingsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import butterknife.BindView;
  * Created by Administrator on 2017/8/25.
  */
 
-public class GoalModeFragment extends BaseFragment {
+public class GoalModeFragment extends ModeBaseFragment {
     @BindView(R.id.mode_recyclerview)
     RecyclerView mRecyclerview;
 
@@ -44,7 +42,34 @@ public class GoalModeFragment extends BaseFragment {
         goalModeAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<GoalModeItem>() {
             @Override
             public void onItemClick(View view, GoalModeItem goalModeItem) {
-                StartActivity.replaceFragment(mContext, ParameterSettingsFragment.class);
+                if (mListener != null) {
+                    List<ParameterSet> list = new ArrayList<ParameterSet>();
+                    List<Object> defValues = new ArrayList<Object>();
+                    defValues.add("10");
+                    defValues.add("20");
+                    defValues.add("30");
+                    switch (goalModeItem.getProgramType()) {
+                        case TIME:
+                            list.add(new ParameterSet("时间", "30", "min", defValues));
+                            break;
+                        case DISTANCE:
+                            list.add(new ParameterSet("距离", "30", "km", defValues));
+                            break;
+                        case CALORIE:
+                            list.add(new ParameterSet("卡路里", "30", "kcal", defValues));
+                            break;
+                    }
+
+                    if (goalModeItem.getName() == R.string.heart_rate) {
+                        list.add(new ParameterSet("心率", "80", "", defValues));
+                        list.add(new ParameterSet("年龄", "6", "kg", defValues));
+                        list.add(new ParameterSet("体重", "6", "kg", defValues));
+                    } else {
+                        list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
+                        list.add(new ParameterSet("坡度", "6", "%", defValues));
+                    }
+                    mListener.switchParameterSettingsFragment(mContext, list, goalModeItem.getProgramType());
+                }
             }
         });
     }

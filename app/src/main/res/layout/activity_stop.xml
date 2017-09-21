@@ -23,7 +23,7 @@
             android:layout_height="400dp"
             RoundProgressBar:bgColor="#4D2076BE"
             RoundProgressBar:maxProgress="100"
-            RoundProgressBar:progressColor="@color/colorText2"
+            RoundProgressBar:progressColor="@color/commonColor2"
             RoundProgressBar:roundWidth="20dp"/>
 
         <LinearLayout
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size7"/>
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:textColor="@color/colorText2"
+                android:textColor="@color/commonColor2"
                 android:textSize="@dimen/tx_size3"/>
         </LinearLayout>
     </FrameLayout>

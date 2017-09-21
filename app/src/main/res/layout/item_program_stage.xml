@@ -10,7 +10,7 @@
         android:layout_width="40dp"
         android:layout_height="3dp"
         android:layout_marginTop="224dp"
-        android:background="@color/colorText2"/>
+        android:background="@color/commonColor2"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -27,14 +27,14 @@
                 android:id="@+id/program_stage_reftvalue"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
-                ProgramImage:bgFrameColor="@color/colorText2"/>
+                ProgramImage:bgFrameColor="@color/commonColor2"/>
 
             <com.tapc.platform.ui.view.Histogram
                 android:id="@+id/program_stage_rightvalue"
                 android:layout_width="25dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
-                ProgramImage:bgFrameColor="@color/colorText2"/>
+                ProgramImage:bgFrameColor="@color/commonColor2"/>
         </LinearLayout>
 
         <LinearLayout
@@ -49,7 +49,7 @@
                 android:background="@drawable/bg_program_stage_tx"
                 android:gravity="center"
                 android:text="0"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <TextView
@@ -59,7 +59,7 @@
                 android:background="@drawable/bg_program_stage_tx"
                 android:gravity="center"
                 android:text="0 min"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size2"/>
         </LinearLayout>
     </LinearLayout>

@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
 //        IntentUtils.startActivity(mContext, RunInforActivity.class);
         System.gc();
+        float a = getResources().getDisplayMetrics().density;
     }
 
     @OnClick(R.id.main_start)

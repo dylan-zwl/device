@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center"
-              android:orientation="vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
-    <com.tapc.platform.ui.view.ProgramImagView
-        android:id="@+id/program_image"
+    <RelativeLayout
+        android:id="@+id/program_image_fl"
         android:layout_width="260dp"
         android:layout_height="146dp"
         android:layout_marginTop="20dp">
 
-    </com.tapc.platform.ui.view.ProgramImagView>
+        <com.tapc.platform.ui.view.ProgramImagView
+            android:id="@+id/program_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </com.tapc.platform.ui.view.ProgramImagView>
+
+        <Button
+            android:id="@+id/program_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/btn_program_add"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/program_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/program_image_fl"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:textColor="@color/colorText1"
+        android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size3"/>
-</LinearLayout>
+</RelativeLayout>

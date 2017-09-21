@@ -2,6 +2,8 @@ package com.tapc.platform.ui.adpater;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
 import com.tapc.platform.R;
@@ -18,6 +20,8 @@ import butterknife.ButterKnife;
  */
 
 public class AppAdpater extends BaseRecyclerViewAdapter<AppAdpater.AppViewHolder, AppInfoEntity> {
+    private int lastPosition = -1;
+
     public AppAdpater(List datas) {
         super(datas);
     }
@@ -41,6 +45,17 @@ public class AppAdpater extends BaseRecyclerViewAdapter<AppAdpater.AppViewHolder
 //        Glide.with(mContext).load(item.getAppIcon()).skipMemoryCache(true).diskCacheStrategy
 //                (DiskCacheStrategy.NONE).transform(new GlideRoundTransform(mContext, 40)).into(holder.icon);
         holder.icon.setBackground(item.getAppIcon());
+        if (position > lastPosition) {
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fade_in);
+            holder.itemView.startAnimation(animation);
+            lastPosition = position;
+        }
+    }
+
+    @Override
+    public void onViewDetachedFromWindow(AppViewHolder holder) {
+        super.onViewDetachedFromWindow(holder);
+        holder.itemView.clearAnimation();
     }
 
     public static class AppViewHolder extends RecyclerView.ViewHolder {
@@ -57,5 +72,4 @@ public class AppAdpater extends BaseRecyclerViewAdapter<AppAdpater.AppViewHolder
             ButterKnife.bind(this, view);
         }
     }
-
 }

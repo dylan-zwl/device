@@ -5,9 +5,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.tapc.platform.R;
-import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.run.RunCommonActivity;
 import com.tapc.platform.utils.IntentUtils;
@@ -32,22 +30,26 @@ public class CountdownActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        Glide.with(this).load(R.drawable.gif_countdown).skipMemoryCache(true).fitCenter().centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(new GlideDrawableImageViewTarget(mCountdown, 1));
+        Glide.with(this).load(R.drawable.gif_countdown).asGif().skipMemoryCache(true).diskCacheStrategy
+                (DiskCacheStrategy.NONE).into(mCountdown);
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 IntentUtils.startActivity(mContext, RunCommonActivity.class);
-                finish();
+//                Intent intent = getIntent();
+//                intent.setClass(mContext, RunCommonActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         }, 5000);
+
+
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
-        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
     }
 }

@@ -16,4 +16,10 @@ public class FragmentUtils {
         ft.replace(id, Fragment.instantiate(context, cls.getName()));
         ft.commit();
     }
+
+    public static void replaceFragment(Context context, FragmentManager fragmentManager, int id, Fragment fragment) {
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(id, fragment);
+        ft.commit();
+    }
 }

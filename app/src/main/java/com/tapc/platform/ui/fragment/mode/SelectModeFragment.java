@@ -1,10 +1,12 @@
 package com.tapc.platform.ui.fragment.mode;
 
 
+import android.app.Fragment;
 import android.app.FragmentManager;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.ui.activity.start.StartActivity;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.utils.FragmentUtils;
 
@@ -17,6 +19,12 @@ import butterknife.OnClick;
 
 public class SelectModeFragment extends BaseFragment {
     private FragmentManager mManager;
+    private StartActivity.StartActivityListener mListener;
+
+    public SelectModeFragment(StartActivity.StartActivityListener listener) {
+        super();
+        mListener = listener;
+    }
 
     @Override
     protected int getContentView() {
@@ -26,7 +34,7 @@ public class SelectModeFragment extends BaseFragment {
     @Override
     protected void initView() {
         mManager = getChildFragmentManager();
-        FragmentUtils.replaceFragment(mContext, mManager, R.id.mode_fragment, GoalModeFragment.class);
+        replaceFragment(GoalModeFragment.class);
     }
 
     @OnClick({R.id.select_goal_mode, R.id.select_va_mode, R.id.select_program_mode, R.id.select_map_mode})
@@ -46,8 +54,16 @@ public class SelectModeFragment extends BaseFragment {
                 cls = GoalModeFragment.class;
                 break;
         }
+        replaceFragment(cls);
+    }
+
+    private void replaceFragment(Class<?> cls) {
         if (cls != null) {
-            FragmentUtils.replaceFragment(mContext, mManager, R.id.mode_fragment, cls);
+            ModeBaseFragment modeBaseFragment = (ModeBaseFragment) Fragment.instantiate(mContext, cls.getName());
+            if (modeBaseFragment != null) {
+                modeBaseFragment.setListener(mListener);
+                FragmentUtils.replaceFragment(mContext, mManager, R.id.mode_fragment, modeBaseFragment);
+            }
         }
     }
 }

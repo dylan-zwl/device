@@ -10,19 +10,19 @@
         android:layout_height="match_parent"
         android:background="@drawable/bg_round_border"
         android:paddingBottom="15dp"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
+        android:paddingLeft="34dp"
+        android:paddingRight="34dp"
         android:paddingTop="15dp">
 
         <com.tapc.platform.ui.view.ProgramChart
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            ProgramImage:bgFrameColor="@color/colorText2"
+            ProgramImage:bgFrameColor="@color/commonColor2"
             ProgramImage:bgFrameRadius="12dp"
-            ProgramImage:blockColor="@color/colorText2"
+            ProgramImage:blockColor="@color/commonColor2"
             ProgramImage:blockHeight="0dp"
             ProgramImage:blockWith="8dp"
-            ProgramImage:lineColor="@color/colorText1"/>
+            ProgramImage:lineColor="@color/commonColor1"/>
     </LinearLayout>
 
     <Button

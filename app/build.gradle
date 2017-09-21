@@ -19,6 +19,12 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'src/libs'
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -45,4 +51,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.youth.banner:banner:1.4.10'
     compile files('src/libs/keyboard.jar')
+
+    compile(name: 'workout', ext: 'aar')
 }

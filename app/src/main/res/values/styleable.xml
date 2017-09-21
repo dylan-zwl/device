@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="DeviceCtl">
-        <attr name="ctl_icon" format="reference"/>
-        <attr name="ctl_unit" format="string"/>
+        <attr name="ctlIcon" format="reference"/>
+        <attr name="ctlUnit" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="RoundRect">
-        <attr name="round_rect_radius" format="integer"/>
-        <attr name="round_rect_mode">
+        <attr name="roundRectRadius" format="integer"/>
+        <attr name="roundRectMode">
             <enum name="Circle" value="0"/>
             <enum name="RoundRect" value="1"/>
         </attr>
@@ -15,10 +15,10 @@
 
 
     <declare-styleable name="RunInfor">
-        <attr name="runinfor_icon" format="reference"/>
-        <attr name="runinfor_name" format="string"/>
-        <attr name="runinfor_uint" format="string"/>
-        <attr name="runinfor_value" format="string"/>
+        <attr name="runinforIcon" format="reference"/>
+        <attr name="runinforName" format="string"/>
+        <attr name="runinforUint" format="string"/>
+        <attr name="runinforValue" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="RoundProgressBar">

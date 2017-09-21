@@ -79,7 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                DeviceCtl:ctl_icon="@drawable/btn_incline">
+                DeviceCtl:ctlIcon="@drawable/btn_incline"
+                DeviceCtl:ctlUnit="@string/incline_unit">
 
             </com.tapc.platform.ui.view.DeviceCtl>
 
@@ -95,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00:00"
-                    android:textColor="@color/colorText1"
+                    android:textColor="@color/commonColor1"
                     android:textSize="@dimen/tx_size7"/>
 
                 <ProgressBar
@@ -110,7 +111,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                DeviceCtl:ctl_icon="@drawable/btn_speed">
+                DeviceCtl:ctlIcon="@drawable/btn_speed"
+                DeviceCtl:ctlUnit="@string/speed_unit">
 
             </com.tapc.platform.ui.view.DeviceCtl>
         </LinearLayout>

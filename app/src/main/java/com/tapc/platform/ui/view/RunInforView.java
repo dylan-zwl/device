@@ -25,9 +25,9 @@ public class RunInforView extends BaseView {
     public RunInforView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RunInfor);
-        setTextView(mNameTv, array, R.styleable.RunInfor_runinfor_name);
-        setTextView(mUnitTv, array, R.styleable.RunInfor_runinfor_uint);
-        setTextView(mValueTv, array, R.styleable.RunInfor_runinfor_value);
+        setTextView(mNameTv, array, R.styleable.RunInfor_runinforName);
+        setTextView(mUnitTv, array, R.styleable.RunInfor_runinforUint);
+        setTextView(mValueTv, array, R.styleable.RunInfor_runinforValue);
         array.recycle();
     }
 

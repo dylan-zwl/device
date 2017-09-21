@@ -76,7 +76,7 @@ public class VaPlayer {
     }
 
     public void init() {
-        initBackMusic();
+
     }
 
     private void releaseMediaPlayer() {
@@ -89,7 +89,7 @@ public class VaPlayer {
     private void playVideo(int VideoIndex) {
         try {
             isCanSetVideo = false;
-            String EvtFile = mNowVaPlayVideo.getPath() + mNowVaPlayVideo.getEvtList().get(VideoIndex);
+            String EvtFile = mNowVaPlayVideo.getPath() + "/" + mNowVaPlayVideo.getEvtList().get(VideoIndex);
             InputStream EvtInputStream = new FileInputStream(EvtFile);
             CvaFactory cvafactory = new CvaFactory();
             CvaVideo video = new CvaVideo();
@@ -298,6 +298,7 @@ public class VaPlayer {
         PlayFlag = true;
         mNowVaPlayVideo = vaPlay;
         playVideo(mVideoIndex);
+        initBackMusic();
         playBackMusic();
     }
 

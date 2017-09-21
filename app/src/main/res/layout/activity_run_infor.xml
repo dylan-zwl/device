@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorText2"/>
+        android:background="@color/commonColor2"/>
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -40,8 +40,8 @@
             <com.tapc.platform.ui.view.RunInforTitleView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                RunInfor:runinfor_icon="@drawable/ic_run_infor_time"
-                RunInfor:runinfor_name="时间">
+                RunInfor:runinforIcon="@drawable/ic_run_infor_time"
+                RunInfor:runinforName="时间">
 
             </com.tapc.platform.ui.view.RunInforTitleView>
 
@@ -50,9 +50,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                RunInfor:runinfor_name="已用时间"
-                RunInfor:runinfor_uint=""
-                RunInfor:runinfor_value="00:00:00">
+                RunInfor:runinforName="已用时间"
+                RunInfor:runinforUint=""
+                RunInfor:runinforValue="00:00:00">
 
             </com.tapc.platform.ui.view.RunInforView>
 
@@ -67,9 +67,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="剩余时间"
-                    RunInfor:runinfor_uint=""
-                    RunInfor:runinfor_value="00:00:00">
+                    RunInfor:runinforName="剩余时间"
+                    RunInfor:runinforUint=""
+                    RunInfor:runinforValue="00:00:00">
 
                 </com.tapc.platform.ui.view.RunInforView>
 
@@ -77,9 +77,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="总时间"
-                    RunInfor:runinfor_uint=""
-                    RunInfor:runinfor_value="00:00:00">
+                    RunInfor:runinforName="总时间"
+                    RunInfor:runinforUint=""
+                    RunInfor:runinforValue="00:00:00">
 
                 </com.tapc.platform.ui.view.RunInforView>
 
@@ -87,9 +87,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="xx时间"
-                    RunInfor:runinfor_uint=""
-                    RunInfor:runinfor_value="00:00:00">
+                    RunInfor:runinforName="xx时间"
+                    RunInfor:runinforUint=""
+                    RunInfor:runinforValue="00:00:00">
 
                 </com.tapc.platform.ui.view.RunInforView>
 
@@ -97,9 +97,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="xx时间"
-                    RunInfor:runinfor_uint=""
-                    RunInfor:runinfor_value="00:00:00">
+                    RunInfor:runinforName="xx时间"
+                    RunInfor:runinforUint=""
+                    RunInfor:runinforValue="00:00:00">
 
                 </com.tapc.platform.ui.view.RunInforView>
             </LinearLayout>
@@ -124,8 +124,8 @@
                 <com.tapc.platform.ui.view.RunInforTitleView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    RunInfor:runinfor_icon="@drawable/ic_run_infor_speed"
-                    RunInfor:runinfor_name="速度">
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="速度">
 
                 </com.tapc.platform.ui.view.RunInforTitleView>
 
@@ -133,9 +133,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="当前速度"
-                    RunInfor:runinfor_uint="km/h"
-                    RunInfor:runinfor_value="0">
+                    RunInfor:runinforName="当前速度"
+                    RunInfor:runinforUint="km/h"
+                    RunInfor:runinforValue="0">
 
                 </com.tapc.platform.ui.view.RunInforView>
 
@@ -143,9 +143,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="平均速度"
-                    RunInfor:runinfor_uint="km/h"
-                    RunInfor:runinfor_value="0">
+                    RunInfor:runinforName="平均速度"
+                    RunInfor:runinforUint="km/h"
+                    RunInfor:runinforValue="0">
 
                 </com.tapc.platform.ui.view.RunInforView>
 
@@ -153,9 +153,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    RunInfor:runinfor_name="最高速度"
-                    RunInfor:runinfor_uint="km/h"
-                    RunInfor:runinfor_value="0">
+                    RunInfor:runinforName="最高速度"
+                    RunInfor:runinforUint="km/h"
+                    RunInfor:runinforValue="0">
 
                 </com.tapc.platform.ui.view.RunInforView>
             </LinearLayout>

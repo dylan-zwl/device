@@ -28,7 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:text=""
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
     </LinearLayout>
 

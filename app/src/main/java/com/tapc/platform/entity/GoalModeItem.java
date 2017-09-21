@@ -1,22 +1,25 @@
 package com.tapc.platform.entity;
 
 import com.tapc.platform.R;
+import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 
 /**
  * Created by Administrator on 2017/8/25.
  */
 
 public enum GoalModeItem {
-    TIME(R.drawable.ic_goal_time, "时间", false),
-    DISTANCE(R.drawable.ic_goal_disatance, "距离", false),
-    CALORIE(R.drawable.ic_goal_calorie, "卡路里", false),
-    HEART(R.drawable.ic_goal_heart, "心率", false);
+    TIME(ProgramType.TIME, R.drawable.ic_goal_time, R.string.time, false),
+    DISTANCE(ProgramType.DISTANCE, R.drawable.ic_goal_disatance, R.string.distance, false),
+    CALORIE(ProgramType.CALORIE, R.drawable.ic_goal_calorie, R.string.calorie, false),
+    HEART(ProgramType.TIME, R.drawable.ic_goal_heart, R.string.heart_rate, false);
 
+    private ProgramType programType;
     private int icon;
-    private String name;
+    private int name;
     private boolean isChecked;
 
-    GoalModeItem(int icon, String name, boolean isChecked) {
+    GoalModeItem(ProgramType programType, int icon, int name, boolean isChecked) {
+        this.programType = programType;
         this.icon = icon;
         this.name = name;
         this.isChecked = isChecked;
@@ -30,13 +33,6 @@ public enum GoalModeItem {
         this.icon = icon;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public boolean isChecked() {
         return isChecked;
@@ -44,5 +40,21 @@ public enum GoalModeItem {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
+    public ProgramType getProgramType() {
+        return programType;
+    }
+
+    public void setProgramType(ProgramType programType) {
+        this.programType = programType;
     }
 }

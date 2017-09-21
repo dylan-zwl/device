@@ -20,8 +20,8 @@
             android:id="@+id/app_icon"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            RoundRect:round_rect_mode="Circle"
-            RoundRect:round_rect_radius="12"/>
+            RoundRect:roundRectMode="Circle"
+            RoundRect:roundRectRadius="12"/>
 
         <ImageButton
             android:id="@+id/app_click"

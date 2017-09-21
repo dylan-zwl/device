@@ -7,6 +7,13 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.jht.tapc.jni.KeyEvent;
+import com.tapc.platform.entity.DeviceType;
+import com.tapc.platform.library.abstractset.ProgramSetting;
+import com.tapc.platform.library.common.AppSettings;
+import com.tapc.platform.library.common.BikeSystemSettings;
+import com.tapc.platform.library.common.SystemSettings;
+import com.tapc.platform.library.common.TreadmillSystemSettings;
+import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.service.LocalBinder;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.utils.IntentUtils;
@@ -21,7 +28,7 @@ public class TapcApplication extends Application {
     private StartService mService;
     private KeyEvent mKeyEvent;
     private Class<?> mHomeActivity;
-
+    private ProgramSetting mProgramSetting;
 
     @Override
     public void onCreate() {
@@ -45,8 +52,24 @@ public class TapcApplication extends Application {
         }, Context.BIND_AUTO_CREATE);
 
         mKeyEvent = new KeyEvent(null, 0);
+        initControl(this);
     }
 
+    private void initControl(Context context) {
+        SystemSettings systemSettings = null;
+        if (Config.DEVICE_TYPE == DeviceType.TREADMILL) {
+            systemSettings = new TreadmillSystemSettings();
+        } else if (Config.DEVICE_TYPE == DeviceType.BIKE) {
+            systemSettings = new BikeSystemSettings();
+        }
+        if (systemSettings != null) {
+            systemSettings.Load(this, null);
+            AppSettings.setLoopbackMode(true);
+            MachineController controller = MachineController.getInstance();
+            controller.initController(this);
+            controller.start();
+        }
+    }
 
     public static TapcApplication getInstance() {
         return mInstance;
@@ -66,5 +89,13 @@ public class TapcApplication extends Application {
 
     public void setHomeActivity(Class<?> homeActivity) {
         this.mHomeActivity = homeActivity;
+    }
+
+    public ProgramSetting getProgramSetting() {
+        return mProgramSetting;
+    }
+
+    public void setProgramSetting(ProgramSetting programSetting) {
+        this.mProgramSetting = programSetting;
     }
 }

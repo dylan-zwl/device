@@ -46,7 +46,7 @@
                 android:layout_marginLeft="36dp"
                 android:clickable="false"
                 android:text="开始"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size5"/>
         </LinearLayout>
     </RelativeLayout>

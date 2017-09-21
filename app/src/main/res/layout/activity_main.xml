@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="扫码登录更多体验"
-                    android:textColor="@color/colorText1"
+                    android:textColor="@color/commonColor1"
                     android:textSize="@dimen/tx_size3"/>
 
                 <ImageView
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="快速开始"
-                    android:textColor="@color/colorText2"
+                    android:textColor="@color/commonColor2"
                     android:textSize="@dimen/tx_size3"/>
             </LinearLayout>
         </LinearLayout>
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="请在面板刷卡登录"
-                android:textColor="@color/colorText2"
+                android:textColor="@color/commonColor2"
                 android:textSize="@dimen/tx_size1"/>
         </LinearLayout>
 

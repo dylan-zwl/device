@@ -7,8 +7,23 @@ import java.util.List;
  */
 
 public class PragramRunItem {
+    private Type type = Type.COMMON;
     private String name;
     private List<Integer> list;
+
+    public enum Type {
+        COMMON,
+        USER_ADD,
+        ADD_PROGRAM,
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;

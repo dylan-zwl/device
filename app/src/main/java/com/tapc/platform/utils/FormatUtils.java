@@ -18,4 +18,8 @@ public class FormatUtils {
         return bg.doubleValue();
     }
 
+    public static float formatFloat(int bit, float value, RoundingMode roundingMode) {
+        BigDecimal bg = new BigDecimal(value).setScale(bit, roundingMode);
+        return bg.floatValue();
+    }
 }

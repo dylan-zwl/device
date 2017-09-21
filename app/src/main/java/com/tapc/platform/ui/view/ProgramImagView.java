@@ -25,4 +25,8 @@ public class ProgramImagView extends BaseView {
     public void setDeleteOnClick(OnClickListener l) {
         deleteBtn.setOnClickListener(l);
     }
+
+    public void setDeleteBtnVisibility(boolean visibility) {
+        deleteBtn.setVisibility(GONE);
+    }
 }

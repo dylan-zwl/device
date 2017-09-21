@@ -41,7 +41,10 @@ public class GoalModeAdpater extends BaseRecyclerViewAdapter<GoalModeAdpater.Goa
         holder.itemView.setTag(item);
         holder.itemView.setOnClickListener(this);
         holder.icon.setBackgroundResource(item.getIcon());
-        holder.name.setText(item.getName());
+        String nameStr = mContext.getResources().getString(item.getName());
+        if (nameStr != null) {
+            holder.name.setText(nameStr);
+        }
         if (item.isChecked()) {
             holder.bg.setBackgroundResource(R.drawable.bg_goal_mode_item);
         } else {

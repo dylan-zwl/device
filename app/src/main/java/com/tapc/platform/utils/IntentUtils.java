@@ -26,6 +26,15 @@ public class IntentUtils {
         context.startActivity(intent);
     }
 
+    public static void startActivity(Context context, Class<?> cls, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(context, cls);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        context.startActivity(intent);
+    }
+
     public static void startActivity(Context context, Class<?> cls, Bundle bundle, int flag) {
         Intent intent = new Intent();
         intent.setClass(context, cls);
@@ -33,15 +42,6 @@ public class IntentUtils {
             intent.putExtras(bundle);
         }
         intent.setFlags(flag);
-        context.startActivity(intent);
-    }
-
-    public static void startActivity(Context context, Class<?> cls, Bundle bundle) {
-        Intent intent = new Intent();
-        intent.setClass(context, cls);
-        if (bundle != null) {
-            intent.putExtras(bundle);
-        }
         context.startActivity(intent);
     }
 

@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.VaAdpater;
-import com.tapc.platform.ui.fragment.BaseFragment;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Administrator on 2017/8/25.
  */
 
-public class VaFragment extends BaseFragment {
+public class VaFragment extends ModeBaseFragment {
     @BindView(R.id.mode_recyclerview)
     RecyclerView mRecyclerview;
 
@@ -49,8 +49,18 @@ public class VaFragment extends BaseFragment {
         mVaAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PlayEntity>() {
             @Override
             public void onItemClick(View view, PlayEntity playEntity) {
-//                StartActivity.replaceFragment(mContext, ParameterSettingsFragment.class);
-//                RunVaActivity.launch(mContext, playEntity);
+                if (mListener != null) {
+                    List<ParameterSet> list = new ArrayList<ParameterSet>();
+                    List<Object> defValues = new ArrayList<Object>();
+                    defValues.add("10");
+                    defValues.add("20");
+                    defValues.add("30");
+                    list.add(new ParameterSet("时间", "30", "min", defValues));
+                    list.add(new ParameterSet("体重", "6", "kg", defValues));
+                    list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
+                    list.add(new ParameterSet("坡度", "6", "%", defValues));
+                    mListener.switchParameterSettingsFragment(mContext, list);
+                }
             }
         });
 

@@ -24,7 +24,7 @@
             android:gravity="center"
             android:lineSpacingExtra="24dp"
             android:text="安全锁已开启/n请将安全锁放回原位解锁跑步机"
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="40sp"/>
     </LinearLayout>
 

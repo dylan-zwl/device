@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
         android:text="请选择锻炼类型"
-        android:textColor="@color/colorText1"
+        android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size4"/>
 
     <ImageView

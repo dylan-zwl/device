@@ -31,6 +31,7 @@ public class RunCommonActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         mTapcApp.setHomeActivity(this.getClass());
+
         mImages = new ArrayList<Object>();
         mImages.add(R.drawable.bg_advertisement_nomal);
         mImages.add(R.drawable.bg_countdown);
@@ -64,6 +65,7 @@ public class RunCommonActivity extends BaseActivity {
         mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
         mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
         mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
         mBanner.startAutoPlay();
     }
 

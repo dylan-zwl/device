@@ -15,6 +15,7 @@ import com.tapc.platform.ui.widget.BaseView;
 import com.tapc.platform.utils.FormatUtils;
 import com.tapc.platform.utils.RxjavaUtils;
 
+import java.math.RoundingMode;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -40,8 +41,8 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
     @BindView(R.id.device_ctl_sub)
     Button mCtlSub;
 
-    private double mNowValue;
-    private double mSetValuef;
+    private float mNowValue;
+    private float mSetValuef;
     private Listener mListener;
     private Disposable mDisposable;
     private float mStepValue;
@@ -63,14 +64,17 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
     public DeviceCtl(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.DeviceCtl);
-        mIcon = array.getResourceId(R.styleable.DeviceCtl_ctl_icon, -1);
+        mIcon = array.getResourceId(R.styleable.DeviceCtl_ctlIcon, -1);
         if (mIcon != -1) {
             mIconBtn.setBackgroundResource(mIcon);
         }
-        String unit = array.getString(R.styleable.DeviceCtl_ctl_unit);
+        String unit = array.getString(R.styleable.DeviceCtl_ctlUnit);
         if (!TextUtils.isEmpty(unit)) {
             mUnit.setText(unit);
         }
+        array.recycle();
+        mCtlAdd.setOnTouchListener(this);
+        mCtlSub.setOnTouchListener(this);
     }
 
     @Override
@@ -82,13 +86,13 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         return mNowValue;
     }
 
-    public void setValue(double value) {
-        mSetValuef = FormatUtils.formatDouble(value);
+    public void setValue(float value) {
+        mSetValuef = FormatUtils.formatFloat(1, value, RoundingMode.HALF_UP);
         this.mNowValue = mSetValuef;
         mValue.setText(formatShowStr(mSetValuef));
     }
 
-    public String formatShowStr(double value) {
+    public String formatShowStr(float value) {
         return String.format("%.1f", value);
     }
 
@@ -170,7 +174,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
 
         void onSubClick();
 
-        void setDeviceValue(double value);
+        void setDeviceValue(float value);
 
         void onCtlTypeClick(int icon);
     }
@@ -203,5 +207,13 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
 
     public int getIcon() {
         return mIcon;
+    }
+
+    public float getMinValue() {
+        return mMinValue;
+    }
+
+    public float getMaxValue() {
+        return mMaxValue;
     }
 }

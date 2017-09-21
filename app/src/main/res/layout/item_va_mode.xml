@@ -26,7 +26,7 @@
             android:background="@drawable/bg_va_name"
             android:gravity="center"
             android:text=""
-            android:textColor="@color/colorText1"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
     </RelativeLayout>
 

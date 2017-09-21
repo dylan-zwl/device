@@ -9,6 +9,10 @@ import android.widget.PopupWindow;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
+import com.tapc.platform.library.abstractset.ProgramSetting;
+import com.tapc.platform.library.common.TreadmillSystemSettings;
+import com.tapc.platform.library.data.TreadmillProgramSetting;
+import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.ParameterSetAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
@@ -28,21 +32,37 @@ public class ParameterSettingsFragment extends BaseFragment {
     RecyclerView mRecyclerview;
 
     private ParameterSetAdpater mAdpater;
+
+    private ProgramType mProgramType = ProgramType.NORMAL;
     private List<ParameterSet> mDataList;
     private String mCurrentShowName;
     private PopupWindow mWindow;
+    private TreadmillProgramSetting mTreadmillProgramSetting;
+    private ProgramSetting mProgramSetting;
 
     @Override
     protected int getContentView() {
         return R.layout.fragment_parameter_settings;
     }
 
+    public void setDataList(List<ParameterSet> dataList) {
+        this.mDataList = dataList;
+    }
+
+    public void init(Object... objects) {
+        if (objects != null && objects.length > 0) {
+            mProgramType = (ProgramType) objects[0];
+        }
+    }
+
     @Override
     protected void initView() {
         super.initView();
-        List<ParameterSet> list = getParameterList();
-        mAdpater = new ParameterSetAdpater(list);
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, list.size());
+        if (mDataList == null) {
+            mDataList = new ArrayList<ParameterSet>();
+        }
+        mAdpater = new ParameterSetAdpater(mDataList);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mDataList.size());
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(gridLayoutManager);
         mRecyclerview.setAdapter(mAdpater);
@@ -78,31 +98,33 @@ public class ParameterSettingsFragment extends BaseFragment {
             @Override
             public void onDefValueBtnClick(Object value, int position) {
                 String showValue = String.valueOf(value);
-                mDataList.get(position).setValue(showValue);
+                ParameterSettingsFragment.this.mDataList.get(position).setValue(showValue);
                 mAdpater.notifyDataSetChanged();
             }
         });
     }
 
-    private List<ParameterSet> getParameterList() {
-        List<ParameterSet> list = new ArrayList<ParameterSet>();
-        List<Object> defValues = new ArrayList<Object>();
-        defValues.add("10");
-        defValues.add("20");
-        defValues.add("30");
-        list.add(new ParameterSet("时间", "30", "min", defValues));
-        list.add(new ParameterSet("距离", "30", "km", defValues));
-        list.add(new ParameterSet("初始速度", "3.0", "km/h", defValues));
-        list.add(new ParameterSet("初始坡度", "6", "%", defValues));
-        return list;
-    }
-
-    private View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-
+    public TreadmillProgramSetting getmProgramSetting() {
+        if (mProgramType == null) {
+            mProgramType = ProgramType.NORMAL;
         }
-    };
+        TreadmillProgramSetting programSetting = new TreadmillProgramSetting(mProgramType);
+        programSetting.setSpeed(TreadmillSystemSettings.MIN_SPEED);
+        programSetting.setIncline(TreadmillSystemSettings.MIN_INCLINE);
+        for (ParameterSet item : mDataList) {
+            float value = Float.valueOf(item.getValue());
+            String name = item.getName();
+            if (name.equals(getString(R.string.time)) || name.equals(getString(R.string.distance)) || name.equals
+                    (getString(R.string.calorie))) {
+                mProgramType.setGoal(value);
+            } else if (name.equals(getString(R.string.speed))) {
+                programSetting.setSpeed(value);
+            } else if (name.equals(getString(R.string.incline))) {
+                programSetting.setIncline(value);
+            }
+        }
+        return programSetting;
+    }
 
     private void cancelPopupWindow() {
         if (mWindow != null && mWindow.isShowing()) {

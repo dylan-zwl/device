@@ -39,6 +39,8 @@ public class StopActivity extends BaseActivity {
         super.initView();
         mBackBtn.setVisibility(View.VISIBLE);
 
+        mTapcApp.setProgramSetting(null);
+
         mDataList = new ArrayList<WorkoutResultItem>();
         initDataList(R.drawable.ic_result_time, "时间", "0", "");
         initDataList(R.drawable.ic_result_distance, "距离", "0", "km");

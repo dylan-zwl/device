@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_number"
                 android:text="1"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -35,7 +35,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="2"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="3"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
         </LinearLayout>
 
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_number"
                 android:text="4"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -70,7 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="5"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -80,7 +80,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="6"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
         </LinearLayout>
 
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_number"
                 android:text="7"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -105,7 +105,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="8"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -115,7 +115,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="9"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
         </LinearLayout>
 
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn_number"
                 android:text="·"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -140,7 +140,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="0"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
 
             <Button
@@ -150,7 +150,7 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/btn_number"
                 android:text="X"
-                android:textColor="@color/colorText1"
+                android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size4"/>
         </LinearLayout>
     </LinearLayout>

@@ -94,8 +94,8 @@ public class ProgramChart extends View {
 //        RectF rectF = new RectF(0, 0, mShowW, mShowH);
 //        canvas.drawRoundRect(rectF, mBgFrameRadius, mBgFrameRadius, mPain);
 
-        mSpacingW = (mShowW - mPaddingLeft - mPaddingRight - mBlockW * mColumn) / (mColumn - 1);
-        mSpacingH = 0;
+        mSpacingW = (int) (mShowW - mPaddingLeft - mPaddingRight - mBlockW * mColumn) / (mColumn - 1);
+        mSpacingH = (int) 0;
 //        mSpacingH = (int) ((mShowH - mPaddingTop - mPaddingBottom - mBlockH * mRow) / (mRow - 1));
 
         /* 矩形柱状*/
@@ -104,7 +104,7 @@ public class ProgramChart extends View {
             mPain.setStyle(Paint.Style.FILL);
             mPain.setColor(mBlockColor);
 
-                    /*格子*/
+            /*格子*/
 //        for (int column = 0; column < mColumn; column++) {
 //            if (column > (mBlockList.size() - 1)) {
 //                break;

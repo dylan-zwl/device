@@ -1,14 +1,18 @@
 package com.tapc.platform.ui.widget;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -66,12 +70,12 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowManagerParams;
     private Handler mHandler;
-    private TranslateAnimation mHideAnimation = new TranslateAnimation(0, 100, 0, 0);
-    private TranslateAnimation mShowAnimation = new TranslateAnimation(100, 0, 0, 0);
+    private Animation mHideAnimation;
+    private Animation mShowAnimation;
 
     private boolean isMove = false;
     private float mTouchY;
-    private float moveToBottom;
+    private float mShowBottom;
 
     private AppShowStatus mNowStatus = SHOW;
     private Disposable mDisposable;
@@ -87,6 +91,8 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mWindowManagerParams = windowManagerParams;
     }
 
+    ArrayList<AppInfoEntity> allAppInfo;
+
     @Override
     protected int getContentView() {
         return R.layout.widget_app_bar;
@@ -96,12 +102,12 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     protected void initView() {
         mHandler = new Handler();
         mPullOut.setOnTouchListener(this);
-        moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
+        mShowBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
 
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
+                allAppInfo = AppUtils.getAllAppInfo(mContext);
                 mAppAdpater = new AppAdpater(allAppInfo);
                 mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override
@@ -120,7 +126,21 @@ public class AppBar extends BaseView implements View.OnTouchListener {
                 initStatusView();
             }
         });
+
+        mShowAnimation = AnimationUtils.loadAnimation(mContext, R.anim.push_right_in);
+        mHideAnimation = AnimationUtils.loadAnimation(mContext, R.anim.push_right_out);
     }
+
+    @OnClick(R.id.app_bar_wifi)
+    void openWifiSetting() {
+
+    }
+
+    @OnClick(R.id.app_bar_bluetooth)
+    void openBtSetting() {
+     
+    }
+
 
     private void initStatusView() {
         //wifi
@@ -166,36 +186,65 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         switch (mNowStatus) {
             case SHOW:
                 mNowStatus = HIDE;
-                mAppBarLL.setVisibility(GONE);
+                mAppBarLL.setVisibility(INVISIBLE);
                 mHideAnimation.setDuration(animationTime);
-                mAppBarLL.startAnimation(mHideAnimation);
-                mHandler.postDelayed(new Runnable() {
+                mHideAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
-                    public void run() {
-                        mPullOut.setVisibility(VISIBLE);
-                        mShowAnimation.setDuration(animationTime);
-                        mPullOut.startAnimation(mShowAnimation);
-                        updateViewLayout(402);
+                    public void onAnimationStart(Animation animation) {
+
                     }
-                }, animationTime);
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        updateViewLayout(402);
+                        mAppBarLL.setVisibility(GONE);
+                        mHandler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                mPullOut.setVisibility(VISIBLE);
+                                mShowAnimation.setDuration(animationTime);
+                                mPullOut.startAnimation(mShowAnimation);
+                            }
+                        }, animationTime);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                mAppBarLL.startAnimation(mHideAnimation);
                 break;
             case HIDE:
                 mNowStatus = SHOW;
-                mPullOut.setVisibility(GONE);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateViewLayout(132);
-                    }
-                }, animationTime);
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mAppBarLL.setVisibility(VISIBLE);
-                        mShowAnimation.setDuration(animationTime);
-                        mAppBarLL.startAnimation(mShowAnimation);
-                    }
-                }, animationTime * 2);
+                mPullOut.setVisibility(INVISIBLE);
+                mHideAnimation.setAnimationListener(
+                        new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                updateViewLayout(132);
+                                mHandler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mPullOut.setVisibility(GONE);
+                                        mAppBarLL.setVisibility(VISIBLE);
+                                        mAppBarLL.startAnimation(mShowAnimation);
+                                    }
+                                }, animationTime);
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        }
+                );
+                mPullOut.startAnimation(mHideAnimation);
                 break;
         }
     }
@@ -214,8 +263,8 @@ public class AppBar extends BaseView implements View.OnTouchListener {
                             float moveY = mTouchY - event.getRawY();
                             if (Math.abs(moveY) > 10) {
                                 int top = (int) (event.getRawY() - v.getHeight() / 2);
-                                if (top > (moveToBottom - v.getHeight())) {
-                                    top = (int) (moveToBottom - v.getHeight());
+                                if (top > (mShowBottom - v.getHeight())) {
+                                    top = (int) (mShowBottom - v.getHeight());
                                 }
                                 updateViewLayout(top);
                                 isMove = true;
@@ -253,5 +302,36 @@ public class AppBar extends BaseView implements View.OnTouchListener {
             mDisposable = null;
         }
         RxBus.getInstance().unSubscribe(this);
+    }
+
+    private class animation extends DefaultItemAnimator {
+        @Override
+        public boolean animateChange(RecyclerView.ViewHolder oldHolder, RecyclerView.ViewHolder newHolder, int fromX,
+                                     int fromY, int toX, int toY) {
+            View view = newHolder.itemView;
+            AnimatorSet animatorSet = new AnimatorSet();
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(view, "alpha", 0.2f, 1f);
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 0f, 1f);
+            animatorSet.setDuration(1000);
+            animatorSet.play(scaleX).with(scaleY).with(alpha);
+            animatorSet.start();
+            return true;
+        }
+
+        @Override
+        public boolean animateAdd(RecyclerView.ViewHolder holder) {
+//            return super.animateAdd(holder);
+            View view = holder.itemView;
+            AnimatorSet animatorSet = new AnimatorSet();
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(view, "alpha", 0.2f, 1f);
+            ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 0f, 1f);
+            ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 0f, 1f);
+            animatorSet.setDuration(1000);
+            animatorSet.play(scaleX).with(scaleY).with(alpha);
+            animatorSet.start();
+            return true;
+        }
+
     }
 }
