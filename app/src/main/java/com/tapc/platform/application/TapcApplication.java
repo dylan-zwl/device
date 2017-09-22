@@ -11,6 +11,7 @@ import com.tapc.platform.entity.DeviceType;
 import com.tapc.platform.library.abstractset.ProgramSetting;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.BikeSystemSettings;
+import com.tapc.platform.library.common.CommonEnum;
 import com.tapc.platform.library.common.SystemSettings;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.controller.MachineController;
@@ -64,6 +65,7 @@ public class TapcApplication extends Application {
         }
         if (systemSettings != null) {
             systemSettings.Load(this, null);
+            AppSettings.setPlatform(CommonEnum.Platform.S700);
             AppSettings.setLoopbackMode(true);
             MachineController controller = MachineController.getInstance();
             controller.initController(this);

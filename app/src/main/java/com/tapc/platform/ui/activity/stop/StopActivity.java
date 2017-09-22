@@ -6,7 +6,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.WorkoutResultItem;
+import com.tapc.platform.entity.WorkoutInforItem;
+import com.tapc.platform.entity.WorkoutInforType;
+import com.tapc.platform.library.data.TreadmillWorkoutInfo;
+import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.MainActivity;
 import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
@@ -27,7 +30,7 @@ public class StopActivity extends BaseActivity {
     @BindView(R.id.result_round_pbar)
     RoundProgressBar mRoundProgressBar;
 
-    List<WorkoutResultItem> mDataList;
+    List<WorkoutInforItem> mDataList;
 
     @Override
     protected int getContentView() {
@@ -41,13 +44,26 @@ public class StopActivity extends BaseActivity {
 
         mTapcApp.setProgramSetting(null);
 
-        mDataList = new ArrayList<WorkoutResultItem>();
-        initDataList(R.drawable.ic_result_time, "时间", "0", "");
-        initDataList(R.drawable.ic_result_distance, "距离", "0", "km");
-        initDataList(R.drawable.ic_result_calorie, "卡路里", "0", "kcal");
-        initDataList(R.drawable.ic_result_heart, "心率", "0", "kpm");
-        initDataList(R.drawable.ic_result_speed, "平均速度", "0", "km/h");
+        mDataList = new ArrayList<WorkoutInforItem>();
+        TreadmillWorkoutInfo workoutInfo = (TreadmillWorkoutInfo) WorkOuting.getInstance().getWorkoutInfo();
+        if (workoutInfo != null) {
+            int time = workoutInfo.getTime();
+            float distance = workoutInfo.getDistance();
+            float calorie = workoutInfo.getCalorie();
+            int heartRate = workoutInfo.getHeart();
+            float speed = workoutInfo.getSpeed();
 
+            initDataList(WorkoutInforType.DISTANCE, R.drawable.ic_result_distance, getString(R.string.distance),
+                    String.format("%.2f", distance), getString(R.string.distance_unit));
+            initDataList(WorkoutInforType.CALORIE, R.drawable.ic_result_calorie, getString(R.string.calorie), String
+                    .format("%.2f", calorie), getString(R.string.calorie_unit));
+            initDataList(WorkoutInforType.TIME, R.drawable.ic_result_time, getString(R.string.time), String.format
+                    ("%02d:%02d:%02d", time / 3600, time % 3600 / 60, time % 60), "");
+            initDataList(WorkoutInforType.HEART_RATE, R.drawable.ic_result_heart, getString(R.string.heart_rate),
+                    String.valueOf(heartRate), getString(R.string.heart_rate_unit));
+            initDataList(WorkoutInforType.SPEED, R.drawable.ic_result_speed, getString(R.string.speed), String.format
+                    ("%.1f", speed), getString(R.string.speed_unit));
+        }
         WorkoutResultAdpater adpater = new WorkoutResultAdpater(mDataList);
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 5));
         mRecyclerview.setAdapter(adpater);
@@ -56,8 +72,8 @@ public class StopActivity extends BaseActivity {
         mRoundProgressBar.setProgress(50);
     }
 
-    private void initDataList(int iconId, String name, String value, String unit) {
-        WorkoutResultItem item = new WorkoutResultItem(iconId, name, value, unit);
+    private void initDataList(WorkoutInforType type, int iconId, String name, String value, String unit) {
+        WorkoutInforItem item = new WorkoutInforItem(type, iconId, name, value, unit);
         mDataList.add(item);
     }
 

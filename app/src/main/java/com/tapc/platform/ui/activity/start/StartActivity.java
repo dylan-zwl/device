@@ -62,6 +62,7 @@ public class StartActivity extends BaseActivity {
             mTapcApp.setProgramSetting(programSetting);
         }
         intent.setClass(mContext, CountdownActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mContext.startActivity(intent);
         finish();
     }

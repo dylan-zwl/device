@@ -2,8 +2,6 @@ package com.tapc.platform.ui.activity.run;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.GlideImageLoader;
-import com.tapc.platform.entity.WidgetShowStatus;
-import com.tapc.platform.ui.activity.BaseActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
@@ -17,7 +15,7 @@ import butterknife.BindView;
  * Created by Administrator on 2017/8/28.
  */
 
-public class RunCommonActivity extends BaseActivity {
+public class RunCommonActivity extends RunBaseActivity {
     @BindView(R.id.run_banner)
     Banner mBanner;
     private List<Object> mImages;
@@ -61,11 +59,6 @@ public class RunCommonActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
         mBanner.startAutoPlay();
     }
 

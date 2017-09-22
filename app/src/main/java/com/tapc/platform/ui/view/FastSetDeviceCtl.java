@@ -29,6 +29,7 @@ public class FastSetDeviceCtl extends BaseView {
 
     private List<String> mDataList;
     private FastSetDeviceAdpater mAdpater;
+    private int mIconId;
 
     @Override
     protected int getContentView() {
@@ -52,6 +53,7 @@ public class FastSetDeviceCtl extends BaseView {
             public void onItemClick(View view, String value) {
                 if (mListener != null) {
                     mListener.onValueClick(value);
+                    mListener.close();
                 }
             }
         });
@@ -64,7 +66,12 @@ public class FastSetDeviceCtl extends BaseView {
         }
     }
 
+    public int getIconId() {
+        return mIconId;
+    }
+
     public void setIcon(int id) {
+        mIconId = id;
         mIcon.setBackgroundResource(id);
     }
 

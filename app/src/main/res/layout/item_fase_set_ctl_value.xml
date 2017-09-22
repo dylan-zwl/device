@@ -9,7 +9,7 @@
         android:id="@+id/ctl_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/btn_set_ctl_value_n"
+        android:background="@drawable/btn_set_ctl_value"
         android:textColor="@color/commonColor2"
         android:textSize="40dp"/>
 </LinearLayout>

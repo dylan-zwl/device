@@ -118,7 +118,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         return true;
     }
 
-    private void cancelObserable() {
+    public void cancelObserable() {
         if (mDisposable != null) {
             if (!mDisposable.isDisposed()) {
                 mDisposable.dispose();
@@ -186,14 +186,14 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         this.mDefValue = defValue;
     }
 
-    public void setOnPause() {
+    public void setPause() {
         mCtlAdd.setClickable(false);
         mCtlSub.setClickable(false);
         mCtlAdd.setBackgroundResource(R.drawable.btn_add_p);
         mCtlSub.setBackgroundResource(R.drawable.btn_sub_p);
     }
 
-    public void setOnResume() {
+    public void setResume() {
         mCtlAdd.setClickable(true);
         mCtlSub.setClickable(true);
         mCtlAdd.setBackgroundResource(R.drawable.btn_add);

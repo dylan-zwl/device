@@ -1,5 +1,6 @@
 package com.tapc.platform.ui.activity.start;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.widget.ImageView;
 
@@ -36,15 +37,11 @@ public class CountdownActivity extends BaseActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                IntentUtils.startActivity(mContext, RunCommonActivity.class);
-//                Intent intent = getIntent();
-//                intent.setClass(mContext, RunCommonActivity.class);
-//                startActivity(intent);
-//                finish();
+                IntentUtils.startActivity(mContext, RunCommonActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK |
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                finish();
             }
         }, 5000);
-
-
     }
 
     @Override

@@ -5,16 +5,17 @@ package com.tapc.platform.entity;
  */
 
 public class RunInforBarItem {
+    private WorkoutInforType type;
     private int icon;
     private String value;
     private String unit;
 
-    public RunInforBarItem(int icon, Object value, String unit) {
+    public RunInforBarItem(WorkoutInforType type, int icon, Object value, String unit) {
+        this.type = type;
         this.icon = icon;
         this.value = String.valueOf(value);
         this.unit = unit;
     }
-
 
     public int getIcon() {
         return icon;
@@ -38,5 +39,13 @@ public class RunInforBarItem {
 
     public void setUnit(String unit) {
         this.unit = unit;
+    }
+
+    public WorkoutInforType getType() {
+        return type;
+    }
+
+    public void setType(WorkoutInforType type) {
+        this.type = type;
     }
 }

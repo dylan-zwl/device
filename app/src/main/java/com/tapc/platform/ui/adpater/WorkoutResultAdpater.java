@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.WorkoutResultItem;
+import com.tapc.platform.entity.WorkoutInforItem;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
  */
 
 public class WorkoutResultAdpater extends BaseRecyclerViewAdapter<WorkoutResultAdpater.WorkoutResultViewHolder,
-        WorkoutResultItem> {
+        WorkoutInforItem> {
 
     public WorkoutResultAdpater(List datas) {
         super(datas);
@@ -37,7 +37,7 @@ public class WorkoutResultAdpater extends BaseRecyclerViewAdapter<WorkoutResultA
     @Override
     public void onBindViewHolder(WorkoutResultViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        WorkoutResultItem item = mDatas.get(position);
+        WorkoutInforItem item = mDatas.get(position);
         holder.icon.setImageResource(item.getIcon());
         holder.name.setText(item.getName());
         String value = item.getValue();

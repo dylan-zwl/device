@@ -43,6 +43,7 @@ public class RoundProgressBar extends View {
         int radius = (int) (centre - mRoundWidth / 2);
 
         mPaint.setColor(mBgColor);
+        mPaint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawCircle(centre, centre, radius, mPaint);
 
         mPaint.setColor(mProgressColor);

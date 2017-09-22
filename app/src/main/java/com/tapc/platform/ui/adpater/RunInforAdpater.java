@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.RunInforBarItem;
+import com.tapc.platform.entity.WorkoutInforItem;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/28.
  */
 
-public class RunInforAdpater extends BaseRecyclerViewAdapter<RunInforAdpater.RunInforViewHolder, RunInforBarItem> {
+public class RunInforAdpater extends BaseRecyclerViewAdapter<RunInforAdpater.RunInforViewHolder, WorkoutInforItem> {
 
     public RunInforAdpater(List datas) {
         super(datas);
@@ -36,7 +36,7 @@ public class RunInforAdpater extends BaseRecyclerViewAdapter<RunInforAdpater.Run
     @Override
     public void onBindViewHolder(RunInforViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        RunInforBarItem item = mDatas.get(position);
+        WorkoutInforItem item = mDatas.get(position);
         holder.icon.setBackgroundResource(item.getIcon());
         String value = item.getValue();
         if (value != null) {

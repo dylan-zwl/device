@@ -9,7 +9,13 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.tapc.platform.R;
+import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.WidgetShowStatus;
+import com.tapc.platform.library.common.TreadmillSystemSettings;
+import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.library.data.TreadmillProgramSetting;
+import com.tapc.platform.library.util.WorkoutEnum;
+import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.widget.AppBar;
 import com.tapc.platform.ui.widget.BottomBar;
 import com.tapc.platform.ui.widget.GestureListener;
@@ -17,6 +23,8 @@ import com.tapc.platform.ui.widget.ProgramStageDialog;
 import com.tapc.platform.ui.widget.RunInforBar;
 import com.tapc.platform.ui.widget.ShortcutKey;
 import com.tapc.platform.ui.widget.StartMenu;
+
+import static com.tapc.platform.library.common.SystemSettings.mContext;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -32,6 +40,8 @@ public class StartService extends Service {
     private ShortcutKey mShortcutKey;
     private GestureListener mGestureListener;
     private ProgramStageDialog mProgramStageDialog;
+
+    private WorkOuting mWorkOuting;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -88,6 +98,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mStartMenu != null) {
                     mWindowManager.removeView(mStartMenu);
+                    mStartMenu.onDestroy();
                     mStartMenu = null;
                 }
                 break;
@@ -131,6 +142,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mBottomBar != null) {
                     mWindowManager.removeView(mBottomBar);
+                    mBottomBar.onDestroy();
                     mBottomBar = null;
                 }
                 break;
@@ -174,6 +186,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mAppBar != null) {
                     mWindowManager.removeView(mAppBar);
+                    mAppBar.onDestroy();
                     mAppBar = null;
                 }
                 break;
@@ -216,6 +229,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mRunInforBar != null) {
                     mWindowManager.removeView(mRunInforBar);
+                    mRunInforBar.onDestroy();
                     mRunInforBar = null;
                 }
                 break;
@@ -277,6 +291,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mProgramStageDialog != null) {
                     mWindowManager.removeView(mProgramStageDialog);
+                    mProgramStageDialog.onDestroy();
                     mProgramStageDialog = null;
                 }
                 break;
@@ -312,6 +327,7 @@ public class StartService extends Service {
             case REMOVE:
                 if (mShortcutKey != null) {
                     mWindowManager.removeView(mShortcutKey);
+                    mShortcutKey.onDestroy();
                     mShortcutKey = null;
                 }
                 break;

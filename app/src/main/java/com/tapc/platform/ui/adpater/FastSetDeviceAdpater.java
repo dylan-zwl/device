@@ -36,8 +36,8 @@ public class FastSetDeviceAdpater extends BaseRecyclerViewAdapter<FastSetDeviceA
     public void onBindViewHolder(FastSetDeviceViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         String valueStr = mDatas.get(position);
-        holder.itemView.setTag(valueStr);
-        holder.itemView.setOnClickListener(this);
+        holder.value.setTag(valueStr);
+        holder.value.setOnClickListener(this);
         holder.value.setText(valueStr);
     }
 

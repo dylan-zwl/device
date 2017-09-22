@@ -16,5 +16,5 @@
     <string name="distance_unit">km</string>
     <string name="calorie_unit">kcal</string>
     <string name="weight_unit">kg</string>
-
+    <string name="heart_rate_unit">kpm</string>
 </resources>
