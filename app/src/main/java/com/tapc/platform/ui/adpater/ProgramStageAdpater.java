@@ -40,14 +40,17 @@ public class ProgramStageAdpater extends BaseRecyclerViewAdapter<ProgramStageAdp
         super.onBindViewHolder(holder, position);
         ProgramStage item = mDatas.get(position);
         holder.itemView.setTag(item);
-        holder.index.setText(String.valueOf(item.getIndex()));
+        holder.itemView.setOnClickListener(this);
+        holder.index.setText(String.valueOf(item.getIndex() + 1));
         holder.time.setText(String.valueOf(item.getTime()) + " min");
         holder.reftValue.setMaxHeight(item.getMaxLeftValue());
         holder.rightValue.setMaxHeight(item.getMaxRightValue());
         holder.reftValue.setShowHeight(item.getLeftValue());
         holder.rightValue.setShowHeight(item.getRightValue());
-        if (position == 0) {
+        if (item.getIndex() == 0) {
             holder.line.setVisibility(View.GONE);
+        } else {
+            holder.line.setVisibility(View.VISIBLE);
         }
     }
 
@@ -62,7 +65,6 @@ public class ProgramStageAdpater extends BaseRecyclerViewAdapter<ProgramStageAdp
         TextView time;
         @BindView(R.id.program_stage_line)
         ImageView line;
-
 
         public ProgramStageViewHolder(View view) {
             super(view);

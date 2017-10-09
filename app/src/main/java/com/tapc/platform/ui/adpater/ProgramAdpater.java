@@ -52,17 +52,19 @@ public class ProgramAdpater extends BaseRecyclerViewAdapter<ProgramAdpater.Pragr
                 holder.image.setVisibility(View.GONE);
                 break;
             case ADD_PROGRAM:
+                holder.addBtn.setTag(item);
+                holder.addBtn.setOnClickListener(this);
                 holder.image.setVisibility(View.GONE);
                 holder.addBtn.setVisibility(View.VISIBLE);
                 break;
         }
 
-        holder.image.setDeleteOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int dd;
-            }
-        });
+//        holder.image.setDeleteOnClick(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int dd;
+//            }
+//        });
 
 //        holder.image.setRunList(item.getList());
     }

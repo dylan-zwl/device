@@ -10,5 +10,5 @@
     <dimen name="tx_size4">32sp</dimen>
     <dimen name="tx_size5">34sp</dimen>
     <dimen name="tx_size6">48sp</dimen>
-    <dimen name="tx_size7">72dp</dimen>
+    <dimen name="tx_size7">72sp</dimen>
 </resources>

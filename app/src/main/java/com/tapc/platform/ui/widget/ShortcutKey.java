@@ -6,9 +6,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
@@ -32,7 +32,7 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     @BindView(R.id.shortcut_ll)
     LinearLayout mShortcutKeyLL;
     @BindView(R.id.shortcut_key)
-    Button mShortcutKeyBtn;
+    ImageButton mShortcutKeyBtn;
     @BindView(R.id.shortcut_program)
     CheckBox mProgramChx;
     @BindView(R.id.shortcut_runinfor_bar)

@@ -12,6 +12,7 @@ import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.fragment.mode.SelectModeFragment;
 import com.tapc.platform.ui.fragment.parametersettings.ParameterSettingsFragment;
+import com.tapc.platform.ui.fragment.program.ProgramStageFragment;
 import com.tapc.platform.utils.FragmentUtils;
 
 import java.util.List;
@@ -38,7 +39,9 @@ public class StartActivity extends BaseActivity {
     }
 
     public interface StartActivityListener {
-        void switchParameterSettingsFragment(Context mContext, List<ParameterSet> list, Object... objects);
+        void switchParameterSettingsFragment(Context context, List<ParameterSet> list, Object... objects);
+
+        void switchProgramStageFragment(Context context);
     }
 
     private StartActivityListener mListener = new StartActivityListener() {
@@ -49,6 +52,11 @@ public class StartActivity extends BaseActivity {
             mParameterSettingsFragment.init(objects);
             mParameterSettingsFragment.setDataList(list);
             FragmentUtils.replaceFragment(context, mManager, R.id.start_mode_fragment, mParameterSettingsFragment);
+        }
+
+        @Override
+        public void switchProgramStageFragment(Context context) {
+            FragmentUtils.replaceFragment(context, mManager, R.id.start_mode_fragment, ProgramStageFragment.class);
         }
     };
 

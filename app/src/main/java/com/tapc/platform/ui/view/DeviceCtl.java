@@ -50,6 +50,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
     private float mMinValue;
     private float mDefValue;
     private int mIcon;
+    private int mIconPressedId = -1;
 
     private enum ValueChange {
         ADD,
@@ -98,12 +99,16 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
 
     @OnClick(R.id.device_ctl_add)
     void onAddClick(View v) {
-        mListener.onAddClick();
+        if (mListener != null) {
+            mListener.onAddClick();
+        }
     }
 
     @OnClick(R.id.device_ctl_sub)
     void onSubClick(View v) {
-        mListener.onSubClick();
+        if (mListener != null) {
+            mListener.onSubClick();
+        }
     }
 
     @OnLongClick(R.id.device_ctl_add)
@@ -124,7 +129,9 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
                 mDisposable.dispose();
             }
             mDisposable = null;
-            mListener.setDeviceValue(mSetValuef);
+            if (mListener != null) {
+                mListener.setDeviceValue(mSetValuef);
+            }
         }
     }
 
@@ -165,7 +172,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         return false;
     }
 
-    public void setOnClickListener(Listener listener) {
+    public void setOnClickListener(@NonNull Listener listener) {
         this.mListener = listener;
     }
 
@@ -184,25 +191,38 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
         this.mMaxValue = maxValue;
         this.mStepValue = stepValue;
         this.mDefValue = defValue;
+        setValue(defValue);
     }
 
     public void setPause() {
-        mCtlAdd.setClickable(false);
-        mCtlSub.setClickable(false);
         mCtlAdd.setBackgroundResource(R.drawable.btn_add_p);
         mCtlSub.setBackgroundResource(R.drawable.btn_sub_p);
+        if (mIconPressedId != -1) {
+            mIconBtn.setBackgroundResource(mIconPressedId);
+        }
+        mCtlAdd.setEnabled(false);
+        mCtlSub.setEnabled(false);
+        mIconBtn.setEnabled(false);
     }
 
     public void setResume() {
-        mCtlAdd.setClickable(true);
-        mCtlSub.setClickable(true);
         mCtlAdd.setBackgroundResource(R.drawable.btn_add);
         mCtlSub.setBackgroundResource(R.drawable.btn_sub);
+        mIconBtn.setBackgroundResource(mIcon);
+        mCtlAdd.setEnabled(true);
+        mCtlSub.setEnabled(true);
+        mIconBtn.setEnabled(true);
+    }
+
+    public void setIconPressedResource(int id) {
+        mIconPressedId = id;
     }
 
     @OnClick(R.id.device_ctl_icon)
     void onCtlType() {
-        mListener.onCtlTypeClick(mIcon);
+        if (mListener != null) {
+            mListener.onCtlTypeClick(mIcon);
+        }
     }
 
     public int getIcon() {

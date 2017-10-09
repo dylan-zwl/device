@@ -45,8 +45,8 @@
 
             </com.tapc.platform.ui.view.RunInforTitleView>
 
-
             <com.tapc.platform.ui.view.RunInforView
+                android:id="@+id/run_infor_used_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -62,8 +62,8 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-
                 <com.tapc.platform.ui.view.RunInforView
+                    android:id="@+id/run_infor_used_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,6 +74,7 @@
                 </com.tapc.platform.ui.view.RunInforView>
 
                 <com.tapc.platform.ui.view.RunInforView
+                    android:id="@+id/run_infor_total_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -130,6 +131,7 @@
                 </com.tapc.platform.ui.view.RunInforTitleView>
 
                 <com.tapc.platform.ui.view.RunInforView
+                    android:id="@+id/run_infor_now_speed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -140,6 +142,7 @@
                 </com.tapc.platform.ui.view.RunInforView>
 
                 <com.tapc.platform.ui.view.RunInforView
+                    android:id="@+id/run_infor_average_speed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -150,6 +153,7 @@
                 </com.tapc.platform.ui.view.RunInforView>
 
                 <com.tapc.platform.ui.view.RunInforView
+                    android:id="@+id/run_infor_highest_speed"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -165,7 +169,129 @@
                 android:layout_height="0dp"
                 android:layout_marginTop="36dp"
                 android:layout_weight="1"
-                android:background="@drawable/bg_area">
+                android:background="@drawable/bg_area"
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
+
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="坡度">
+
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/run_infor_now_incline"
+                    android:layout_weight="1"
+                    RunInfor:runinforName="当前坡度"
+                    RunInfor:runinforUint="km/h"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/run_infor_average_incline"
+                    android:layout_weight="1"
+                    RunInfor:runinforName="平均坡度"
+                    RunInfor:runinforUint="km/h"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="36dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area"
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
+
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="卡路里">
+
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/run_infor_now_calorie"
+                    android:layout_weight="1"
+                    RunInfor:runinforName="消耗卡路里"
+                    RunInfor:runinforUint="kcal"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/run_infor_average_calorie"
+                    RunInfor:runinforName="平均消耗卡路里"
+                    RunInfor:runinforUint="kcal"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="36dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_area"
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
+
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="心率">
+
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/run_infor_now_heart"
+                    RunInfor:runinforName="当前心率"
+                    RunInfor:runinforUint="bpm"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/run_infor_average_heart"
+                    RunInfor:runinforName="平均心率"
+                    RunInfor:runinforUint="bpm"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
 
             </LinearLayout>
 
@@ -183,7 +309,39 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_area"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
+
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="距离">
+
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/run_infor_now_distance"
+                    RunInfor:runinforName="已跑距离"
+                    RunInfor:runinforUint="km"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/run_infor_total_distance"
+                    RunInfor:runinforName="总距离"
+                    RunInfor:runinforUint="km"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
 
             </LinearLayout>
 
@@ -191,34 +349,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="36dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_area">
-
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="36dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_area"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingLeft="22dp"
+                android:paddingRight="22dp">
 
-            </LinearLayout>
+                <com.tapc.platform.ui.view.RunInforTitleView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    RunInfor:runinforIcon="@drawable/ic_run_infor_speed"
+                    RunInfor:runinforName="攀爬高度">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="36dp"
-                android:layout_weight="1"
-                android:background="@drawable/bg_area">
+                </com.tapc.platform.ui.view.RunInforTitleView>
+
+                <com.tapc.platform.ui.view.RunInforView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    RunInfor:runinforName="攀爬高度"
+                    RunInfor:runinforUint="km"
+                    RunInfor:runinforValue="0">
+
+                </com.tapc.platform.ui.view.RunInforView>
 
             </LinearLayout>
         </LinearLayout>

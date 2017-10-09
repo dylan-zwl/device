@@ -1,6 +1,7 @@
 package com.tapc.platform.service;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
@@ -9,20 +10,23 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.WidgetShowStatus;
-import com.tapc.platform.library.common.TreadmillSystemSettings;
-import com.tapc.platform.library.controller.MachineController;
-import com.tapc.platform.library.data.TreadmillProgramSetting;
-import com.tapc.platform.library.util.WorkoutEnum;
+import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.ui.activity.stop.StopActivity;
 import com.tapc.platform.ui.widget.AppBar;
 import com.tapc.platform.ui.widget.BottomBar;
+import com.tapc.platform.ui.widget.CountdownDialog;
+import com.tapc.platform.ui.widget.ErrorDialog;
 import com.tapc.platform.ui.widget.GestureListener;
 import com.tapc.platform.ui.widget.ProgramStageDialog;
 import com.tapc.platform.ui.widget.RunInforBar;
 import com.tapc.platform.ui.widget.ShortcutKey;
 import com.tapc.platform.ui.widget.StartMenu;
+import com.tapc.platform.utils.IntentUtils;
+
+import java.util.Observable;
+import java.util.Observer;
 
 import static com.tapc.platform.library.common.SystemSettings.mContext;
 
@@ -30,7 +34,7 @@ import static com.tapc.platform.library.common.SystemSettings.mContext;
  * Created by Administrator on 2017/8/25.
  */
 
-public class StartService extends Service {
+public class StartService extends Service implements Observer {
     private LocalBinder mBinder;
     private WindowManager mWindowManager;
     private StartMenu mStartMenu;
@@ -40,6 +44,8 @@ public class StartService extends Service {
     private ShortcutKey mShortcutKey;
     private GestureListener mGestureListener;
     private ProgramStageDialog mProgramStageDialog;
+    private ErrorDialog mErrorDialog;
+    private CountdownDialog mCountdownDialog;
 
     private WorkOuting mWorkOuting;
 
@@ -56,10 +62,12 @@ public class StartService extends Service {
 
     private void initView() {
         mBinder = new LocalBinder(this);
-        mWindowManager = (WindowManager) getSystemService("window");
+        mWindowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
 //        setGestureListenerVisibility(true);
 //        setProgramStageDialogVisibility(true);
 //        setShortcutKeyVisibility(true);
+        initErrorDialog();
+        mWorkOuting = WorkOuting.getInstance();
     }
 
     public boolean isStartMenuShown() {
@@ -236,6 +244,24 @@ public class StartService extends Service {
         }
     }
 
+    private void initErrorDialog() {
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                .LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
+                PixelFormat.TRANSPARENT);
+        mErrorDialog = new ErrorDialog(this);
+        mErrorDialog.init();
+        mWindowManager.addView(mErrorDialog, params);
+    }
+
+    private void removeErrorDialog() {
+        if (mErrorDialog != null) {
+            mWindowManager.removeView(mErrorDialog);
+            mErrorDialog = null;
+        }
+    }
+
     public void setGestureListenerVisibility(boolean visibility) {
         if (visibility) {
             if (mGestureListener == null) {
@@ -315,6 +341,7 @@ public class StartService extends Service {
                     params.y = 726;
                     mShortcutKey = new ShortcutKey(this, mWindowManager, params);
                     mWindowManager.addView(mShortcutKey, params);
+                    mWorkOuting.subscribeObserverNotification(this);
                 } else {
                     mShortcutKey.setVisibility(View.VISIBLE);
                 }
@@ -329,6 +356,43 @@ public class StartService extends Service {
                     mWindowManager.removeView(mShortcutKey);
                     mShortcutKey.onDestroy();
                     mShortcutKey = null;
+                    mWorkOuting.unsubscribeObserverNotification(this);
+                }
+                break;
+        }
+    }
+
+    public void setCountDownVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mCountdownDialog == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.TOP;
+                    params.x = 0;
+                    params.y = 0;
+                    mCountdownDialog = new CountdownDialog(this);
+                    mWindowManager.addView(mCountdownDialog, params);
+                } else {
+                    mCountdownDialog.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mCountdownDialog != null) {
+                    mCountdownDialog.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mCountdownDialog != null) {
+                    mWindowManager.removeView(mCountdownDialog);
+                    mCountdownDialog.onDestroy();
+                    mCountdownDialog = null;
                 }
                 break;
         }
@@ -337,5 +401,30 @@ public class StartService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        removeErrorDialog();
+    }
+
+    private void stopDevice() {
+        setAppBarVisibility(WidgetShowStatus.REMOVE);
+        setRunInforBarVisibility(WidgetShowStatus.REMOVE);
+        setProgramStageDialogVisibility(WidgetShowStatus.REMOVE);
+        setShortcutKeyVisibility(WidgetShowStatus.REMOVE);
+        setBottomBarVisibility(WidgetShowStatus.REMOVE);
+        IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
+        if (workoutUpdate != null) {
+            switch (workoutUpdate) {
+                case UI_STOP:
+                    stopDevice();
+                    break;
+                case UI_RESUME:
+                    setCountDownVisibility(WidgetShowStatus.REMOVE);
+                    break;
+            }
+        }
     }
 }

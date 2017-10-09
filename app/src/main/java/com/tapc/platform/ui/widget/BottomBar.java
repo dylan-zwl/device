@@ -14,15 +14,12 @@ import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.CommonEnum;
-import com.tapc.platform.library.common.TreadmillListener;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
-import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.data.TreadmillWorkout;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
-import com.tapc.platform.ui.activity.stop.StopActivity;
 import com.tapc.platform.ui.view.DeviceCtl;
 import com.tapc.platform.ui.view.FastSetDeviceCtl;
 import com.tapc.platform.utils.AppUtils;
@@ -43,7 +40,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/8/28.
  */
 
-public class BottomBar extends BaseView implements Observer, TreadmillListener {
+public class BottomBar extends BaseView implements Observer {
     @BindView(R.id.bottombar_left_ctl)
     DeviceCtl mLeftDeviceCtl;
     @BindView(R.id.bottombar_right_ctl)
@@ -63,6 +60,7 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
     Button mPauseBtn;
 
     private WorkOuting mWorkOuting;
+    private boolean isFistInit = true;
 
     @Override
     protected int getContentView() {
@@ -78,7 +76,31 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
         super.initView();
 
         initWortout();
+        initCtlView();
+    }
 
+    private void initWortout() {
+        mWorkOuting = WorkOuting.getInstance();
+        if (mWorkOuting.isRunning() == false) {
+            TreadmillProgramSetting programSetting = (TreadmillProgramSetting) TapcApplication.getInstance()
+                    .getProgramSetting();
+            if (programSetting == null) {
+                ProgramType programType = ProgramType.NORMAL;
+                programType.setGoal(120 * 60);
+                TreadmillProgramSetting treadmillProgramSetting = new TreadmillProgramSetting(programType);
+                treadmillProgramSetting.setSpeed(TreadmillSystemSettings.MIN_SPEED);
+                treadmillProgramSetting.setIncline(TreadmillSystemSettings.MIN_INCLINE);
+                programSetting = treadmillProgramSetting;
+            }
+            mWorkOuting = WorkOuting.getInstance();
+            mWorkOuting.setProgramSetting(programSetting);
+            mWorkOuting.start();
+        }
+        mWorkOuting.subscribeObserverNotification(this);
+    }
+
+    private void initCtlView() {
+        mLeftDeviceCtl.setIconPressedResource(R.drawable.btn_incline_p);
         mLeftDeviceCtl.setConfig(TreadmillSystemSettings.MIN_INCLINE, TreadmillSystemSettings.MAX_INCLINE,
                 TreadmillSystemSettings.STEP_INCLINE, 0.0f);
         mLeftDeviceCtl.setOnClickListener(new DeviceCtl.Listener() {
@@ -105,6 +127,7 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
             }
         });
 
+        mRightDeviceCtl.setIconPressedResource(R.drawable.btn_speed_p);
         mRightDeviceCtl.setConfig(TreadmillSystemSettings.MIN_SPEED, TreadmillSystemSettings.MAX_SPEED,
                 TreadmillSystemSettings.STEP_SPEED, 0.0f);
         mRightDeviceCtl.setOnClickListener(new DeviceCtl.Listener() {
@@ -147,35 +170,6 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
                 setFastSetCtlVisibility(false);
             }
         });
-
-        TreadmillWorkout workout = (TreadmillWorkout) mWorkOuting.getWorkout();
-        if (workout != null) {
-            mLeftDeviceCtl.setValue(workout.getIncline());
-            mRightDeviceCtl.setValue(workout.getSpeed());
-            setPauseBtnShow(!mWorkOuting.getIsPausing());
-        }
-    }
-
-    private void initWortout() {
-        mWorkOuting = WorkOuting.getInstance();
-        if (mWorkOuting.getIsRunning() == false) {
-            TreadmillProgramSetting programSetting = (TreadmillProgramSetting) TapcApplication.getInstance()
-                    .getProgramSetting();
-            if (programSetting == null) {
-                ProgramType programType = ProgramType.NORMAL;
-                programType.setGoal(120 * 60);
-                TreadmillProgramSetting treadmillProgramSetting = new TreadmillProgramSetting(programType);
-                treadmillProgramSetting.setSpeed(TreadmillSystemSettings.MIN_SPEED);
-                treadmillProgramSetting.setIncline(TreadmillSystemSettings.MIN_INCLINE);
-                programSetting = treadmillProgramSetting;
-            }
-            mWorkOuting = WorkOuting.getInstance();
-            mWorkOuting.initWorkOuting(MachineController.getInstance().getMachineOperateListener(), mContext);
-            mWorkOuting.setProgramSetting(programSetting);
-            mWorkOuting.start();
-        }
-        MachineController.getInstance().setMachineListener(this);
-        mWorkOuting.subscribeObserverNotification(this);
     }
 
 
@@ -221,24 +215,21 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
 
     @OnClick(R.id.bottombar_pause)
     void pause() {
-        setPauseBtnShow(false);
-        mWorkOuting.pause();
+        if (mWorkOuting.isPausing() == false) {
+            setPauseBtnShow(false);
+            mWorkOuting.pause();
+        }
     }
 
     @OnClick(R.id.bottombar_resume)
     void resume() {
-        setPauseBtnShow(true);
-        mWorkOuting.resume();
+        if (mWorkOuting.isPausing()) {
+            TapcApplication.getInstance().getService().setCountDownVisibility(WidgetShowStatus.VISIBLE);
+        }
     }
 
     @OnClick(R.id.bottombar_stop)
     void stop() {
-        IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
-        TapcApplication.getInstance().getService().setAppBarVisibility(WidgetShowStatus.REMOVE);
-        TapcApplication.getInstance().getService().setRunInforBarVisibility(WidgetShowStatus.REMOVE);
-        TapcApplication.getInstance().getService().setProgramStageDialogVisibility(WidgetShowStatus.REMOVE);
-        TapcApplication.getInstance().getService().setShortcutKeyVisibility(WidgetShowStatus.REMOVE);
-        TapcApplication.getInstance().getService().setBottomBarVisibility(WidgetShowStatus.REMOVE);
         mWorkOuting.stop();
     }
 
@@ -260,7 +251,15 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
                 return;
             }
             switch (workoutUpdate) {
-                case UPDATE:
+                case UI_UPDATE:
+                    if (isFistInit) {
+                        isFistInit = false;
+                        if (workout != null) {
+                            mLeftDeviceCtl.setValue(workout.getIncline());
+                            mRightDeviceCtl.setValue(workout.getSpeed());
+                            setPauseBtnShow(!mWorkOuting.isPausing());
+                        }
+                    }
                     switch (workout.getWorkoutGoal()) {
                         case TIME:
                             int time = workout.getTotalTime();
@@ -282,32 +281,19 @@ public class BottomBar extends BaseView implements Observer, TreadmillListener {
                             break;
                     }
                     break;
-                case LEFT:
+                case MACHINE_LEFT:
                     mLeftDeviceCtl.setValue(workout.getIncline());
                     break;
-                case RIGHT:
+                case MACHINE_RIGHT:
                     mRightDeviceCtl.setValue(workout.getSpeed());
                     break;
-                case FINISH:
-                    stop();
+                case UI_PAUSE:
+                    break;
+                case UI_RESUME:
+                    setPauseBtnShow(true);
                     break;
             }
         }
-    }
-
-    @Override
-    public void onHeartChanged(int i) {
-
-    }
-
-    @Override
-    public void onRPMChanged(int i) {
-
-    }
-
-    @Override
-    public void onPaceChanged(int i) {
-
     }
 
     @OnClick(R.id.bottombar_back)

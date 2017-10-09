@@ -7,6 +7,7 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.PragramRunItem;
+import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.ProgramAdpater;
 
@@ -30,26 +31,28 @@ public class ProgramFragment extends ModeBaseFragment {
 
     @Override
     protected void initView() {
+        ArrayList<String> programList = WorkOuting.getProgramName();
         List<PragramRunItem> list = new ArrayList<PragramRunItem>();
-        PragramRunItem item = new PragramRunItem();
-        item.setName("山地跑");
-        list.add(item);
-        list.add(item);
-        list.add(item);
-        list.add(item);
-        list.add(item);
-        list.add(item);
-        list.add(item);
-        PragramRunItem item2 = new PragramRunItem();
-        item2.setName("自定义");
-        item2.setType(PragramRunItem.Type.ADD_PROGRAM);
-        list.add(item2);
+        for (String programItem : programList) {
+            PragramRunItem item = new PragramRunItem();
+            item.setName(programItem);
+            list.add(item);
+        }
+        PragramRunItem customItem = new PragramRunItem();
+        customItem.setName("自定义");
+        customItem.setType(PragramRunItem.Type.ADD_PROGRAM);
+        list.add(customItem);
+
         ProgramAdpater programAdpater = new ProgramAdpater(list);
 
         programAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PragramRunItem>() {
             @Override
             public void onItemClick(View view, PragramRunItem pragramRunItem) {
                 if (mListener != null) {
+                    if (pragramRunItem.getType() == PragramRunItem.Type.ADD_PROGRAM) {
+                        mListener.switchProgramStageFragment(mContext);
+                        return;
+                    }
                     List<ParameterSet> list = new ArrayList<ParameterSet>();
                     List<Object> defValues = new ArrayList<Object>();
                     defValues.add("10");

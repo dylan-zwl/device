@@ -7,7 +7,7 @@
               android:orientation="horizontal"
               android:padding="20dp">
 
-    <Button
+    <ImageButton
         android:id="@+id/shortcut_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             android:button="@drawable/chx_runinfor"
             android:checked="false"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/shortcut_clear_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

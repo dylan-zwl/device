@@ -13,7 +13,7 @@
             android:id="@+id/set_stage_parameter_name_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.8"
             android:background="@null"
             android:gravity="left|bottom"
             android:textColor="@color/commonColor2"
@@ -50,7 +50,7 @@
             android:background="@drawable/btn_program_stage_value_sub"/>
 
         <SeekBar
-            android:id="@+id/set_stage_parameter_sbar_btn"
+            android:id="@+id/set_stage_parameter_sbar"
             style="?android:progressBarStyleHorizontal"
             android:layout_width="360dp"
             android:layout_height="33dp"

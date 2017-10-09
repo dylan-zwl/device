@@ -32,7 +32,7 @@ public class RunBaseActivity extends BaseActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-        if (workoutUpdate != null && workoutUpdate == WorkoutUpdate.FINISH) {
+        if (workoutUpdate != null && workoutUpdate == WorkoutUpdate.UI_STOP) {
             finish();
         }
     }

@@ -10,6 +10,7 @@ import com.tapc.platform.R;
 import com.tapc.platform.entity.WorkoutInforItem;
 import com.tapc.platform.entity.WorkoutInforType;
 import com.tapc.platform.library.data.TreadmillWorkout;
+import com.tapc.platform.library.util.WorkoutEnum.WorkoutGoal;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.adpater.RunInforAdpater;
@@ -52,13 +53,6 @@ public class RunInforBar extends BaseView implements Observer {
     protected void initView() {
         super.initView();
         mDataList = new ArrayList<>();
-        mDataList.add(new WorkoutInforItem(WorkoutInforType.DISTANCE, R.drawable.ic_bar_distance, "", "", getString
-                (R.string.distance_unit)));
-        mDataList.add(new WorkoutInforItem(WorkoutInforType.CALORIE, R.drawable.ic_bar_caloria, "", "", getString
-                (R.string.calorie_unit)));
-        mDataList.add(new WorkoutInforItem(WorkoutInforType.TIME, R.drawable.ic_bar_time, "", "", ""));
-        mDataList.add(new WorkoutInforItem(WorkoutInforType.HEART_RATE, R.drawable.ic_bar_heart, "", "", getString(R
-                .string.heart_rate_unit)));
         mRunInforAdpater = new RunInforAdpater(mDataList);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -90,14 +84,34 @@ public class RunInforBar extends BaseView implements Observer {
 //        }
 //    }
 
+    private void initDataList(TreadmillWorkout workout) {
+        WorkoutGoal goal = workout.getWorkoutGoal();
+        if (goal != WorkoutGoal.DISTANCE) {
+            mDataList.add(new WorkoutInforItem(WorkoutInforType.DISTANCE, R.drawable.ic_bar_distance, "", "", getString
+                    (R.string.distance_unit)));
+        }
+        if (goal != WorkoutGoal.CALORIE) {
+            mDataList.add(new WorkoutInforItem(WorkoutInforType.CALORIE, R.drawable.ic_bar_caloria, "", "", getString
+                    (R.string.calorie_unit)));
+        }
+        if (goal != WorkoutGoal.TIME) {
+            mDataList.add(new WorkoutInforItem(WorkoutInforType.TIME, R.drawable.ic_bar_time, "", "", ""));
+        }
+        mDataList.add(new WorkoutInforItem(WorkoutInforType.HEART_RATE, R.drawable.ic_bar_heart, "", "", getString(R
+                .string.heart_rate_unit)));
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (isShown()) {
             WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
             if (workoutUpdate != null) {
                 TreadmillWorkout workout = (TreadmillWorkout) mWorkOuting.getWorkout();
-                if (workout == null || workoutUpdate != WorkoutUpdate.UPDATE) {
+                if (workout == null || workoutUpdate != WorkoutUpdate.UI_UPDATE) {
                     return;
+                }
+                if (mDataList.size() == 0) {
+                    initDataList(workout);
                 }
                 for (WorkoutInforItem item : mDataList) {
                     switch (item.getType()) {

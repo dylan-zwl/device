@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -54,9 +53,9 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     @BindView(R.id.app_bar_ll)
     LinearLayout mAppBarLL;
     @BindView(R.id.app_bar_pull_in)
-    Button mPullIn;
+    ImageButton mPullIn;
     @BindView(R.id.app_bar_pull_out)
-    Button mPullOut;
+    ImageButton mPullOut;
     @BindView(R.id.app_bar_wifi)
     ImageButton mWifi;
     @BindView(R.id.app_bar_bluetooth)
@@ -138,7 +137,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @OnClick(R.id.app_bar_bluetooth)
     void openBtSetting() {
-     
+
     }
 
 

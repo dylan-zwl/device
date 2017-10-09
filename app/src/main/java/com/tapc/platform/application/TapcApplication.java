@@ -15,6 +15,7 @@ import com.tapc.platform.library.common.CommonEnum;
 import com.tapc.platform.library.common.SystemSettings;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.service.LocalBinder;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.utils.IntentUtils;
@@ -65,11 +66,13 @@ public class TapcApplication extends Application {
         }
         if (systemSettings != null) {
             systemSettings.Load(this, null);
+            systemSettings.mPath = "/mnt/sdcard/premierprograms.db";
             AppSettings.setPlatform(CommonEnum.Platform.S700);
             AppSettings.setLoopbackMode(true);
             MachineController controller = MachineController.getInstance();
             controller.initController(this);
             controller.start();
+            WorkOuting.getInstance().initWorkOuting(controller.getMachineOperateListener(), this);
         }
     }
 
