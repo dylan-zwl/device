@@ -7,6 +7,7 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.entity.GoalModeItem;
 import com.tapc.platform.entity.ParameterSet;
+import com.tapc.platform.entity.RunType;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.GoalModeAdpater;
 
@@ -68,7 +69,8 @@ public class GoalModeFragment extends ModeBaseFragment {
                         list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
                         list.add(new ParameterSet("坡度", "6", "%", defValues));
                     }
-                    mListener.switchParameterSettingsFragment(mContext, list, goalModeItem.getProgramType());
+                    mListener.switchParameterSettingsFragment(mContext, list, RunType.NOMAL, goalModeItem
+                            .getProgramType());
                 }
             }
         });

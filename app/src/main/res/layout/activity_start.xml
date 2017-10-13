@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Commons="http://schemas.android.com/apk/res-auto"
     android:layout_width="1440dp"
     android:layout_height="match_parent"
     android:background="@drawable/bg_skin"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/title"
-        layout="@layout/include_title"/>
+    <com.tapc.platform.ui.view.TopTitle
+        android:id="@+id/start_top_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        Commons:isShowBack="true"
+        Commons:name="@string/title_start_activity">
+
+    </com.tapc.platform.ui.view.TopTitle>
+
 
     <FrameLayout
         android:id="@+id/start_mode_fragment"

@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:Commons="http://schemas.android.com/apk/res-auto"
     xmlns:RoundProgressBar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
+    <com.tapc.platform.ui.view.TopTitle
         android:id="@+id/result_title"
-        layout="@layout/include_title"/>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        Commons:name="@string/title_stop_activity">
+
+    </com.tapc.platform.ui.view.TopTitle>
 
     <FrameLayout
         android:id="@+id/result_goal"
@@ -22,7 +27,6 @@
             android:layout_width="400dp"
             android:layout_height="400dp"
             RoundProgressBar:bgColor="#4D2076BE"
-            RoundProgressBar:maxProgress="100"
             RoundProgressBar:progressColor="@color/commonColor2"
             RoundProgressBar:roundWidth="20dp"/>
 

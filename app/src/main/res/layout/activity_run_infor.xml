@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/run_infor_title"
-        layout="@layout/include_title"/>
+        layout="@layout/view_title"/>
 
     <ImageView
         android:id="@+id/run_infor_bottom_line"

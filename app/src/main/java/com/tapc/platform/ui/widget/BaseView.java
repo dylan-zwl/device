@@ -1,11 +1,9 @@
 package com.tapc.platform.ui.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import butterknife.ButterKnife;
 
@@ -34,13 +32,6 @@ public abstract class BaseView extends LinearLayout {
         ButterKnife.bind(this);
         mContext = context;
         initView();
-    }
-
-    protected static void setTextView(TextView textView, TypedArray array, int styleId) {
-        String text = array.getNonResourceString(styleId);
-        if (text != null) {
-            textView.setText(text);
-        }
     }
 
     protected void initView() {

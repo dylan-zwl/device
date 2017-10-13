@@ -38,10 +38,10 @@ public class SetStageParameter extends BaseView {
 
     public SetStageParameter(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.SetStageParameter);
-        initTvShow(mNameTv, array, R.styleable.SetStageParameter_name);
-        initTvShow(mUnitTv, array, R.styleable.SetStageParameter_unit);
-        initTvShow(mValueTv, array, R.styleable.SetStageParameter_value);
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.Commons);
+        initTvShow(mNameTv, array, R.styleable.Commons_name);
+        initTvShow(mUnitTv, array, R.styleable.Commons_unit);
+        initTvShow(mValueTv, array, R.styleable.Commons_value);
     }
 
     @Override

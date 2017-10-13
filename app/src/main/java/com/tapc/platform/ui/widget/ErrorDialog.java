@@ -30,6 +30,9 @@ public class ErrorDialog extends BaseView {
     private boolean isHideError;
     private int mOldErrorStaus;
 
+    private boolean isShowSafeKey = false;
+    private boolean isShowError = false;
+
     public ErrorDialog(Context context) {
         super(context);
     }
@@ -45,7 +48,7 @@ public class ErrorDialog extends BaseView {
     }
 
     public void init() {
-        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
+//        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
         IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
         int safekey = MachineController.getInstance().getSafeKeyStatus();
         setSafeKeyShow(safekey);
@@ -84,12 +87,14 @@ public class ErrorDialog extends BaseView {
             if (status == 0) {
 //                mErrorCodeTx.setText("");
                 mErrorCodeLL.setVisibility(GONE);
+                isShowError = false;
             } else {
 //                String errorStr = Integer.toHexString(status);
 //                String text = String.format(mErrorCode, errorStr);
 //                mErrorCodeTx.setText(text);
 //                WorkoutBroadcase.send(mContext, DeviceWorkout.STOP);
                 mErrorCodeLL.setVisibility(VISIBLE);
+                isShowError = true;
             }
             resetDialogStatus();
             mOldErrorStaus = status;
@@ -99,8 +104,8 @@ public class ErrorDialog extends BaseView {
     private BroadcastReceiver mSafeKeyReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.e(this.getClass().getName(), "safe key ");
             int status = intent.getIntExtra(DEVICE_SAFE_KEY_STATUS, 0);
+            Log.e(this.getClass().getName(), "safekey " + status);
             setSafeKeyShow(status);
         }
     };
@@ -108,15 +113,17 @@ public class ErrorDialog extends BaseView {
     private void setSafeKeyShow(int status) {
         if (status == 0) {
             mSafeKeyLL.setVisibility(GONE);
+            isShowSafeKey = false;
         } else {
             mSafeKeyLL.setVisibility(VISIBLE);
+            isShowSafeKey = true;
 //            WorkoutBroadcase.send(mContext, DeviceWorkout.STOP);
         }
         resetDialogStatus();
     }
 
     private void resetDialogStatus() {
-        if (mSafeKeyLL.isShown() || mErrorCodeLL.isShown()) {
+        if (isShowSafeKey || isShowError) {
             setVisibility(VISIBLE);
         } else {
             setVisibility(GONE);

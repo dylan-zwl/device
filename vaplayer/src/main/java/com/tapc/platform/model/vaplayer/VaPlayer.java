@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.SurfaceHolder;
 
@@ -293,7 +294,7 @@ public class VaPlayer {
         }
     }
 
-    public void start(PlayEntity vaPlay) {
+    public void start(@NonNull PlayEntity vaPlay) {
         stopVoiceThread();
         PlayFlag = true;
         mNowVaPlayVideo = vaPlay;
@@ -322,6 +323,13 @@ public class VaPlayer {
             playerPause(mMediaPlayer, PlayFlag);
             playerPause(mVoicePlayer, PlayFlag);
             playerPause(mBackMusic, PlayFlag);
+        }
+    }
+
+    public void setSurfaceHolder(SurfaceHolder surfaceHolder) {
+        if (mMediaPlayer != null) {
+            mSurfaceHolder = surfaceHolder;
+            mMediaPlayer.setDisplay(surfaceHolder);
         }
     }
 

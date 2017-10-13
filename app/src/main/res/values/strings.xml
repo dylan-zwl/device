@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">device</string>
 
+    <!--run infor-->
     <string name="speed">速度</string>
     <string name="incline">坡度</string>
     <string name="time">时间</string>
@@ -10,11 +11,28 @@
     <string name="weight">体重</string>
     <string name="age">年龄</string>
 
-    //单位
+    <!--unit-->
     <string name="speed_unit">km/h</string>
     <string name="incline_unit">%</string>
     <string name="distance_unit">km</string>
     <string name="calorie_unit">kcal</string>
     <string name="weight_unit">kg</string>
     <string name="heart_rate_unit">kpm</string>
+
+    <!--title-->
+    <string name="title_start_activity">请选择锻炼类型</string>
+    <string name="title_stop_activity">运动成绩</string>
+
+    <!--settings item-->
+    <string name="settings_device_infor">设备信息</string>
+    <string name="settings_parameter">参数设置</string>
+    <string name="settings_calibration">校准</string>
+    <string name="settings_install">安装应用</string>
+    <string name="settings_uninstall">卸载应用</string>
+
+    <string name="settings_language">语言</string>
+    <string name="settings_net">网络</string>
+    <string name="settings_bluetoolth">蓝牙</string>
+    <string name="settings_other">其他设置</string>
+
 </resources>

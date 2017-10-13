@@ -53,12 +53,21 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
         mWindowManagerParams = windowManagerParams;
         mShortcutKeyBtn.setOnTouchListener(this);
         moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
+
+        initShow();
     }
 
     @Override
     protected int getContentView() {
         return R.layout.widget_shortcut_key;
     }
+
+    private void initShow() {
+        mShortcutKeyLL.setVisibility(GONE);
+        mProgramChx.setChecked(service.isProgramStageDialogShown());
+        mRunInforBarChx.setChecked(service.isRunInforBarShown());
+    }
+
 
     @OnClick(R.id.shortcut_key)
     void shortcutKey() {
@@ -96,12 +105,24 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     void runInforActivity(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             service.setAppBarVisibility(WidgetShowStatus.GONE);
-            mProgramChx.setChecked(false);
-            mRunInforBarChx.setChecked(false);
+            service.setRunInforBarVisibility(WidgetShowStatus.GONE);
+            service.setProgramStageDialogVisibility(WidgetShowStatus.GONE);
+            mProgramChx.setVisibility(GONE);
+            mRunInforBarChx.setVisibility(GONE);
+//            mProgramChx.setChecked(false);
+//            mRunInforBarChx.setChecked(false);
         } else {
             service.setAppBarVisibility(WidgetShowStatus.VISIBLE);
-            mProgramChx.setChecked(true);
-            mRunInforBarChx.setChecked(true);
+            if (mRunInforBarChx.isChecked()) {
+                service.setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+            }
+            if (mProgramChx.isChecked()) {
+                service.setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+            }
+            mProgramChx.setVisibility(VISIBLE);
+            mRunInforBarChx.setVisibility(VISIBLE);
+//            mProgramChx.setChecked(true);
+//            mRunInforBarChx.setChecked(true);
         }
         IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
                 .FLAG_ACTIVITY_CLEAR_TOP);
@@ -113,17 +134,23 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     }
 
     @OnCheckedChanged(R.id.shortcut_screen)
-    void screen(CompoundButton buttonView, boolean isChecked) {
+    void funScreen(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             service.setAppBarVisibility(WidgetShowStatus.VISIBLE);
             service.setBottomBarVisibility(WidgetShowStatus.VISIBLE);
-            mProgramChx.setChecked(true);
-            mRunInforBarChx.setChecked(true);
+            if (mRunInforBarChx.isChecked()) {
+                service.setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+            }
+            if (mProgramChx.isChecked()) {
+                service.setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+            }
         } else {
             service.setAppBarVisibility(WidgetShowStatus.GONE);
             service.setBottomBarVisibility(WidgetShowStatus.REMOVE);
-            mProgramChx.setChecked(false);
-            mRunInforBarChx.setChecked(false);
+            service.setRunInforBarVisibility(WidgetShowStatus.GONE);
+            service.setProgramStageDialogVisibility(WidgetShowStatus.GONE);
+//            mProgramChx.setChecked(false);
+//            mRunInforBarChx.setChecked(false);
         }
     }
 

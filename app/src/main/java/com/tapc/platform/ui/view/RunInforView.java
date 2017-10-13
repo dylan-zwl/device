@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.widget.BaseView;
+import com.tapc.platform.utils.TypedArrayUtils;
 
 import butterknife.BindView;
 
@@ -25,9 +26,9 @@ public class RunInforView extends BaseView {
     public RunInforView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.RunInfor);
-        setTextView(mNameTv, array, R.styleable.RunInfor_runinforName);
-        setTextView(mUnitTv, array, R.styleable.RunInfor_runinforUint);
-        setTextView(mValueTv, array, R.styleable.RunInfor_runinforValue);
+        TypedArrayUtils.setTextView(mNameTv, array, R.styleable.RunInfor_runinforName);
+        TypedArrayUtils.setTextView(mUnitTv, array, R.styleable.RunInfor_runinforUint);
+        TypedArrayUtils.setTextView(mValueTv, array, R.styleable.RunInfor_runinforValue);
         array.recycle();
     }
 

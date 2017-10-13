@@ -1,11 +1,14 @@
 package com.tapc.platform.ui.fragment.mode;
 
+import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
+import com.tapc.platform.entity.RunType;
+import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
@@ -34,7 +37,7 @@ public class VaFragment extends ModeBaseFragment {
 
     private ArrayList<PlayEntity> mPlayList;
     private VaAdpater mVaAdpater;
-    private static String[] VA_FILE_PATH = new String[]{"/mnt/external_sd/tapc/.va"};
+    private static List<String> VA_FILE_PATH;
 
     @Override
     protected int getContentView() {
@@ -59,7 +62,7 @@ public class VaFragment extends ModeBaseFragment {
                     list.add(new ParameterSet("体重", "6", "kg", defValues));
                     list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
                     list.add(new ParameterSet("坡度", "6", "%", defValues));
-                    mListener.switchParameterSettingsFragment(mContext, list);
+                    mListener.switchParameterSettingsFragment(mContext, list, RunType.VA, ProgramType.TIME, playEntity);
                 }
             }
         });
@@ -71,8 +74,11 @@ public class VaFragment extends ModeBaseFragment {
         Observable.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
+                VA_FILE_PATH = new ArrayList<String>();
+                VA_FILE_PATH.add(Environment.getExternalStorageDirectory().getPath());
+                VA_FILE_PATH.add(System.getenv("SECONDARY_STORAGE"));
                 for (String path : VA_FILE_PATH) {
-                    ArrayList<PlayEntity> playList = ValUtil.getValList(path);
+                    ArrayList<PlayEntity> playList = ValUtil.getValList(path + "/tapc/.va");
                     if (playList != null) {
                         mPlayList.addAll(playList);
                     }

@@ -250,6 +250,9 @@ public class StartService extends Service implements Observer {
                 WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
                 | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN,
                 PixelFormat.TRANSPARENT);
+        params.gravity = Gravity.TOP;
+        params.x = 0;
+        params.y = 0;
         mErrorDialog = new ErrorDialog(this);
         mErrorDialog.init();
         mWindowManager.addView(mErrorDialog, params);

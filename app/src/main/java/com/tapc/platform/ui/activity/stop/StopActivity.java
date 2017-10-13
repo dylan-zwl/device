@@ -63,13 +63,13 @@ public class StopActivity extends BaseActivity {
                     String.valueOf(heartRate), getString(R.string.heart_rate_unit));
             initDataList(WorkoutInforType.SPEED, R.drawable.ic_result_speed, getString(R.string.speed), String.format
                     ("%.1f", speed), getString(R.string.speed_unit));
+
+            mRoundProgressBar.setProgress(50);
         }
         WorkoutResultAdpater adpater = new WorkoutResultAdpater(mDataList);
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 5));
         mRecyclerview.setAdapter(adpater);
         adpater.notifyDataSetChanged();
-
-        mRoundProgressBar.setProgress(50);
     }
 
     private void initDataList(WorkoutInforType type, int iconId, String name, String value, String unit) {

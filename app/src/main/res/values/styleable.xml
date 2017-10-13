@@ -42,9 +42,11 @@
         <attr name="bgFrameRadius" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="SetStageParameter">
-        <attr name="name" format="string"/>
-        <attr name="unit" format="string"/>
-        <attr name="value" format="string"/>
+    <declare-styleable name="Commons">
+        <attr name="icons" format="reference|color"/>
+        <attr name="name" format="reference|string"/>
+        <attr name="unit" format="reference|string"/>
+        <attr name="value" format="reference|string"/>
+        <attr name="isShowBack" format="boolean"/>
     </declare-styleable>
 </resources>

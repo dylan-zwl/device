@@ -17,8 +17,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
+import com.tapc.platform.application.Config;
 import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.entity.BluetoothConnectStatus;
+import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.utils.AppUtils;
@@ -76,7 +78,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     private float mTouchY;
     private float mShowBottom;
 
-    private AppShowStatus mNowStatus = SHOW;
+    private AppShowStatus mNowStatus;
     private Disposable mDisposable;
 
     public enum AppShowStatus {
@@ -128,6 +130,11 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
         mShowAnimation = AnimationUtils.loadAnimation(mContext, R.anim.push_right_in);
         mHideAnimation = AnimationUtils.loadAnimation(mContext, R.anim.push_right_out);
+
+        mNowStatus = SHOW;
+        appBarPullInOnClick();
+
+        setFanShowStatus();
     }
 
     @OnClick(R.id.app_bar_wifi)
@@ -140,6 +147,25 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     }
 
+    private void setFanShowStatus() {
+        if (Config.isFanOpen) {
+            mFan.setBackgroundResource(R.drawable.ic_fan_on);
+        } else {
+            mFan.setBackgroundResource(R.drawable.ic_fan_off);
+        }
+    }
+
+    @OnClick(R.id.app_bar_fan)
+    void fanOnClick() {
+        if (Config.isFanOpen) {
+            MachineController.getInstance().setFanSpeed(0);
+            Config.isFanOpen = false;
+        } else {
+            MachineController.getInstance().setFanSpeed(1);
+            Config.isFanOpen = true;
+        }
+        setFanShowStatus();
+    }
 
     private void initStatusView() {
         //wifi
@@ -180,7 +206,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     }
 
     @OnClick({R.id.app_bar_pull_in, R.id.app_bar_pull_out})
-    void appBarPullInOnClick(View view) {
+    void appBarPullInOnClick() {
         final int animationTime = 1000;
         switch (mNowStatus) {
             case SHOW:

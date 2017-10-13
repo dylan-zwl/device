@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="110dp"
                 android:layout_marginLeft="88dp"
                 android:layout_marginRight="88dp">
 
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:text="请选择锻炼类型"
+        android:text="@string/title_start_activity"
         android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size4"/>
 

@@ -21,7 +21,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/9/6.
  */
 
-public class FastSetDeviceCtl extends BaseView {
+public class FastDeviceCtl extends BaseView {
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
     @BindView(R.id.device_ctl_icon)
@@ -36,7 +36,7 @@ public class FastSetDeviceCtl extends BaseView {
         return R.layout.view_fase_set_device_ctl;
     }
 
-    public FastSetDeviceCtl(Context context, AttributeSet attrs) {
+    public FastDeviceCtl(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

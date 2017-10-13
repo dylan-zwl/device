@@ -120,13 +120,13 @@
             </com.tapc.platform.ui.view.DeviceCtl>
         </LinearLayout>
 
-        <com.tapc.platform.ui.view.FastSetDeviceCtl
+        <com.tapc.platform.ui.view.FastDeviceCtl
             android:id="@+id/bottombar_fast_set_ctl"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:visibility="gone">
 
-        </com.tapc.platform.ui.view.FastSetDeviceCtl>
+        </com.tapc.platform.ui.view.FastDeviceCtl>
     </RelativeLayout>
 </RelativeLayout>

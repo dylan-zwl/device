@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:Commons="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.tapc.platform.ui.view.TopTitle
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        Commons:isShowBack="true"
+        Commons:name="设置">
+
+    </com.tapc.platform.ui.view.TopTitle>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fadeScrollbars="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/settings_language_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_language"
+                        android:textColor="@color/commonColor2">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_net_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_net"
+                        android:textColor="@color/commonColor2">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_bluetooth_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_bluetoolth"
+                        android:textColor="@color/commonColor2">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_other_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_other"
+                        android:textColor="@color/commonColor2">
+                    </RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/settings_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

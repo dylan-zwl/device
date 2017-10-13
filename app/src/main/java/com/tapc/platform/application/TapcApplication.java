@@ -54,6 +54,7 @@ public class TapcApplication extends Application {
         }, Context.BIND_AUTO_CREATE);
 
         mKeyEvent = new KeyEvent(null, 0);
+        mKeyEvent.initCom();
         initControl(this);
     }
 
@@ -68,7 +69,7 @@ public class TapcApplication extends Application {
             systemSettings.Load(this, null);
             systemSettings.mPath = "/mnt/sdcard/premierprograms.db";
             AppSettings.setPlatform(CommonEnum.Platform.S700);
-            AppSettings.setLoopbackMode(true);
+            AppSettings.setLoopbackMode(false);
             MachineController controller = MachineController.getInstance();
             controller.initController(this);
             controller.start();

@@ -49,10 +49,8 @@ public class ParameterSettingsFragment extends BaseFragment {
         this.mDataList = dataList;
     }
 
-    public void init(Object... objects) {
-        if (objects != null && objects.length > 0) {
-            mProgramType = (ProgramType) objects[0];
-        }
+    public void init(ProgramType programType) {
+        mProgramType = programType;
     }
 
     @Override
@@ -114,8 +112,9 @@ public class ParameterSettingsFragment extends BaseFragment {
         for (ParameterSet item : mDataList) {
             float value = Float.valueOf(item.getValue());
             String name = item.getName();
-            if (name.equals(getString(R.string.time)) || name.equals(getString(R.string.distance)) || name.equals
-                    (getString(R.string.calorie))) {
+            if (name.equals(getString(R.string.time))) {
+                mProgramType.setGoal(value * 60);
+            } else if (name.equals(getString(R.string.distance)) || name.equals(getString(R.string.calorie))) {
                 mProgramType.setGoal(value);
             } else if (name.equals(getString(R.string.speed))) {
                 programSetting.setSpeed(value);

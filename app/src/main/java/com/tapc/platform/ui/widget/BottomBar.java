@@ -21,7 +21,7 @@ import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.view.DeviceCtl;
-import com.tapc.platform.ui.view.FastSetDeviceCtl;
+import com.tapc.platform.ui.view.FastDeviceCtl;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.FormatUtils;
 import com.tapc.platform.utils.IntentUtils;
@@ -48,7 +48,7 @@ public class BottomBar extends BaseView implements Observer {
     @BindView(R.id.bottombar_ctl_ll)
     LinearLayout mCtlLL;
     @BindView(R.id.bottombar_fast_set_ctl)
-    FastSetDeviceCtl mFastSetDeviceCtl;
+    FastDeviceCtl mFastDeviceCtl;
     @BindView(R.id.bottombar_time)
     TextView mTimeTv;
     @BindView(R.id.bottombar_time_progrress)
@@ -154,12 +154,12 @@ public class BottomBar extends BaseView implements Observer {
                 setFastSetCtlVisibility(true);
             }
         });
-        mFastSetDeviceCtl.setListener(new FastSetDeviceCtl.Listener() {
+        mFastDeviceCtl.setListener(new FastDeviceCtl.Listener() {
             @Override
             public void onValueClick(String value) {
-                if (mFastSetDeviceCtl.getIconId() == mLeftDeviceCtl.getIcon()) {
+                if (mFastDeviceCtl.getIconId() == mLeftDeviceCtl.getIcon()) {
                     mWorkOuting.onLeftPanel(Float.valueOf(value));
-                } else if (mFastSetDeviceCtl.getIconId() == mRightDeviceCtl.getIcon()) {
+                } else if (mFastDeviceCtl.getIconId() == mRightDeviceCtl.getIcon()) {
                     mWorkOuting.onRightPanel(Float.valueOf(value));
                 }
                 Log.d("set value", "value");
@@ -178,23 +178,23 @@ public class BottomBar extends BaseView implements Observer {
         for (int i = min; i <= max; i++) {
             list.add(String.valueOf(i));
         }
-        mFastSetDeviceCtl.updateShow(list);
+        mFastDeviceCtl.updateShow(list);
     }
 
     private void setFastSetDeviceCtlType(int icon) {
-        mFastSetDeviceCtl.setIcon(icon);
+        mFastDeviceCtl.setIcon(icon);
     }
 
     private void setFastSetCtlVisibility(boolean visibility) {
         if (visibility) {
-            mFastSetDeviceCtl.setVisibility(VISIBLE);
+            mFastDeviceCtl.setVisibility(VISIBLE);
             mCtlLL.setVisibility(INVISIBLE);
-            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_in));
+            mFastDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_in));
             mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_out));
         } else {
-            mFastSetDeviceCtl.setVisibility(GONE);
+            mFastDeviceCtl.setVisibility(GONE);
             mCtlLL.setVisibility(VISIBLE);
-            mFastSetDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
+            mFastDeviceCtl.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
             mCtlLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
         }
     }

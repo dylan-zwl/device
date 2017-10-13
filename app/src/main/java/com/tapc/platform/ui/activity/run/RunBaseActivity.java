@@ -22,9 +22,9 @@ public class RunBaseActivity extends BaseActivity implements Observer {
     protected void initView() {
         super.initView();
         WorkOuting.getInstance().subscribeObserverNotification(this);
-        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+//        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+//        mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
         mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
         mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
         mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
     }
@@ -32,8 +32,16 @@ public class RunBaseActivity extends BaseActivity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-        if (workoutUpdate != null && workoutUpdate == WorkoutUpdate.UI_STOP) {
-            finish();
+        if (workoutUpdate != null) {
+            update(workoutUpdate);
+        }
+    }
+
+    protected void update(WorkoutUpdate workoutUpdate) {
+        switch (workoutUpdate) {
+            case UI_STOP:
+                finish();
+                break;
         }
     }
 
