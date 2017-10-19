@@ -2,14 +2,15 @@ package com.tapc.platform.ui.widget;
 
 import android.content.Context;
 import android.os.Handler;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tapc.platform.R;
 import com.tapc.platform.library.workouting.WorkOuting;
 
+import java.io.IOException;
+
 import butterknife.BindView;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 /**
  * Created by Administrator on 2017/9/29.
@@ -17,7 +18,7 @@ import butterknife.BindView;
 
 public class CountdownDialog extends BaseView {
     @BindView(R.id.countdown_iv)
-    ImageView mCountdown;
+    GifImageView mCountdown;
 
     private Handler mHandler;
     private FinishedListener mFinishedListener;
@@ -34,8 +35,14 @@ public class CountdownDialog extends BaseView {
     @Override
     protected void initView() {
         super.initView();
-        Glide.with(mContext).load(R.drawable.gif_countdown).asGif().skipMemoryCache(true).diskCacheStrategy
-                (DiskCacheStrategy.NONE).into(mCountdown);
+//        Glide.with(mContext).load(R.drawable.gif_countdown).asGif().skipMemoryCache(true).diskCacheStrategy
+//                (DiskCacheStrategy.NONE).into(mCountdown);
+        try {
+            GifDrawable gifFromResource = new GifDrawable(getResources(), R.drawable.gif_countdown);
+            mCountdown.setImageDrawable(gifFromResource);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override

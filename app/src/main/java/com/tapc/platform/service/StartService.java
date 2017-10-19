@@ -66,7 +66,7 @@ public class StartService extends Service implements Observer {
 //        setGestureListenerVisibility(true);
 //        setProgramStageDialogVisibility(true);
 //        setShortcutKeyVisibility(true);
-        initErrorDialog();
+//        initErrorDialog();
         mWorkOuting = WorkOuting.getInstance();
     }
 

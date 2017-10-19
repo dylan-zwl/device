@@ -53,5 +53,5 @@ dependencies {
     compile files('src/libs/keyboard.jar')
     compile(name: 'workout', ext: 'aar')
 
-//    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
 }

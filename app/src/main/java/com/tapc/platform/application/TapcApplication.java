@@ -53,8 +53,8 @@ public class TapcApplication extends Application {
             }
         }, Context.BIND_AUTO_CREATE);
 
-        mKeyEvent = new KeyEvent(null, 0);
-        mKeyEvent.initCom();
+//        mKeyEvent = new KeyEvent(null, 0);
+//        mKeyEvent.initCom();
         initControl(this);
     }
 

@@ -2,30 +2,91 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/bg_round_border"
               android:orientation="vertical">
 
-    <RadioGroup
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
 
-        <LinearLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="请选择语言"
+            android:textColor="@color/commonColor2"
+            android:textSize="@dimen/tx_size3"/>
+
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/language_cn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="中文"/>
+                android:background="@drawable/btn_setting_item"
+                android:button="@null"
+                android:gravity="center"
+                android:text="中文"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
 
             <RadioButton
                 android:id="@+id/language_en"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="英文"/>
-        </LinearLayout>
-    </RadioGroup>
+                android:layout_marginLeft="72dp"
+                android:background="@drawable/btn_setting_item"
+                android:button="@null"
+                android:gravity="center"
+                android:text="English"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="点击右侧确定按钮转换语言，确定后系统会自动重启！"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_setting_common1"
+                android:text="确定"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

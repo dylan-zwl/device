@@ -48,7 +48,7 @@ public class ErrorDialog extends BaseView {
     }
 
     public void init() {
-//        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
+        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
         IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
         int safekey = MachineController.getInstance().getSafeKeyStatus();
         setSafeKeyShow(safekey);

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="背光调节"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:background="@drawable/ic_backlight_min"/>
+
+                <SeekBar
+                    android:layout_width="400dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="60dp"
+                    android:maxHeight="30dp"
+                    android:minHeight="30dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:progressDrawable="@drawable/sbar_common"
+                    android:thumb="@drawable/btn_setting_round"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_backlight_max"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="默认音量"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:background="@drawable/ic_volume_min"/>
+
+                <SeekBar
+                    android:layout_width="400dp"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="60dp"
+                    android:maxHeight="30dp"
+                    android:minHeight="30dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:progressDrawable="@drawable/sbar_common"
+                    android:thumb="@drawable/btn_setting_round"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_volume_min"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <RelativeLayout
+            android:id="@+id/user_device_clean_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清理缓存"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_setting_common1"
+                android:text="清除"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/user_device_clean_rl"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_clear_prompt"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:text="提示：将会清除第三应用的所有缓存和数据。"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
