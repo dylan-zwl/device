@@ -17,15 +17,15 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/5.
  */
 
-public class WifiAdpater extends BaseRecyclerViewAdapter<WifiAdpater.WifiViewHolder, ConnectStatusItem> {
+public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.WifiViewHolder, ConnectStatusItem> {
 
-    public WifiAdpater(List datas) {
+    public BluetoothAdpater(List datas) {
         super(datas);
     }
 
     @Override
     int getContentView() {
-        return R.layout.item_wifi;
+        return R.layout.item_bluetooth;
     }
 
     @Override
@@ -49,34 +49,27 @@ public class WifiAdpater extends BaseRecyclerViewAdapter<WifiAdpater.WifiViewHol
                 holder.status.setVisibility(View.GONE);
             }
             int icId = 0;
-            switch (item.getLevel()) {
+            switch (item.getType()) {
                 case 0:
+                    icId = R.drawable.ic_blue_phone;
+                    break;
                 case 1:
-                    icId = R.drawable.ic_wifi_1;
-                    break;
-                case 2:
-                    icId = R.drawable.ic_wifi_2;
-                    break;
-                case 3:
-                    icId = R.drawable.ic_wifi_3;
-                    break;
-                case 4:
-                    icId = R.drawable.ic_wifi_4;
+                    icId = R.drawable.ic_blue_headset;
                     break;
             }
             if (icId != 0) {
-                holder.statusIc.setBackgroundResource(icId);
+                holder.type.setBackgroundResource(icId);
             }
         }
     }
 
     public class WifiViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.wifi_name)
+        @BindView(R.id.bluetooth_name)
         TextView name;
-        @BindView(R.id.wifi_connect_status)
+        @BindView(R.id.bluetooth_connect_status)
         TextView status;
-        @BindView(R.id.wifi_connect_status_ic)
-        ImageView statusIc;
+        @BindView(R.id.bluetooth_type)
+        ImageView type;
 
         public WifiViewHolder(View view) {
             super(view);

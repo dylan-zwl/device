@@ -1,10 +1,12 @@
 package com.tapc.platform.ui.activity.settings.user;
 
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tapc.platform.R;
+import com.tapc.platform.entity.ConnectStatusItem;
 import com.tapc.platform.model.wifi.WifiAdmin;
 import com.tapc.platform.ui.adpater.WifiAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
@@ -23,7 +25,7 @@ public class WifiFragment extends BaseFragment {
     RecyclerView mRecyclerview;
 
     private WifiAdmin mWifiAdmin;
-    private WifiAdpater mWifiAdpater;
+    private WifiAdpater mAdpater;
 
     @Override
     protected int getContentView() {
@@ -38,14 +40,32 @@ public class WifiFragment extends BaseFragment {
         mWifiAdmin.openWifi();
         mWifiAdmin.startScan();
 
-        List<String> list = new ArrayList<>();
-        for (ScanResult result : mWifiAdmin.getWifiList()) {
-            list.add(result.SSID);
+        List<WifiConfiguration> configurationList = mWifiAdmin.getConfiguration();
+        List<ScanResult> scanResultList = mWifiAdmin.getWifiList();
+        List<ConnectStatusItem> list = new ArrayList<>();
+        if (configurationList != null) {
+            for (WifiConfiguration configuration : configurationList) {
+                ConnectStatusItem item = new ConnectStatusItem();
+                item.setName(configuration.SSID);
+                item.setConnected(false);
+                item.setLevel(0);
+                list.add(item);
+            }
         }
-        mWifiAdpater = new WifiAdpater(list);
+
+        if (scanResultList != null) {
+            for (ScanResult result : scanResultList) {
+                ConnectStatusItem item = new ConnectStatusItem();
+                item.setName(result.SSID);
+                item.setConnected(false);
+                item.setLevel(0);
+                list.add(item);
+            }
+        }
+        mAdpater = new WifiAdpater(list);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerview.setAdapter(mWifiAdpater);
-        mWifiAdpater.notifyDataSetChanged();
+        mRecyclerview.setAdapter(mAdpater);
+        mAdpater.notifyDataSetChanged();
 
         int netId = mWifiAdmin.AddWifiConfig(mWifiAdmin.getWifiList(), mWifiAdmin.getWifiList().get(0).SSID,
                 "1681681681");

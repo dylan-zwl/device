@@ -257,7 +257,6 @@ public class WifiAdmin {
         mWifiManager.disableNetwork(netId);
         mWifiManager.disconnect();
     }
-    // ============
 
     /**
      * 连接指定Id的WIFI
@@ -282,13 +281,13 @@ public class WifiAdmin {
     /**
      * 得到Wifi配置好的信息
      */
-    public void getConfiguration() {
+    public List<WifiConfiguration> getConfiguration() {
         wifiConfigList = mWifiManager.getConfiguredNetworks();// 得到配置好的网络信息
         for (int i = 0; i < wifiConfigList.size(); i++) {
             Log.i("getConfiguration", wifiConfigList.get(i).SSID);
-            Log.i("getConfiguration",
-                    String.valueOf(wifiConfigList.get(i).networkId));
+            Log.i("getConfiguration", String.valueOf(wifiConfigList.get(i).networkId));
         }
+        return wifiConfigList;
     }
 
     /**
