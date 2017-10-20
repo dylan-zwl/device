@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:Commons="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="940dp"
+        android:orientation="vertical"
+        android:padding="40dp">
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            Commons:icons="@drawable/ic_app"
+            Commons:isShowBtn="true"
+            Commons:name="APP">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_mcu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            Commons:icons="@drawable/ic_mcu"
+            Commons:isShowBtn="true"
+            Commons:name="MCU">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_os"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            Commons:icons="@drawable/ic_os"
+            Commons:isShowBtn="true"
+            Commons:name="OS">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            Commons:icons="@drawable/ic_run_time"
+            Commons:name="总时间">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            Commons:icons="@drawable/ic_run_distance"
+            Commons:name="总距离">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_start_title_line"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_setting_common2"
+                android:text="恢复出厂设置"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="64dp"
+                android:background="@drawable/btn_setting_common2"
+                android:text="卸载"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="36dp"
+        android:layout_weight="420dp"
+        android:orientation="vertical"
+        android:padding="40dp">
+
+        <com.tapc.platform.ui.view.SettingDevInfor
+            android:id="@+id/dev_infor_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            Commons:icons="@drawable/ic_device_id"
+            Commons:name="ID:">
+
+        </com.tapc.platform.ui.view.SettingDevInfor>
+
+        <ImageView
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="32dp"/>
+    </LinearLayout>
+</LinearLayout>

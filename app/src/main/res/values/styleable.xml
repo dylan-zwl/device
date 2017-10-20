@@ -47,6 +47,7 @@
         <attr name="name" format="reference|string"/>
         <attr name="unit" format="reference|string"/>
         <attr name="value" format="reference|string"/>
-        <attr name="isShowBack" format="boolean"/>
+        <attr name="txsize" format="dimension"/>
+        <attr name="isShowBtn" format="boolean"/>
     </declare-styleable>
 </resources>

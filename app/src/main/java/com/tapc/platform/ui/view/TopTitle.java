@@ -28,7 +28,7 @@ public class TopTitle extends BaseView {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.Commons);
         TypedArrayUtils.setTextView(mTitleTv, array, R.styleable.Commons_name);
-        boolean isShowBack = array.getBoolean(R.styleable.Commons_isShowBack, false);
+        boolean isShowBack = array.getBoolean(R.styleable.Commons_isShowBtn, false);
         setShowBack(isShowBack);
         array.recycle();
     }

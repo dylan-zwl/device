@@ -1,9 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:Commons="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@drawable/bg_skin"
               android:orientation="vertical">
 
-    <include layout="@layout/view_title"/>
+    <com.tapc.platform.ui.view.TopTitle
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        Commons:isShowBtn="true"
+        Commons:name="设置">
 
+    </com.tapc.platform.ui.view.TopTitle>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginLeft="88dp"
+        android:layout_marginRight="88dp"
+        android:layout_marginTop="36dp"
+        android:orientation="horizontal">
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="34dp"
+            android:fadeScrollbars="false">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/settings_device_infor_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_device_infor"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_device_infor"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_parameter_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_parameter"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_parameter"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_install_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_install"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_install"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_uninstall_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_uninstall"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_uninstall"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_other_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_other"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_other"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_system_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_system"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_system"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+
+                    </RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/settings_file_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_setting_item"
+                        android:button="@drawable/ic_setting_file"
+                        android:drawablePadding="20dp"
+                        android:paddingLeft="24dp"
+                        android:text="@string/settings_file"
+                        android:textColor="@color/commonColor2"
+                        android:textSize="@dimen/tx_size4">
+                    </RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/settings_fl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+    </LinearLayout>
 </LinearLayout>

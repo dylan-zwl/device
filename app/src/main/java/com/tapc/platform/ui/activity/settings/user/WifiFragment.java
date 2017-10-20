@@ -67,11 +67,11 @@ public class WifiFragment extends BaseFragment {
         mRecyclerview.setAdapter(mAdpater);
         mAdpater.notifyDataSetChanged();
 
-        int netId = mWifiAdmin.AddWifiConfig(mWifiAdmin.getWifiList(), mWifiAdmin.getWifiList().get(0).SSID,
-                "1681681681");
-        if (netId != -1) {
-            mWifiAdmin.getConfiguration();
-            boolean ss = mWifiAdmin.ConnectWifi(netId);
-        }
+//        int netId = mWifiAdmin.AddWifiConfig(mWifiAdmin.getWifiList(), mWifiAdmin.getWifiList().get(0).SSID,
+//                "1681681681");
+//        if (netId != -1) {
+//            mWifiAdmin.getConfiguration();
+//            boolean ss = mWifiAdmin.ConnectWifi(netId);
+//        }
     }
 }

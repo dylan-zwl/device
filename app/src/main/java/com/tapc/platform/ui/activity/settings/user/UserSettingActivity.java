@@ -20,7 +20,7 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
     RadioButton mNeteBtn;
     @BindView(R.id.settings_bluetooth_btn)
     RadioButton mBlutoothBtn;
-    @BindView(R.id.settings_other_btn)
+    @BindView(R.id.settings_device_btn)
     RadioButton mOtherBtn;
 
     @Override
@@ -37,8 +37,9 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
         mOtherBtn.setOnCheckedChangeListener(this);
         mLanguageBtn.setChecked(true);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, WifiFragment.class);
+        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, BluetoothFragment.class);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, LanguageFragment.class);
-        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, UserDeviceFragment.class);
+//        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, UserDeviceFragment.class);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
                 case R.id.settings_bluetooth_btn:
                     cls = BluetoothFragment.class;
                     break;
-                case R.id.settings_other_btn:
+                case R.id.settings_device_btn:
                     cls = UserDeviceFragment.class;
                     break;
             }

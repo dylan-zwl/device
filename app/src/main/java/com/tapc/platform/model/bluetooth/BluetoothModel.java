@@ -57,6 +57,10 @@ public class BluetoothModel {
         mBluetoothAdapter.enable();
     }
 
+    public void disable(){
+        mBluetoothAdapter.disable();
+    }
+
     public void startDiscovery() {
         mBluetoothAdapter.startDiscovery();
     }
@@ -125,7 +129,7 @@ public class BluetoothModel {
     /**
      * 配对
      */
-    private void doPair(BluetoothDevice device) {
+    public void doPair(BluetoothDevice device) {
         if (device.getBluetoothClass().getMajorDeviceClass() == BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES) {
             try {
                 mBTA2DP.getClass().getMethod("connect", BluetoothDevice.class).invoke(mBTA2DP, device);

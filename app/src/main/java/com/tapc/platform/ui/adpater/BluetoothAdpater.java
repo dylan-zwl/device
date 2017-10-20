@@ -1,12 +1,13 @@
 package com.tapc.platform.ui.adpater;
 
+import android.bluetooth.BluetoothClass;
+import android.bluetooth.BluetoothDevice;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.ConnectStatusItem;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/5.
  */
 
-public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.WifiViewHolder, ConnectStatusItem> {
+public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.WifiViewHolder, BluetoothDevice> {
 
     public BluetoothAdpater(List datas) {
         super(datas);
@@ -36,25 +37,26 @@ public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.W
     @Override
     public void onBindViewHolder(WifiViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
-        ConnectStatusItem item = mDatas.get(position);
+        BluetoothDevice item = mDatas.get(position);
         holder.itemView.setOnClickListener(this);
+        holder.itemView.setTag(item);
         if (item != null) {
             String nameStr = item.getName();
             if (nameStr != null) {
                 holder.name.setText(nameStr);
             }
-            if (item.isConnected()) {
+            if (item.getBondState() == BluetoothDevice.BOND_BONDED) {
                 holder.status.setVisibility(View.VISIBLE);
             } else {
                 holder.status.setVisibility(View.GONE);
             }
             int icId = 0;
-            switch (item.getType()) {
-                case 0:
-                    icId = R.drawable.ic_blue_phone;
-                    break;
-                case 1:
+            switch (item.getBluetoothClass().getMajorDeviceClass()) {
+                case BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES:
                     icId = R.drawable.ic_blue_headset;
+                    break;
+                default:
+                    icId = R.drawable.ic_blue_phone;
                     break;
             }
             if (icId != 0) {

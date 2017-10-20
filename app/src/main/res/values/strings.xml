@@ -29,10 +29,12 @@
     <string name="settings_calibration">校准</string>
     <string name="settings_install">安装应用</string>
     <string name="settings_uninstall">卸载应用</string>
+    <string name="settings_system">系统设置</string>
+    <string name="settings_file">文件管理</string>
+    <string name="settings_other">其他设置</string>
 
     <string name="settings_language">语言</string>
     <string name="settings_net">网络</string>
     <string name="settings_bluetoolth">蓝牙</string>
-    <string name="settings_other">其他设置</string>
-
+    <string name="settings_device">设备</string>
 </resources>

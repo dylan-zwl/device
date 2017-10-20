@@ -11,7 +11,7 @@
         android:id="@+id/start_top_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        Commons:isShowBack="true"
+        Commons:isShowBtn="true"
         Commons:name="@string/title_start_activity">
 
     </com.tapc.platform.ui.view.TopTitle>

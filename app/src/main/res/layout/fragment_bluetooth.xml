@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="36dp"
+              android:layout_height="match_parent"
               android:background="@drawable/bg_round_border"
               android:gravity="center_vertical"
               android:orientation="vertical"
@@ -12,6 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_marginTop="36dp"
         android:background="#2076BC"
         android:gravity="center_vertical">
 
@@ -39,12 +39,15 @@
             android:textSize="@dimen/tx_size3"/>
 
         <ToggleButton
+            android:id="@+id/bluetooth_enable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="40dp"
-            android:background="@drawable/chx_setting_tbn"/>
+            android:background="@drawable/chx_setting_tbn"
+            android:textOff=""
+            android:textOn=""/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -61,24 +64,27 @@
         android:gravity="center_vertical">
 
         <TextView
-            android:id="@+id/setting_wifi_title"
+            android:id="@+id/setting_bluetooth_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:text="设备"
+            android:text="可用设备"
             android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
 
         <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/bluetooth_loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@id/setting_wifi_title"
-            android:progressDrawable="@drawable/setting_loading"/>
+            android:layout_toRightOf="@id/setting_bluetooth_title"
+            android:indeterminateDrawable="@drawable/setting_loading"
+            android:visibility="gone"/>
 
-        <ImageView
+        <Button
+            android:id="@+id/bluetooth_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -88,7 +94,7 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/wifi_recyclerview"
+        android:id="@+id/bluetooth_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
