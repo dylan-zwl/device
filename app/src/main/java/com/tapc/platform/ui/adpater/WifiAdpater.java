@@ -37,16 +37,24 @@ public class WifiAdpater extends BaseRecyclerViewAdapter<WifiAdpater.WifiViewHol
     public void onBindViewHolder(WifiViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         ConnectStatusItem item = mDatas.get(position);
+        holder.itemView.setTag(item);
         holder.itemView.setOnClickListener(this);
         if (item != null) {
-            String nameStr = item.getName();
+            String nameStr = item.getSSID();
             if (nameStr != null) {
                 holder.name.setText(nameStr);
             }
-            if (item.isConnected()) {
-                holder.status.setVisibility(View.VISIBLE);
-            } else {
-                holder.status.setVisibility(View.GONE);
+            switch (item.getConnectedStatus()) {
+                case 1:
+                    holder.status.setText("已连接");
+                    break;
+                case 2:
+                    holder.status.setText("连接失败");
+                    break;
+                case 0:
+                default:
+                    holder.status.setText("");
+                    break;
             }
             int icId = 0;
             switch (item.getLevel()) {

@@ -1,103 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@drawable/bg_round_border"
-              android:gravity="center_vertical"
-              android:orientation="vertical"
-              android:paddingLeft="60dp"
-              android:paddingRight="60dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_round_border"
+                android:paddingLeft="60dp"
+                android:paddingRight="60dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
-        android:background="#2076BC"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="蓝牙设置"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="84dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:text="蓝牙设置"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-        <ToggleButton
-            android:id="@+id/bluetooth_enable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/chx_setting_tbn"
-            android:textOff=""
-            android:textOn=""/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="#195184"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
-        android:background="#2076BC"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/setting_bluetooth_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="可用设备"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-        <ProgressBar
-            android:id="@+id/bluetooth_loading"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@id/setting_bluetooth_title"
-            android:indeterminateDrawable="@drawable/setting_loading"
-            android:visibility="gone"/>
-
-        <Button
-            android:id="@+id/bluetooth_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/btn_refresh"/>
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/bluetooth_recyclerview"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="36dp"
+            android:background="#2076BC"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="蓝牙设置"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
+                android:text="蓝牙设置"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+            <ToggleButton
+                android:id="@+id/bluetooth_enable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/chx_setting_tbn"
+                android:textOff=""
+                android:textOn=""/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="#195184"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="36dp"
+            android:background="#2076BC"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/setting_bluetooth_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="可用设备"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+            <ProgressBar
+                android:id="@+id/bluetooth_loading"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@id/setting_bluetooth_title"
+                android:indeterminateDrawable="@drawable/setting_loading"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/bluetooth_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/btn_refresh"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/bluetooth_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</RelativeLayout>

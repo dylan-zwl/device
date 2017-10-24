@@ -36,8 +36,8 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
         mBlutoothBtn.setOnCheckedChangeListener(this);
         mOtherBtn.setOnCheckedChangeListener(this);
         mLanguageBtn.setChecked(true);
-//        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, WifiFragment.class);
-        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, BluetoothFragment.class);
+        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, WifiFragment.class);
+//        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, BluetoothFragment.class);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, LanguageFragment.class);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, UserDeviceFragment.class);
     }

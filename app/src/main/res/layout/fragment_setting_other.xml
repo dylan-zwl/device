@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:Commons="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="60dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.tapc.platform.ui.view.SettingFunction
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            Commons:name="待机">
+
+        </com.tapc.platform.ui.view.SettingFunction>
+
+        <com.tapc.platform.ui.view.SettingFunction
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            Commons:name="空跑检测">
+
+        </com.tapc.platform.ui.view.SettingFunction>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.tapc.platform.ui.view.SettingFunction
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            Commons:name="刷卡功能">
+
+        </com.tapc.platform.ui.view.SettingFunction>
+
+        <com.tapc.platform.ui.view.SettingParameterEdit
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            Commons:name="IP:">
+
+        </com.tapc.platform.ui.view.SettingParameterEdit>
+
+        <com.tapc.platform.ui.view.SettingParameterEdit
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            Commons:name="Port:">
+
+        </com.tapc.platform.ui.view.SettingParameterEdit>
+    </LinearLayout>
+</LinearLayout>

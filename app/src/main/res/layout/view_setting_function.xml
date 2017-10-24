@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/setting_function_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/commonColor2"
+        android:textSize="@dimen/tx_size3"/>
+
+    <ToggleButton
+        android:id="@+id/setting_function_tbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_setting_common1"
+        android:textOff=""
+        android:textOn=""
+        android:textSize="@dimen/tx_size3"/>
+</RelativeLayout>

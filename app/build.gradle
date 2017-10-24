@@ -52,6 +52,7 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile files('src/libs/keyboard.jar')
     compile(name: 'workout', ext: 'aar')
-
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+    provided files('src/libs/classes-full-3188.jar')
+    provided files('src/libs/classes-full-8935.jar')
 }

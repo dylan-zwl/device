@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
+                android:background="@drawable/btn_app_click"
                 android:orientation="horizontal">
 
     <RelativeLayout
@@ -16,22 +17,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:textColor="@color/commonColor2"
+            android:layout_centerVertical="true"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
+
+        <ImageView
+            android:id="@+id/wifi_connect_status_ic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/wifi_name"
+            android:layout_alignParentRight="true"/>
 
         <TextView
             android:id="@+id/wifi_connect_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_toRightOf="@id/wifi_name"
-            android:textColor="@color/commonColor2"
+            android:layout_alignBottom="@id/wifi_name"
+            android:layout_marginRight="60dp"
+            android:layout_toLeftOf="@id/wifi_connect_status_ic"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size2"/>
-
-        <ImageView
-            android:id="@+id/wifi_connect_status_ic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
     <ImageView

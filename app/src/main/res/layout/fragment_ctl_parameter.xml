@@ -1,31 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:Commons="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:background="@drawable/bg_round_border"
-              android:gravity="center_horizontal"
-              android:orientation="vertical"
-              android:padding="60dp">
+              android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/ctl_parameter_rv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/bg_start_title_line"/>
-
-    <Button
-        android:id="@+id/ctl_parameter_btn"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/btn_setting_common1"
-        android:textSize="@dimen/tx_size3"/>
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="60dp">
 
+        <com.tapc.platform.ui.view.SettingFunctionBtn
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            Commons:name="坡度校准">
+
+        </com.tapc.platform.ui.view.SettingFunctionBtn>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/bg_round_border"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="60dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/ctl_parameter_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/bg_start_title_line"/>
+
+        <Button
+            android:id="@+id/ctl_parameter_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/btn_setting_common1"
+            android:textSize="@dimen/tx_size3"/>
+    </LinearLayout>
 </LinearLayout>

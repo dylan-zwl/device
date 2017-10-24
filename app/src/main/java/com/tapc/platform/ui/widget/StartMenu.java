@@ -53,7 +53,7 @@ public class StartMenu extends BaseView {
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext);
+                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext,false);
                 mAppAdpater = new AppAdpater(allAppInfo);
                 mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override

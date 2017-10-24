@@ -66,28 +66,38 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
     void bluetoothEnableChange(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             mBluetoothModel.enable();
-            if (mBluetoothModel.isEnabled()) {
-                mBluetoothModel.startDiscovery();
-            } else {
-                mEnableTBtn.setChecked(false);
-            }
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mBluetoothModel.isEnabled()) {
+                        mRecyclerview.setVisibility(View.VISIBLE);
+                        mBluetoothModel.startDiscovery();
+                        return;
+                    } else {
+                        mEnableTBtn.setChecked(false);
+                    }
+                }
+            }, 3000);
         } else {
             mBluetoothModel.disable();
         }
+        mRecyclerview.setVisibility(View.GONE);
     }
 
     @OnClick(R.id.bluetooth_refresh)
     void refresh() {
-        mList.clear();
         mAdpater.notifyDataSetChanged();
-//        mBluetoothModel.cancelDiscovery();
+        mBluetoothModel.cancelDiscovery();
         mBluetoothModel.startDiscovery();
     }
 
     @Override
     public void actionFound(BluetoothDevice bluetoothDevice) {
-        mList.add(bluetoothDevice);
-        mAdpater.notifyDataSetChanged();
+        int index = mList.indexOf(bluetoothDevice);
+        if (index < 0) {
+            mList.add(bluetoothDevice);
+            mAdpater.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -97,7 +107,9 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
 
     @Override
     public void actionAclConnected(BluetoothDevice bluetoothDevice) {
+        mAdpater.setConnectedDevice(bluetoothDevice);
         refreshList(bluetoothDevice);
+        mAdpater.notifyDataSetChanged();
     }
 
     @Override
@@ -107,28 +119,42 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
 
     @Override
     public void actionDiscoveryStarted() {
+        mBluetoothModel.setDiscoverableTimeout(1);
+        mList.clear();
         mLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void actionDiscoveryFinished() {
-        mBluetoothModel.cancelDiscovery();
         mLoading.setVisibility(View.GONE);
     }
 
     @Override
     public void onItemClick(View view, BluetoothDevice bluetoothDevice) {
+        mBluetoothModel.cancelDiscovery();
         mBluetoothModel.doPair(bluetoothDevice);
     }
 
     private void refreshList(final BluetoothDevice bluetoothDevice) {
-        mList.set(mList.indexOf(bluetoothDevice), bluetoothDevice);
-        mAdpater.notifyDataSetChanged();
-//        mHandler.post(new Runnable() {
-//            @Override
-//            public void run() {
+        if (mList == null) {
+            return;
+        }
+        int index = mList.indexOf(bluetoothDevice);
+        if (index >= 0) {
+            mList.set(index, bluetoothDevice);
+            mAdpater.notifyItemChanged(index);
+        }
+//        for (int index = 0; index < mList.size(); index++) {
+//            if (mList.get(index).equals(bluetoothDevice)) {
 //
 //            }
-//        });
+//        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mHandler.removeCallbacksAndMessages(null);
+        mBluetoothModel.stop();
     }
 }

@@ -157,7 +157,7 @@ public class DeviceCtl extends BaseView implements View.OnTouchListener {
                         break;
                 }
             }
-        });
+        }, null);
     }
 
     @Override

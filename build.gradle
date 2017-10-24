@@ -17,6 +17,13 @@ allprojects {
     repositories {
         jcenter()
     }
+    //添加以下代码，使classes-full-debug.jar包编译先于android.jar
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            options.compilerArgs.add('-Xbootclasspath/p:app\\src\\libs\\classes-full-3188.jar')
+//            options.compilerArgs.add('-Xbootclasspath/p:app\\src\\libs\\classes-full-8935.jar')
+        }
+    }
 }
 
 task clean(type: Delete) {

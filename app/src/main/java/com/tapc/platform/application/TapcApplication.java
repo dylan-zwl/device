@@ -68,7 +68,7 @@ public class TapcApplication extends Application {
         if (systemSettings != null) {
             systemSettings.Load(this, null);
             systemSettings.mPath = "/mnt/sdcard/premierprograms.db";
-            AppSettings.setPlatform(CommonEnum.Platform.S700);
+            AppSettings.setPlatform(CommonEnum.Platform.RK3188);
             AppSettings.setLoopbackMode(false);
             MachineController controller = MachineController.getInstance();
             controller.initController(this);

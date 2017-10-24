@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/chk_app"/>
+                android:button="@drawable/chx_setting_app"/>
 
             <TextView
                 android:id="@+id/app_all_select_tx"
@@ -32,28 +32,33 @@
                 android:textColor="@color/commonColor1"
                 android:textSize="@dimen/tx_size3"/>
 
-            <CheckBox
-                android:id="@+id/app_system_show"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="64dp"
                 android:layout_toRightOf="@+id/app_all_select_tx"
-                android:button="@drawable/chk_app"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="24dp"
-                android:layout_toRightOf="@+id/app_system_show"
-                android:text="显示系统软件"
-                android:textColor="@color/commonColor1"
-                android:textSize="@dimen/tx_size3"/>
+                <CheckBox
+                    android:id="@+id/app_system_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/chx_setting_app"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:text="显示系统软件"
+                    android:textColor="@color/commonColor1"
+                    android:textSize="@dimen/tx_size3"/>
+            </LinearLayout>
+
 
             <Button
-                android:id="@+id/install_all_app_btn"
+                android:id="@+id/app_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -70,12 +75,12 @@
             android:background="@drawable/bg_start_title_line"/>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/install_app_lv"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/app_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="15dp"
         android:layout_marginTop="15dp"
         android:divider="@null">
-    </ListView>
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

@@ -108,7 +108,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                allAppInfo = AppUtils.getAllAppInfo(mContext);
+                allAppInfo = AppUtils.getAllAppInfo(mContext,false);
                 mAppAdpater = new AppAdpater(allAppInfo);
                 mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override

@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import java.lang.reflect.Method;
+
 /**
  * Created by Administrator on 2017/10/17.
  */
@@ -25,6 +27,10 @@ public class BluetoothModel {
     public BluetoothModel(Context context) {
         mContext = context;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+    }
+
+    public BluetoothAdapter getAdapter() {
+        return mBluetoothAdapter;
     }
 
     public void start() {
@@ -49,6 +55,28 @@ public class BluetoothModel {
         }
     }
 
+    //max time : 300
+    public void requestDiscoverable(int time) {
+        Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+        intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, time);
+        mContext.startActivity(intent);
+    }
+
+    public void setDiscoverableTimeout(int timeout) {
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        try {
+            Method setDiscoverableTimeout = BluetoothAdapter.class.getMethod("setDiscoverableTimeout", int.class);
+            setDiscoverableTimeout.setAccessible(true);
+            Method setScanMode = BluetoothAdapter.class.getMethod("setScanMode", int.class, int.class);
+            setScanMode.setAccessible(true);
+
+            setDiscoverableTimeout.invoke(adapter, timeout);
+            setScanMode.invoke(adapter, BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE, timeout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean isEnabled() {
         return mBluetoothAdapter.isEnabled();
     }
@@ -57,7 +85,7 @@ public class BluetoothModel {
         mBluetoothAdapter.enable();
     }
 
-    public void disable(){
+    public void disable() {
         mBluetoothAdapter.disable();
     }
 
@@ -80,18 +108,25 @@ public class BluetoothModel {
                 return;
             }
             BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            if (intent.getAction().equals(BluetoothDevice.ACTION_FOUND)) {
-                mListener.actionFound(bluetoothDevice);
-            } else if (intent.getAction().equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
-                mListener.actionBondStateChanged(bluetoothDevice);
-            } else if (intent.getAction().equals(BluetoothDevice.ACTION_ACL_CONNECTED)) {
-                mListener.actionAclConnected(bluetoothDevice);
-            } else if (intent.getAction().equals(BluetoothDevice.ACTION_ACL_DISCONNECTED)) {
-                mListener.actionAclDisconnected(bluetoothDevice);
-            } else if (intent.getAction().equals(BluetoothAdapter.ACTION_DISCOVERY_STARTED)) {
-                mListener.actionDiscoveryStarted();
-            } else if (intent.getAction().equals(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)) {
-                mListener.actionDiscoveryFinished();
+            switch (intent.getAction()) {
+                case BluetoothDevice.ACTION_FOUND:
+                    mListener.actionFound(bluetoothDevice);
+                    break;
+                case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
+                    mListener.actionBondStateChanged(bluetoothDevice);
+                    break;
+                case BluetoothDevice.ACTION_ACL_CONNECTED:
+                    mListener.actionAclConnected(bluetoothDevice);
+                    break;
+                case BluetoothDevice.ACTION_ACL_DISCONNECTED:
+                    mListener.actionAclDisconnected(bluetoothDevice);
+                    break;
+                case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
+                    mListener.actionDiscoveryStarted();
+                    break;
+                case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
+                    mListener.actionDiscoveryFinished();
+                    break;
             }
         }
     };

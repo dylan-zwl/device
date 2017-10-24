@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:button="@drawable/chk_app"/>
+            android:button="@drawable/chx_setting_app"/>
 
         <ImageView
             android:id="@+id/setting_app_ic"
@@ -31,12 +31,11 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="50dp"
             android:layout_toRightOf="@+id/setting_app_ic"
-            android:text="显示系统软件"
             android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
 
         <TextView
-            android:id="@+id/setting_app_loading"
+            android:id="@+id/setting_app_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -46,23 +45,13 @@
             android:textSize="@dimen/tx_size3"/>
 
         <Button
-            android:id="@+id/setting_app_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_setting_common3"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-        <Button
             android:id="@+id/setting_app_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/btn_setting_common3"
-            android:textColor="@color/commonColor1"
+            android:background="@drawable/btn_setting_common1"
+            android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size3"/>
     </RelativeLayout>
 

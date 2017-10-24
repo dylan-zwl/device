@@ -2,6 +2,7 @@ package com.tapc.platform.ui.adpater;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ public class CtlParameterAdpater extends BaseRecyclerViewAdapter<CtlParameterAdp
 
     @Override
     int getContentView() {
-        return R.layout.item_ctl_parameter;
+        return R.layout.view_setting_parameter;
     }
 
     @Override
@@ -60,12 +61,15 @@ public class CtlParameterAdpater extends BaseRecyclerViewAdapter<CtlParameterAdp
 
             }
         });
+        holder.value.setFilters(new InputFilter[]{new InputFilter.LengthFilter(5)});
+
+
     }
 
     public class CtlParameterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.ctl_parameter_name)
+        @BindView(R.id.setting_parameter_name)
         TextView name;
-        @BindView(R.id.ctl_parameter_et)
+        @BindView(R.id.setting_parameter_et)
         EditText value;
 
         public CtlParameterViewHolder(View view) {

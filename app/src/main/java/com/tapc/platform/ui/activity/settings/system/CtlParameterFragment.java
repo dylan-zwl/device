@@ -10,6 +10,6 @@ import com.tapc.platform.ui.fragment.BaseFragment;
 public class CtlParameterFragment extends BaseFragment {
     @Override
     protected int getContentView() {
-        return R.layout.fragment_ctl_parameter;
+        return R.layout.fragment_setting_app;
     }
 }

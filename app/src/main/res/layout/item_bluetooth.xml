@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="84dp"
+                android:background="@drawable/btn_app_click"
                 android:orientation="horizontal">
 
     <RelativeLayout
@@ -23,16 +24,30 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_toRightOf="@id/bluetooth_type"
-            android:textColor="@color/commonColor2"
+            android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
+
+        <TextView
+            android:id="@+id/bluetooth_bond_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/bluetooth_name"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@id/bluetooth_name"
+            android:text="已配对"
+            android:textColor="@color/commonColor2"
+            android:textSize="@dimen/tx_size1"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/bluetooth_connect_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/commonColor2"
-            android:textSize="@dimen/tx_size2"/>
+            android:text="已连接"
+            android:textColor="@color/commonColor1"
+            android:textSize="@dimen/tx_size2"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <ImageView

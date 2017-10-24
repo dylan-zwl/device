@@ -1,97 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_marginTop="36dp"
-              android:background="@drawable/bg_round_border"
-              android:gravity="center_vertical"
-              android:orientation="vertical"
-              android:paddingLeft="60dp"
-              android:paddingRight="60dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_round_border"
+                android:padding="60dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#2076BC"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="网络设置"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="84dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="40dp"
-            android:text="WIFI设置"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-        <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/chx_setting_tbn"/>
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignParentBottom="true"
-            android:background="#195184"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="36dp"
-        android:background="#2076BC"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/setting_wifi_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:text="网络选择"
-            android:textColor="@color/commonColor1"
-            android:textSize="@dimen/tx_size3"/>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@id/setting_wifi_title"
-            android:progressDrawable="@drawable/setting_loading"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="40dp"
-            android:background="@drawable/btn_refresh"/>
-    </RelativeLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/wifi_recyclerview"
+    <LinearLayout
+        android:id="@+id/setting_wifi_item_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#2076BC"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="网络设置"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="84dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="40dp"
+                android:text="WIFI设置"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+            <ToggleButton
+                android:id="@+id/setting_wifi_enable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/chx_setting_tbn"
+                android:textOff=""
+                android:textOn=""/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_alignParentBottom="true"
+                android:background="#195184"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="36dp"
+            android:background="#2076BC"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/setting_wifi_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="网络选择"
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+            <ProgressBar
+                android:id="@+id/setting_wifi_loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@id/setting_wifi_title"
+                android:indeterminateDrawable="@drawable/setting_loading"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/setting_wifi_refresh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/btn_refresh"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/setting_wifi_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_wifi_pwd_ll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#2076BC"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text=""
+                android:textColor="@color/commonColor1"
+                android:textSize="@dimen/tx_size3"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="40dp">
+
+            <TextView
+                android:id="@+id/setting_wifi_pwd_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="密码"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <EditText
+                android:id="@+id/setting_wifi_pwd_edit"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="24dp"
+                android:layout_toRightOf="@+id/setting_wifi_pwd_tx"
+                android:background="@drawable/btn_setting_common1"
+                android:inputType="textPassword"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+
+            <Button
+                android:id="@+id/setting_wifi_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_setting_common1"
+                android:text="取消"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <Button
+                android:id="@+id/setting_wifi_connect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="52dp"
+                android:layout_toLeftOf="@+id/setting_wifi_cancel"
+                android:background="@drawable/btn_setting_common1"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+
+            <Button
+                android:id="@+id/setting_wifi_cancel_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="52dp"
+                android:layout_toLeftOf="@+id/setting_wifi_connect"
+                android:background="@drawable/btn_setting_common1"
+                android:text="取消保存"
+                android:textColor="@color/commonColor2"
+                android:textSize="@dimen/tx_size3"/>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

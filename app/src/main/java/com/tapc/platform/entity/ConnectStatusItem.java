@@ -1,29 +1,23 @@
 package com.tapc.platform.entity;
 
+
 /**
  * Created by Administrator on 2017/10/19.
  */
 
 public class ConnectStatusItem {
-    private String name;
-    private boolean isConnected;
+    private String SSID;
+    private String BSSID;
+    private int connectedStatus;
     private int level;
-    private int type;
+    private int pwdType;
 
-    public String getName() {
-        return name;
+    public String getSSID() {
+        return SSID;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isConnected() {
-        return isConnected;
-    }
-
-    public void setConnected(boolean connected) {
-        isConnected = connected;
+    public void setSSID(String SSID) {
+        this.SSID = SSID;
     }
 
     public int getLevel() {
@@ -34,11 +28,28 @@ public class ConnectStatusItem {
         this.level = level;
     }
 
-    public int getType() {
-        return type;
+
+    public int getConnectedStatus() {
+        return connectedStatus;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setConnectedStatus(int connectedStatus) {
+        this.connectedStatus = connectedStatus;
+    }
+
+    public String getBSSID() {
+        return BSSID;
+    }
+
+    public void setBSSID(String BSSID) {
+        this.BSSID = BSSID;
+    }
+
+    public int getPwdType() {
+        return pwdType;
+    }
+
+    public void setPwdType(int pwdType) {
+        this.pwdType = pwdType;
     }
 }

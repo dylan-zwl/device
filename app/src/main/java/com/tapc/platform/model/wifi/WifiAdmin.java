@@ -28,9 +28,6 @@ public class WifiAdmin {
     // 网络连接列表
     private List<WifiConfiguration> mWifiConfigurations;
     WifiLock mWifiLock;
-    public static final int TYPE_NO_PASSWD = 0x11;
-    public static final int TYPE_WEP = 0x12;
-    public static final int TYPE_WPA = 0x13;
 
     public WifiAdmin(Context context) {
         // 获得WifiManager对象
@@ -55,6 +52,10 @@ public class WifiAdmin {
         if (!mWifiManager.isWifiEnabled()) {
             mWifiManager.setWifiEnabled(false);
         }
+    }
+
+    public boolean isWifiEnabled() {
+        return mWifiManager.isWifiEnabled();
     }
 
     /**
@@ -149,11 +150,15 @@ public class WifiAdmin {
         return (mWifiInfo == null) ? "NULL" : mWifiInfo.getMacAddress();
     }
 
-    public String getBSSID() {
+    public String getConnectedSSID() {
+        return (mWifiInfo == null) ? "NULL" : mWifiInfo.getSSID();
+    }
+
+    public String getConnectedBSSID() {
         return (mWifiInfo == null) ? "NULL" : mWifiInfo.getBSSID();
     }
 
-    public int getIpAddress() {
+    public int getConnectedIpAddress() {
         return (mWifiInfo == null) ? 0 : mWifiInfo.getIpAddress();
     }
 
@@ -162,7 +167,7 @@ public class WifiAdmin {
      *
      * @return
      */
-    public int getNetWordId() {
+    public int getConnectedNetWordId() {
         return (mWifiInfo == null) ? 0 : mWifiInfo.getNetworkId();
     }
 
@@ -185,7 +190,7 @@ public class WifiAdmin {
         mWifiManager.enableNetwork(wcgId, true);
     }
 
-    public WifiConfiguration createWifiInfo(String SSID, String Password, int Type) {
+    public WifiConfiguration createWifiInfo(String SSID, String password, int type) {
         WifiConfiguration config = new WifiConfiguration();
         config.allowedAuthAlgorithms.clear();
         config.allowedGroupCiphers.clear();
@@ -197,40 +202,32 @@ public class WifiAdmin {
         if (tempConfig != null) {
             mWifiManager.removeNetwork(tempConfig.networkId);
         }
-        if (Type == 1) // WIFICIPHER_NOPASS
-        {
+        if (type == WifiPassard.SECURITY_NONE) {
             config.wepKeys[0] = "";
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             config.wepTxKeyIndex = 0;
         }
-        if (Type == 2) // WIFICIPHER_WEP
-        {
+        if (type == WifiPassard.SECURITY_WEP) {
             config.hiddenSSID = true;
-            config.wepKeys[0] = "\"" + Password + "\"";
-            config.allowedAuthAlgorithms
-                    .set(WifiConfiguration.AuthAlgorithm.SHARED);
+            config.wepKeys[0] = "\"" + password + "\"";
+            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-            config.allowedGroupCiphers
-                    .set(WifiConfiguration.GroupCipher.WEP104);
+            config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
             config.wepTxKeyIndex = 0;
         }
-        if (Type == 3) // WIFICIPHER_WPA
-        {
-            config.preSharedKey = "\"" + Password + "\"";
+        if (type == WifiPassard.SECURITY_WPA_PSK) {
+            config.preSharedKey = "\"" + password + "\"";
             config.hiddenSSID = true;
-            config.allowedAuthAlgorithms
-                    .set(WifiConfiguration.AuthAlgorithm.OPEN);
+            config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
             config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-            config.allowedPairwiseCiphers
-                    .set(WifiConfiguration.PairwiseCipher.TKIP);
+            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
             // config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
             config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-            config.allowedPairwiseCiphers
-                    .set(WifiConfiguration.PairwiseCipher.CCMP);
+            config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
             config.status = WifiConfiguration.Status.ENABLED;
         }
         return config;
@@ -251,12 +248,17 @@ public class WifiAdmin {
     /**
      * 断开指定ID的网络
      *
-     * @param netId
+     * @param networkId
      */
-    public void disConnectionWifi(int netId) {
-        mWifiManager.disableNetwork(netId);
+    public void disConnectionWifi(int networkId) {
+        mWifiManager.disableNetwork(networkId);
         mWifiManager.disconnect();
     }
+
+    public void removeNetwork(int networkId) {
+        mWifiManager.removeNetwork(networkId);
+    }
+
 
     /**
      * 连接指定Id的WIFI
@@ -264,13 +266,13 @@ public class WifiAdmin {
      * @param wifiId
      * @return
      */
-    public boolean ConnectWifi(int wifiId) {
+    public boolean connectWifi(int wifiId) {
         for (int i = 0; i < wifiConfigList.size(); i++) {
             WifiConfiguration wifi = wifiConfigList.get(i);
             if (wifi.networkId == wifiId) {
                 // 激活该Id，建立连接 status:0--已经连接，1--不可连接，2--可以连接
                 while (!(mWifiManager.enableNetwork(wifiId, true))) {
-                    Log.i("ConnectWifi", String.valueOf(wifiConfigList.get(wifiId).status));
+                    Log.i("connectWifi", String.valueOf(wifiConfigList.get(wifiId).status));
                 }
                 return true;
             }
@@ -296,8 +298,8 @@ public class WifiAdmin {
      * @param SSID
      * @return
      */
-    public int IsConfiguration(String SSID) {
-        Log.i("IsConfiguration", String.valueOf(wifiConfigList.size()));
+    public int isConfiguration(String SSID) {
+        Log.i("isConfiguration", String.valueOf(wifiConfigList.size()));
         for (int i = 0; i < wifiConfigList.size(); i++) {
             Log.i(wifiConfigList.get(i).SSID,
                     String.valueOf(wifiConfigList.get(i).networkId));
@@ -311,23 +313,17 @@ public class WifiAdmin {
     /**
      * 添加指定WIFI的配置信息,原列表不存在此SSID
      *
-     * @param wifiList
      * @param ssid
      * @param pwd
      * @return
      */
-    public int AddWifiConfig(List<ScanResult> wifiList, String ssid, String pwd) {
+    public int addWifiConfig(String ssid, String pwd, int Type) {
         int wifiId = -1;
-        for (int i = 0; i < wifiList.size(); i++) {
-            ScanResult wifi = wifiList.get(i);
+        for (int i = 0; i < mWifiList.size(); i++) {
+            ScanResult wifi = mWifiList.get(i);
             if (wifi.SSID.equals(ssid)) {
-                Log.i("AddWifiConfig", "equals");
-                WifiConfiguration wifiCong = new WifiConfiguration();
-                wifiCong.SSID = "\"" + wifi.SSID + "\"";// \"转义字符，代表"
-                wifiCong.preSharedKey = "\"" + pwd + "\"";// WPA-PSK密码
-                wifiCong.hiddenSSID = false;
-                wifiCong.status = WifiConfiguration.Status.ENABLED;
-                wifiId = mWifiManager.addNetwork(wifiCong);// 将配置好的特定WIFI密码信息添加,添加完成后默认是不激活状态，成功返回ID，否则为-1
+                // 将配置好的特定WIFI密码信息添加,添加完成后默认是不激活状态，成功返回ID，否则为-1
+                wifiId = mWifiManager.addNetwork(createWifiInfo(ssid, pwd, Type));
                 if (wifiId != -1) {
                     return wifiId;
                 }

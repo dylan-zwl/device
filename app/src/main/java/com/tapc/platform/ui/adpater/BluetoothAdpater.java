@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
  */
 
 public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.WifiViewHolder, BluetoothDevice> {
+    private BluetoothDevice mConnectedDevice;
 
     public BluetoothAdpater(List datas) {
         super(datas);
@@ -46,10 +47,16 @@ public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.W
                 holder.name.setText(nameStr);
             }
             if (item.getBondState() == BluetoothDevice.BOND_BONDED) {
-                holder.status.setVisibility(View.VISIBLE);
+                holder.bondStatus.setVisibility(View.VISIBLE);
             } else {
-                holder.status.setVisibility(View.GONE);
+                holder.bondStatus.setVisibility(View.GONE);
             }
+            if (mConnectedDevice != null && mConnectedDevice.equals(item)) {
+                holder.connectStatus.setVisibility(View.VISIBLE);
+            } else {
+                holder.connectStatus.setVisibility(View.GONE);
+            }
+
             int icId = 0;
             switch (item.getBluetoothClass().getMajorDeviceClass()) {
                 case BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES:
@@ -65,11 +72,17 @@ public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.W
         }
     }
 
+    public void setConnectedDevice(BluetoothDevice device) {
+        mConnectedDevice = device;
+    }
+
     public class WifiViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.bluetooth_name)
         TextView name;
         @BindView(R.id.bluetooth_connect_status)
-        TextView status;
+        TextView connectStatus;
+        @BindView(R.id.bluetooth_bond_status)
+        TextView bondStatus;
         @BindView(R.id.bluetooth_type)
         ImageView type;
 

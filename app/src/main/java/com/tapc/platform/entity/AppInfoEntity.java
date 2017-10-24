@@ -9,6 +9,7 @@ public class AppInfoEntity {
     private Intent intent;
     private String pkgName;
     private int type;
+    private boolean systemApp;
 
     public int getType() {
         return type;
@@ -51,5 +52,13 @@ public class AppInfoEntity {
 
     public void setPkgName(String pkgName) {
         this.pkgName = pkgName;
+    }
+
+    public void setSystemApp(boolean systemApp) {
+        this.systemApp = systemApp;
+    }
+
+    public boolean isSystemApp() {
+        return systemApp;
     }
 }
