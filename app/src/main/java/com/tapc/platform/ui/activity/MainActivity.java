@@ -26,6 +26,7 @@ public class MainActivity extends BaseActivity {
     protected void initView() {
 //        IntentUtils.startActivity(mContext, RunInforActivity.class);
         System.gc();
+
         float a = getResources().getDisplayMetrics().density;
 //        IntentUtils.startActivity(mContext, UserSettingActivity.class);
 //        IntentUtils.startActivity(mContext, SystemSettingActivity.class);
