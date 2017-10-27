@@ -3,6 +3,7 @@ package com.tapc.platform.ui.widget;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -14,6 +15,8 @@ import com.tapc.platform.library.util.WorkoutEnum.WorkoutGoal;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.adpater.RunInforAdpater;
+import com.tapc.platform.ui.view.BaseSystemView;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +29,18 @@ import butterknife.BindView;
  * Created by Administrator on 2017/8/28.
  */
 
-public class RunInforBar extends BaseView implements Observer {
+public class RunInforBar extends BaseSystemView implements Observer {
     @BindView(R.id.run_infor_lv)
     RecyclerView mRecyclerView;
     @BindView(R.id.run_infor_bg)
     LinearLayout mBg;
 
-    private WindowManager mWindowManager;
-    private WindowManager.LayoutParams mWindowManagerParams;
     private RunInforAdpater mRunInforAdpater;
     List<WorkoutInforItem> mDataList;
     private WorkOuting mWorkOuting;
 
-    public RunInforBar(Context context, WindowManager windowManager, WindowManager.LayoutParams windowManagerParams) {
+    public RunInforBar(Context context) {
         super(context);
-        mWindowManager = windowManager;
-        mWindowManagerParams = windowManagerParams;
     }
 
     @Override
@@ -61,6 +60,12 @@ public class RunInforBar extends BaseView implements Observer {
 
         mWorkOuting = WorkOuting.getInstance();
         mWorkOuting.subscribeObserverNotification(this);
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity
+                .TOP);
     }
 
     private String getString(int id) {

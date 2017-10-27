@@ -5,11 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
 import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,7 +25,7 @@ import static com.tapc.platform.library.controller.MachineStatusController.DEVIC
  * Created by Administrator on 2017/9/7.
  */
 
-public class ErrorDialog extends BaseView {
+public class ErrorDialog extends BaseSystemView {
     @BindView(R.id.error_safekey)
     LinearLayout mSafeKeyLL;
     @BindView(R.id.error_code)
@@ -40,6 +44,12 @@ public class ErrorDialog extends BaseView {
     @Override
     protected void initView() {
         super.initView();
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity
+                .TOP);
     }
 
     @Override

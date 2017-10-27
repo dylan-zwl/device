@@ -1,6 +1,5 @@
 package com.tapc.platform.ui.activity.run;
 
-import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.BaseActivity;
@@ -24,9 +23,11 @@ public class RunBaseActivity extends BaseActivity implements Observer {
         WorkOuting.getInstance().subscribeObserverNotification(this);
 //        mTapcApp.getService().setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
 //        mTapcApp.getService().setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
-        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
+
+//        mTapcApp.getService().setAppBarVisibility(WidgetShowStatus.VISIBLE);
+//        mTapcApp.getService().setShortcutKeyVisibility(WidgetShowStatus.VISIBLE);
+//        mTapcApp.getService().setBottomBarVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().startDevice();
     }
 
     @Override

@@ -56,12 +56,6 @@ public class UserDeviceFragment extends BaseFragment {
 
     private void initBacklight() {
         mBacklightBar.setMax(255);
-        try {
-            int backlightValue = BacklightModel.getBacklight(mContext);
-            mBacklightBar.setProgress(backlightValue);
-        } catch (Settings.SettingNotFoundException e) {
-            e.printStackTrace();
-        }
         mBacklightBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean fromUser) {
@@ -83,16 +77,21 @@ public class UserDeviceFragment extends BaseFragment {
 
             }
         });
+        try {
+            int backlightValue = BacklightModel.getBacklight(mContext);
+            mBacklightBar.setProgress(backlightValue);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private void initVolume() {
         mVolumeBar.setMax(SoundCtlUtils.getInstance().getMaxVolume(mContext));
-        mVolumeBar.setProgress(SoundCtlUtils.getInstance().getVolume(mContext));
         mVolumeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean fromUser) {
                 SoundCtlUtils.getInstance().setVolume(mContext, value);
-                mBacklightValumeTv.setText(String.valueOf(value));
+                mVolumeValueTv.setText(String.valueOf(value));
             }
 
             @Override
@@ -105,6 +104,7 @@ public class UserDeviceFragment extends BaseFragment {
 
             }
         });
+        mVolumeBar.setProgress(SoundCtlUtils.getInstance().getVolume(mContext));
     }
 
 

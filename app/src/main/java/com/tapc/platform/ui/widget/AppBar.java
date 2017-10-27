@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,10 +24,12 @@ import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
+import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.NetUtils;
 import com.tapc.platform.utils.RxBus;
 import com.tapc.platform.utils.SoundCtlUtils;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import java.util.ArrayList;
 
@@ -49,7 +52,7 @@ import static com.tapc.platform.ui.widget.AppBar.AppShowStatus.SHOW;
  * Created by Administrator on 2017/8/28.
  */
 
-public class AppBar extends BaseView implements View.OnTouchListener {
+public class AppBar extends BaseSystemView implements View.OnTouchListener {
     @BindView(R.id.app_bar_rv)
     RecyclerView mRecyclerview;
     @BindView(R.id.app_bar_ll)
@@ -68,7 +71,6 @@ public class AppBar extends BaseView implements View.OnTouchListener {
     ImageButton mFan;
 
     private AppAdpater mAppAdpater;
-    private WindowManager mWindowManager;
     private WindowManager.LayoutParams mWindowManagerParams;
     private Handler mHandler;
     private Animation mHideAnimation;
@@ -86,10 +88,8 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         HIDE
     }
 
-    public AppBar(Context context, WindowManager windowManager, WindowManager.LayoutParams windowManagerParams) {
+    public AppBar(Context context) {
         super(context);
-        mWindowManager = windowManager;
-        mWindowManagerParams = windowManagerParams;
     }
 
     ArrayList<AppInfoEntity> allAppInfo;
@@ -101,6 +101,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @Override
     protected void initView() {
+        super.initView();
         mHandler = new Handler();
         mPullOut.setOnTouchListener(this);
         mShowBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
@@ -135,6 +136,13 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         appBarPullInOnClick();
 
         setFanShowStatus();
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        mWindowManagerParams = WindowManagerUtils.getLayoutParams(0, 132, LayoutParams.WRAP_CONTENT, LayoutParams
+                .WRAP_CONTENT, Gravity.RIGHT | Gravity.TOP);
+        return mWindowManagerParams;
     }
 
     @OnClick(R.id.app_bar_wifi)
@@ -357,6 +365,5 @@ public class AppBar extends BaseView implements View.OnTouchListener {
             animatorSet.start();
             return true;
         }
-
     }
 }

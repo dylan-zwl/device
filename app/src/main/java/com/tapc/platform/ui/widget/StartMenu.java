@@ -5,15 +5,19 @@ import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
+import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import java.util.ArrayList;
 
@@ -32,7 +36,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by Administrator on 2017/8/25.
  */
 
-public class StartMenu extends BaseView {
+public class StartMenu extends BaseSystemView {
     @BindView(R.id.menu_bar_rv)
     RecyclerView mRecyclerview;
 
@@ -50,10 +54,11 @@ public class StartMenu extends BaseView {
 
     @Override
     protected void initView() {
+        super.initView();
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext,false);
+                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext, false);
                 mAppAdpater = new AppAdpater(allAppInfo);
                 mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override
@@ -71,6 +76,11 @@ public class StartMenu extends BaseView {
                 mRecyclerview.setAdapter(mAppAdpater);
             }
         });
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        return WindowManagerUtils.getLayoutParams(0, 0, 480, LayoutParams.WRAP_CONTENT, Gravity.TOP | Gravity.RIGHT);
     }
 
     @OnClick(R.id.start_menu_back)

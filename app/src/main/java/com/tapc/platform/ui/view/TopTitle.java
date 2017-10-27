@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
@@ -22,7 +22,7 @@ public class TopTitle extends BaseView {
     TextView mTitleTv;
 
     @BindView(R.id.title_back)
-    ImageView mBack;
+    Button mBack;
 
     public TopTitle(Context context, AttributeSet attrs) {
         super(context, attrs);

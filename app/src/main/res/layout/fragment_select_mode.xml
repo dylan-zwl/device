@@ -50,7 +50,8 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rbtn_mode"
                 android:drawableLeft="@drawable/ic_map"
-                android:text="地图跑"/>
+                android:text="地图跑"
+                android:visibility="gone"/>
 
         </RadioGroup>
     </ScrollView>

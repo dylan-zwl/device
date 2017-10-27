@@ -9,7 +9,6 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.RunType;
-import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
@@ -43,7 +42,7 @@ public class StartActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         mTapcApp.setHomeActivity(this.getClass());
-        mTapcApp.getService().setStartMenuVisibility(WidgetShowStatus.VISIBLE);
+        mTapcApp.getService().getStartMenu().show();
         mManager = getFragmentManager();
         FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, new SelectModeFragment(mListener));
 //        FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, ProgramStageFragment.class);
@@ -95,7 +94,7 @@ public class StartActivity extends BaseActivity {
 
     @OnClick(R.id.start)
     void onStartClick(View v) {
-        mTapcApp.getService().setStartMenuVisibility(WidgetShowStatus.REMOVE);
+        mTapcApp.getService().getStartMenu().dismiss();
         Intent intent = new Intent();
         if (mParameterSettingsFragment != null) {
             TreadmillProgramSetting programSetting = mParameterSettingsFragment.getmProgramSetting();

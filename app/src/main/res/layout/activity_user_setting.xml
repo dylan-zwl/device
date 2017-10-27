@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:Commons="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/bg_skin"
@@ -83,7 +82,7 @@
                         android:button="@drawable/ic_setting_device"
                         android:drawablePadding="20dp"
                         android:paddingLeft="24dp"
-                        android:text="@string/settings_other"
+                        android:text="@string/settings_device"
                         android:textColor="@color/commonColor2"
                         android:textSize="@dimen/tx_size4">
                     </RadioButton>

@@ -3,6 +3,8 @@ package com.tapc.platform.ui.widget;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,11 +22,13 @@ import com.tapc.platform.library.data.TreadmillWorkout;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.ui.view.DeviceCtl;
 import com.tapc.platform.ui.view.FastDeviceCtl;
 import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.FormatUtils;
 import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -40,7 +44,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/8/28.
  */
 
-public class BottomBar extends BaseView implements Observer {
+public class BottomBar extends BaseSystemView implements Observer {
     @BindView(R.id.bottombar_left_ctl)
     DeviceCtl mLeftDeviceCtl;
     @BindView(R.id.bottombar_right_ctl)
@@ -77,6 +81,12 @@ public class BottomBar extends BaseView implements Observer {
 
         initWortout();
         initCtlView();
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, (int) getResources().getDimension
+                (R.dimen.bottom_bar_h), Gravity.BOTTOM);
     }
 
     private void initWortout() {

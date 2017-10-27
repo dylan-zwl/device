@@ -130,7 +130,7 @@ public class AlertDialog extends BaseSystemView {
 
     @Override
     public WindowManager.LayoutParams getLayoutParams() {
-        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity
+        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, Gravity
                 .TOP);
     }
 }

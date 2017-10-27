@@ -25,13 +25,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initView() {
 //        IntentUtils.startActivity(mContext, RunInforActivity.class);
-        System.gc();
-
         float a = getResources().getDisplayMetrics().density;
 //        IntentUtils.startActivity(mContext, UserSettingActivity.class);
 //        IntentUtils.startActivity(mContext, SystemSettingActivity.class);
 
         QrcodeUtils.show(ConfigModel.getDeviceId(mContext, ""), mQrIv, 10, bindUntilEvent(ActivityEvent.DESTROY));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        System.gc();
     }
 
     @OnClick(R.id.main_start)

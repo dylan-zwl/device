@@ -2,6 +2,7 @@ package com.tapc.platform.ui.widget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,10 +14,11 @@ import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.ui.activity.run.RunInforActivity;
+import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -26,7 +28,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/9/7.
  */
 
-public class ShortcutKey extends BaseView implements View.OnTouchListener {
+public class ShortcutKey extends BaseSystemView implements View.OnTouchListener {
     @BindView(R.id.shortcut_area)
     LinearLayout mShortcutarea;
     @BindView(R.id.shortcut_ll)
@@ -38,23 +40,33 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     @BindView(R.id.shortcut_runinfor_bar)
     CheckBox mRunInforBarChx;
 
+    private BottomBar mBottomBar;
+    private AppBar mAppBar;
+    private RunInforBar mRunInforBar;
+    private ProgramStageDialog mProgramStageDialog;
+
     private StartService service;
-    private WindowManager mWindowManager;
-    private WindowManager.LayoutParams mWindowManagerParams;
     private boolean isMove = false;
     private float mTouchX;
     private float mTouchY;
     private float moveToBottom;
 
-    public ShortcutKey(Context context, WindowManager windowManager, WindowManager.LayoutParams windowManagerParams) {
+    private WindowManager.LayoutParams mWindowManagerParams;
+
+    public ShortcutKey(Context context) {
         super(context);
         service = TapcApplication.getInstance().getService();
-        mWindowManager = windowManager;
-        mWindowManagerParams = windowManagerParams;
         mShortcutKeyBtn.setOnTouchListener(this);
         moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
+    }
 
-        initShow();
+    @Override
+    protected void initView() {
+        super.initView();
+        mBottomBar = new BottomBar(mContext);
+        mAppBar = new AppBar(mContext);
+        mRunInforBar = new RunInforBar(mContext);
+        mProgramStageDialog = new ProgramStageDialog(mContext);
     }
 
     @Override
@@ -64,8 +76,8 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
 
     private void initShow() {
         mShortcutKeyLL.setVisibility(GONE);
-        mProgramChx.setChecked(service.isProgramStageDialogShown());
-        mRunInforBarChx.setChecked(service.isRunInforBarShown());
+        mProgramChx.setChecked(mProgramStageDialog.isShown());
+        mRunInforBarChx.setChecked(mRunInforBar.isShown());
     }
 
 
@@ -86,43 +98,40 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     @OnCheckedChanged(R.id.shortcut_program)
     void program(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            service.setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+            mProgramStageDialog.show();
         } else {
-            service.setProgramStageDialogVisibility(WidgetShowStatus.GONE);
+            mProgramStageDialog.hide();
         }
     }
 
     @OnCheckedChanged(R.id.shortcut_runinfor_bar)
     void runInforBar(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            service.setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+            mRunInforBar.show();
         } else {
-            service.setRunInforBarVisibility(WidgetShowStatus.GONE);
+            mRunInforBar.hide();
         }
     }
 
     @OnCheckedChanged(R.id.shortcut_runinfor)
     void runInforActivity(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            service.setAppBarVisibility(WidgetShowStatus.GONE);
-            service.setRunInforBarVisibility(WidgetShowStatus.GONE);
-            service.setProgramStageDialogVisibility(WidgetShowStatus.GONE);
+            mAppBar.hide();
+            mRunInforBar.hide();
+            mProgramStageDialog.hide();
+
             mProgramChx.setVisibility(GONE);
             mRunInforBarChx.setVisibility(GONE);
-//            mProgramChx.setChecked(false);
-//            mRunInforBarChx.setChecked(false);
         } else {
-            service.setAppBarVisibility(WidgetShowStatus.VISIBLE);
+            mAppBar.show();
             if (mRunInforBarChx.isChecked()) {
-                service.setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+                mRunInforBar.show();
             }
             if (mProgramChx.isChecked()) {
-                service.setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+                mProgramStageDialog.show();
             }
             mProgramChx.setVisibility(VISIBLE);
             mRunInforBarChx.setVisibility(VISIBLE);
-//            mProgramChx.setChecked(true);
-//            mRunInforBarChx.setChecked(true);
         }
         IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
                 .FLAG_ACTIVITY_CLEAR_TOP);
@@ -136,22 +145,41 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
     @OnCheckedChanged(R.id.shortcut_screen)
     void funScreen(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
-            service.setAppBarVisibility(WidgetShowStatus.VISIBLE);
-            service.setBottomBarVisibility(WidgetShowStatus.VISIBLE);
+            mAppBar.show();
             if (mRunInforBarChx.isChecked()) {
-                service.setRunInforBarVisibility(WidgetShowStatus.VISIBLE);
+                mRunInforBar.show();
             }
             if (mProgramChx.isChecked()) {
-                service.setProgramStageDialogVisibility(WidgetShowStatus.VISIBLE);
+                mProgramStageDialog.show();
             }
+            mBottomBar.show();
         } else {
-            service.setAppBarVisibility(WidgetShowStatus.GONE);
-            service.setBottomBarVisibility(WidgetShowStatus.REMOVE);
-            service.setRunInforBarVisibility(WidgetShowStatus.GONE);
-            service.setProgramStageDialogVisibility(WidgetShowStatus.GONE);
+            mAppBar.hide();
+            mRunInforBar.hide();
+            mProgramStageDialog.hide();
+            mBottomBar.dismiss();
 //            mProgramChx.setChecked(false);
 //            mRunInforBarChx.setChecked(false);
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        mBottomBar.show();
+        mAppBar.show();
+        mRunInforBar.show();
+        mProgramStageDialog.show();
+        initShow();
+    }
+
+    @Override
+    public void dismiss() {
+        super.dismiss();
+        mAppBar.dismiss();
+        mRunInforBar.dismiss();
+        mProgramStageDialog.dismiss();
+        mBottomBar.dismiss();
     }
 
     @Override
@@ -192,5 +220,12 @@ public class ShortcutKey extends BaseView implements View.OnTouchListener {
         mWindowManagerParams.x = x;
         mWindowManagerParams.y = y;
         mWindowManager.updateViewLayout(this, mWindowManagerParams);
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        mWindowManagerParams = WindowManagerUtils.getLayoutParams(36, 726, LayoutParams.WRAP_CONTENT, LayoutParams
+                .WRAP_CONTENT, Gravity.TOP | Gravity.LEFT);
+        return mWindowManagerParams;
     }
 }

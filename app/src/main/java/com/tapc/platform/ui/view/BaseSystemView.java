@@ -14,7 +14,7 @@ import com.tapc.platform.utils.WindowManagerUtils;
  */
 
 public abstract class BaseSystemView extends BaseView {
-    protected WindowManager windowManager;
+    protected WindowManager mWindowManager;
     private boolean mAddViewed;
 
     public BaseSystemView(Context context) {
@@ -23,15 +23,15 @@ public abstract class BaseSystemView extends BaseView {
 
     @Override
     protected void initView() {
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         super.initView();
-        windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
     }
 
     public void setShowStatus(WidgetShowStatus status) {
         switch (status) {
             case VISIBLE:
                 if (!mAddViewed) {
-                    WindowManagerUtils.addView(windowManager, this, getLayoutParams());
+                    WindowManagerUtils.addView(mWindowManager, this, getLayoutParams());
                     mAddViewed = true;
                 }
                 setVisibility(View.VISIBLE);
@@ -48,7 +48,7 @@ public abstract class BaseSystemView extends BaseView {
                 break;
             case REMOVE:
                 if (mAddViewed) {
-                    windowManager.removeView(this);
+                    mWindowManager.removeView(this);
                     onDestroy();
                     mAddViewed = false;
                 }

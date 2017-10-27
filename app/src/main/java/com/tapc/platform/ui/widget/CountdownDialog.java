@@ -2,9 +2,13 @@ package com.tapc.platform.ui.widget;
 
 import android.content.Context;
 import android.os.Handler;
+import android.view.Gravity;
+import android.view.WindowManager;
 
 import com.tapc.platform.R;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.ui.view.BaseSystemView;
+import com.tapc.platform.utils.WindowManagerUtils;
 
 import java.io.IOException;
 
@@ -16,7 +20,7 @@ import pl.droidsonroids.gif.GifImageView;
  * Created by Administrator on 2017/9/29.
  */
 
-public class CountdownDialog extends BaseView {
+public class CountdownDialog extends BaseSystemView {
     @BindView(R.id.countdown_iv)
     GifImageView mCountdown;
 
@@ -50,9 +54,16 @@ public class CountdownDialog extends BaseView {
                 if (mFinishedListener != null) {
                     mFinishedListener.onFinished();
                 }
+                dismiss();
                 WorkOuting.getInstance().resume();
             }
         }, 5000);
+    }
+
+    @Override
+    public WindowManager.LayoutParams getLayoutParams() {
+        return WindowManagerUtils.getLayoutParams(0, 0, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT, Gravity
+                .TOP);
     }
 
     public void setFinishedListener(FinishedListener finishedListener) {
