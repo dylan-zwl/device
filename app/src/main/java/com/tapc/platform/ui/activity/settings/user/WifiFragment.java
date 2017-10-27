@@ -93,11 +93,12 @@ public class WifiFragment extends BaseFragment {
                     mConnectSaveBtn.setVisibility(View.VISIBLE);
                 }
                 if (connectStatusItem.getConnectedStatus() == 1) {
-                    mConnectBtn.setText("连接");
-                } else {
                     mConnectBtn.setText("取消连接");
+                } else {
+                    mConnectBtn.setText("连接");
                 }
                 mConnectStatusItem = connectStatusItem;
+                mConnectStatusItem.setNetworkId(networkId);
                 setPwdVisibility(true);
             }
         });
@@ -127,25 +128,39 @@ public class WifiFragment extends BaseFragment {
         mRecyclerview.setVisibility(View.GONE);
     }
 
-    @OnClick(R.id.setting_wifi_cancel)
-    void btn1OnClick() {
-        String pwd = mPwdEdit.getEditableText().toString();
-        if (TextUtils.isEmpty(pwd)) {
-            return;
-        }
-        int networkId = mWifiAdmin.addWifiConfig(mWifiAdmin.getWifiList().get(0).SSID, pwd, mConnectStatusItem
-                .getPwdType());
-        mWifiAdmin.getConfiguration();
-        boolean result = mWifiAdmin.connectWifi(networkId);
-        for (ConnectStatusItem item : mShowList) {
-            item.setConnectedStatus(0);
-        }
-        if (result) {
-            mConnectStatusItem.setConnectedStatus(1);
+    @OnClick(R.id.setting_wifi_cancel_save)
+    void cancelSave() {
+        mConnectStatusItem.setConnectedStatus(0);
+        mWifiAdmin.removeNetwork(mConnectStatusItem.getNetworkId());
+        setPwdVisibility(false);
+    }
+
+    @OnClick(R.id.setting_wifi_connect)
+    void connectOnClick() {
+        String name = mConnectBtn.getText().toString();
+        if (name.equals("连接")) {
+            String pwd = mPwdEdit.getEditableText().toString();
+            if (TextUtils.isEmpty(pwd)) {
+                return;
+            }
+            int networkId = mWifiAdmin.addWifiConfig(mWifiAdmin.getWifiList().get(0).SSID, pwd, mConnectStatusItem
+                    .getPwdType());
+            mWifiAdmin.getConfiguration();
+            boolean result = mWifiAdmin.connectWifi(networkId);
+            for (ConnectStatusItem item : mShowList) {
+                item.setConnectedStatus(0);
+            }
+            if (result) {
+                mConnectStatusItem.setConnectedStatus(1);
+            } else {
+                mConnectStatusItem.setConnectedStatus(2);
+            }
+            mAdpater.notifyDataSetChanged();
         } else {
-            mConnectStatusItem.setConnectedStatus(2);
+            mConnectStatusItem.setConnectedStatus(0);
+            mWifiAdmin.disConnectionWifi(mConnectStatusItem.getNetworkId());
         }
-        mAdpater.notifyDataSetChanged();
+        setPwdVisibility(false);
     }
 
     @OnClick(R.id.setting_wifi_cancel)
@@ -217,6 +232,7 @@ public class WifiFragment extends BaseFragment {
         } else {
             mItemLL.setVisibility(View.VISIBLE);
             mPwdLL.setVisibility(View.INVISIBLE);
+            mPwdEdit.setText("");
             mItemLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_left_in));
             mPwdLL.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim.push_right_out));
         }

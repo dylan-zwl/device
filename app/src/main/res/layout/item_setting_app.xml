@@ -54,10 +54,4 @@
             android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size3"/>
     </RelativeLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/bg_start_title_line"/>
 </LinearLayout>

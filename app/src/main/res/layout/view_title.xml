@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="@dimen/setting_top_bar_h"
                 android:layout_marginLeft="88dp"
                 android:layout_marginRight="88dp">
 
@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
+        android:clickable="false"
         android:text="@string/title_start_activity"
         android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size4"/>
@@ -21,7 +22,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/bg_start_title_line"/>
 
-    <Button
+    <ImageView
         android:id="@+id/title_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

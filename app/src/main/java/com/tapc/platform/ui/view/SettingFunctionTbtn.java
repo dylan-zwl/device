@@ -17,22 +17,22 @@ import butterknife.BindView;
  * Created by Administrator on 2017/10/23.
  */
 
-public class SettingFunction extends BaseView {
+public class SettingFunctionTbtn extends BaseView {
     @BindView(R.id.setting_function_name)
     TextView mName;
     @BindView(R.id.setting_function_tbtn)
     ToggleButton mTBtn;
-
 
     @Override
     protected int getContentView() {
         return R.layout.view_setting_function;
     }
 
-    public SettingFunction(Context context, AttributeSet attrs) {
+    public SettingFunctionTbtn(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.Commons);
         TypedArrayUtils.setTextView(mName, array, R.styleable.Commons_name);
+        TypedArrayUtils.setTextView(mTBtn, array, R.styleable.Commons_btnName);
         array.recycle();
     }
 
@@ -41,8 +41,7 @@ public class SettingFunction extends BaseView {
         super.initView();
     }
 
-    void setOnCheckedChange(CompoundButton.OnCheckedChangeListener listener) {
+    public void setOnCheckedChange(CompoundButton.OnCheckedChangeListener listener) {
         mTBtn.setOnCheckedChangeListener(listener);
     }
-
 }

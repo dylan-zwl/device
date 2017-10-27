@@ -6,6 +6,7 @@ package com.tapc.platform.entity;
 
 public enum WidgetShowStatus {
     VISIBLE,
-    REMOVE,
-    GONE
+    INVISIBLE,
+    GONE,
+    REMOVE
 }

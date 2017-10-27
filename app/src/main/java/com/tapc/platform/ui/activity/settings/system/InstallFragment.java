@@ -11,6 +11,8 @@ import com.tapc.platform.model.install.InstallModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.SettingAppAdapater;
 import com.tapc.platform.ui.fragment.BaseFragment;
+import com.tapc.platform.ui.widget.AlertDialog;
+import com.tapc.platform.ui.widget.LoadingDialog;
 import com.tapc.platform.utils.RxjavaUtils;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
@@ -37,6 +39,7 @@ public class InstallFragment extends BaseFragment {
     private SettingAppAdapater mAdapter;
     private List<AppSettingItem> mShowList = new ArrayList<>();
     private InstallModel mModel;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     protected int getContentView() {
@@ -46,40 +49,54 @@ public class InstallFragment extends BaseFragment {
     @Override
     protected void initView() {
         super.initView();
+
+        mAllBtn.setText("一键安装");
+
         RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
                 mModel = new InstallModel(mContext);
                 String path = "";
-                mModel.getFiles(path, ".apk");
+                mShowList = mModel.getFiles(path, ".apk");
                 if (mShowList != null && mShowList.size() > 0) {
-                    mAdapter = new SettingAppAdapater(mShowList);
-                    mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppSettingItem>() {
-                        @Override
-                        public void onItemClick(View view, AppSettingItem item) {
-                            List<AppSettingItem> list = new ArrayList<>();
-                            list.add(item);
-                            installApp(list);
-                        }
-                    });
-                    mAllBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            List<AppSettingItem> list = new ArrayList<>();
-                            for (AppSettingItem item : mShowList) {
-                                if (item.isChecked()) {
-                                    list.add(item);
-                                }
-                            }
-                            installApp(list);
-                        }
-                    });
+                    e.onNext("show");
                 }
-                e.onComplete();
             }
         }, new Consumer() {
             @Override
             public void accept(@NonNull Object o) throws Exception {
+                mAdapter = new SettingAppAdapater(mShowList, SettingAppAdapater.INSTALL);
+                mAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppSettingItem>() {
+                    @Override
+                    public void onItemClick(View view, AppSettingItem item) {
+                        List<AppSettingItem> list = new ArrayList<>();
+                        list.add(item);
+                        installApp(list);
+                    }
+                });
+                mAllBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog(mContext).setMsgText("是否确定?").setOnClickListener(new AlertDialog.Listener
+                                () {
+                            @Override
+                            public void positiveOnCick() {
+                                List<AppSettingItem> list = new ArrayList<>();
+                                for (AppSettingItem item : mShowList) {
+                                    if (item.isChecked()) {
+                                        list.add(item);
+                                    }
+                                }
+                                installApp(list);
+                            }
+
+                            @Override
+                            public void negativeOnClick() {
+
+                            }
+                        }).show();
+                    }
+                });
                 mRecyclerView.setAdapter(mAdapter);
                 mAdapter.notifyDataSetChanged();
                 mModel.setListener(new InstallModel.Listener() {
@@ -99,9 +116,12 @@ public class InstallFragment extends BaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                mLoadingDialog = new LoadingDialog(mContext).setMsgText("开始校准");
+                mLoadingDialog.start();
                 for (AppSettingItem item : list) {
                     mModel.installApp(item);
                 }
+                mLoadingDialog.stop();
             }
         }).start();
     }

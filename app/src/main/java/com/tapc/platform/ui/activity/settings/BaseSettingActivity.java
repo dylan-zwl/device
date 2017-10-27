@@ -1,14 +1,26 @@
 package com.tapc.platform.ui.activity.settings;
 
 import com.tapc.platform.ui.activity.BaseActivity;
+import com.tapc.platform.ui.widget.SettingTopBar;
 
 /**
  * Created by Administrator on 2017/10/10.
  */
 
-public class BaseSettingActivity extends BaseActivity {
+public abstract class BaseSettingActivity extends BaseActivity {
+    protected SettingTopBar mSettingTopBar;
+
     @Override
-    protected int getContentView() {
-        return 0;
+    protected void initView() {
+        mSettingTopBar = new SettingTopBar(this);
+        mSettingTopBar.show();
+        super.initView();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mSettingTopBar.dismiss();
+        mSettingTopBar = null;
     }
 }

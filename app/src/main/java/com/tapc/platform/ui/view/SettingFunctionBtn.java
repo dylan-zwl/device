@@ -20,9 +20,8 @@ import butterknife.BindView;
 public class SettingFunctionBtn extends BaseView {
     @BindView(R.id.setting_function_name)
     TextView mName;
-    @BindView(R.id.setting_function_tbtn)
+    @BindView(R.id.setting_function_btn)
     Button mBtn;
-
 
     @Override
     protected int getContentView() {
@@ -33,6 +32,7 @@ public class SettingFunctionBtn extends BaseView {
         super(context, attrs);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.Commons);
         TypedArrayUtils.setTextView(mName, array, R.styleable.Commons_name);
+        TypedArrayUtils.setTextView(mBtn, array, R.styleable.Commons_btnName);
         array.recycle();
     }
 
@@ -41,7 +41,7 @@ public class SettingFunctionBtn extends BaseView {
         super.initView();
     }
 
-    void setOnCheckedChange(@Nullable OnClickListener l) {
+    public void setBtnOnClickListener(@Nullable OnClickListener l) {
         mBtn.setOnClickListener(l);
     }
 

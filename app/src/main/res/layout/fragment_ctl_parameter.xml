@@ -14,8 +14,10 @@
         android:padding="60dp">
 
         <com.tapc.platform.ui.view.SettingFunctionBtn
+            android:id="@+id/setting_calibration_incline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            Commons:btnName="开始"
             Commons:name="坡度校准">
 
         </com.tapc.platform.ui.view.SettingFunctionBtn>
@@ -44,11 +46,13 @@
             android:background="@drawable/bg_start_title_line"/>
 
         <Button
-            android:id="@+id/ctl_parameter_btn"
+            android:id="@+id/ctl_parameter_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:background="@drawable/btn_setting_common1"
+            android:text="保存设置"
+            android:textColor="@color/commonColor2"
             android:textSize="@dimen/tx_size3"/>
     </LinearLayout>
 </LinearLayout>

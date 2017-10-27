@@ -14,13 +14,16 @@ import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.stop.StopActivity;
+import com.tapc.platform.ui.widget.AlertDialog;
 import com.tapc.platform.ui.widget.AppBar;
 import com.tapc.platform.ui.widget.BottomBar;
 import com.tapc.platform.ui.widget.CountdownDialog;
 import com.tapc.platform.ui.widget.ErrorDialog;
 import com.tapc.platform.ui.widget.GestureListener;
+import com.tapc.platform.ui.widget.LoadingDialog;
 import com.tapc.platform.ui.widget.ProgramStageDialog;
 import com.tapc.platform.ui.widget.RunInforBar;
+import com.tapc.platform.ui.widget.SettingTopBar;
 import com.tapc.platform.ui.widget.ShortcutKey;
 import com.tapc.platform.ui.widget.StartMenu;
 import com.tapc.platform.utils.IntentUtils;
@@ -46,8 +49,10 @@ public class StartService extends Service implements Observer {
     private ProgramStageDialog mProgramStageDialog;
     private ErrorDialog mErrorDialog;
     private CountdownDialog mCountdownDialog;
-
+    private SettingTopBar mSettingTopBar;
     private WorkOuting mWorkOuting;
+    private AlertDialog mAlertDialog;
+    private LoadingDialog mLoadingDialog;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -113,6 +118,82 @@ public class StartService extends Service implements Observer {
         }
     }
 
+    public AlertDialog getAlertDialog() {
+        return mAlertDialog;
+    }
+
+    public void setAlertDialogVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mAlertDialog == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.TOP;
+                    params.x = 0;
+                    params.y = 0;
+                    mAlertDialog = new AlertDialog(this);
+                    mWindowManager.addView(mAlertDialog, params);
+                } else {
+                    mAlertDialog.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mAlertDialog != null) {
+                    mAlertDialog.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mAlertDialog != null) {
+                    mWindowManager.removeView(mAlertDialog);
+                    mAlertDialog.onDestroy();
+                    mAlertDialog = null;
+                }
+                break;
+        }
+    }
+
+    public void setLoadingDialogVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mLoadingDialog == null) {
+                    final WindowManager.LayoutParams params = new WindowManager.LayoutParams(WindowManager
+                            .LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    params.gravity = Gravity.TOP;
+                    params.x = 0;
+                    params.y = 0;
+                    mLoadingDialog = new LoadingDialog(this);
+                    mWindowManager.addView(mLoadingDialog, params);
+                } else {
+                    mLoadingDialog.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mLoadingDialog != null) {
+                    mLoadingDialog.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mLoadingDialog != null) {
+                    mWindowManager.removeView(mLoadingDialog);
+                    mLoadingDialog.onDestroy();
+                    mLoadingDialog = null;
+                }
+                break;
+        }
+    }
+
     public boolean isBottomBarShown() {
         if (mBottomBar != null && mBottomBar.isShown()) {
             return true;
@@ -152,6 +233,43 @@ public class StartService extends Service implements Observer {
                     mWindowManager.removeView(mBottomBar);
                     mBottomBar.onDestroy();
                     mBottomBar = null;
+                }
+                break;
+        }
+    }
+
+    public void setSettingTopBarVisibility(WidgetShowStatus status) {
+        switch (status) {
+            case VISIBLE:
+                if (mSettingTopBar == null) {
+                    final WindowManager.LayoutParams bottomBarParams = new WindowManager.LayoutParams(
+                            WindowManager.LayoutParams.MATCH_PARENT, (int) getResources().getDimension(R.dimen
+                            .setting_top_bar_h),
+                            WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+                                    | WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                                    | WindowManager.LayoutParams.FLAG_TOUCHABLE_WHEN_WAKING
+                                    | WindowManager.LayoutParams.FLAG_SPLIT_TOUCH,
+                            PixelFormat.TRANSPARENT);
+                    bottomBarParams.gravity = Gravity.TOP | Gravity.CENTER_VERTICAL;
+                    bottomBarParams.x = 0;
+                    bottomBarParams.y = 0;
+                    mSettingTopBar = new SettingTopBar(this);
+                    mWindowManager.addView(mSettingTopBar, bottomBarParams);
+                } else {
+                    mSettingTopBar.setVisibility(View.VISIBLE);
+                }
+                break;
+            case GONE:
+                if (mSettingTopBar != null) {
+                    mSettingTopBar.setVisibility(View.GONE);
+                }
+                break;
+            case REMOVE:
+                if (mSettingTopBar != null) {
+                    mWindowManager.removeView(mSettingTopBar);
+                    mSettingTopBar.onDestroy();
+                    mSettingTopBar = null;
                 }
                 break;
         }

@@ -77,10 +77,10 @@ public class RunInforBar extends BaseView implements Observer {
 //    void runInforChx(CompoundButton buttonView, boolean isChecked) {
 //        if (isChecked) {
 //            mBg.setBackgroundResource(R.drawable.bg_run_infor_bar);
-//            mRecyclerView.setVisibility(VISIBLE);
+//            mRecyclerView.setShowStatus(VISIBLE);
 //        } else {
 //            mBg.setBackground(null);
-//            mRecyclerView.setVisibility(GONE);
+//            mRecyclerView.setShowStatus(GONE);
 //        }
 //    }
 

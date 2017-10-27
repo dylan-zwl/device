@@ -108,7 +108,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                allAppInfo = AppUtils.getAllAppInfo(mContext,false);
+                allAppInfo = AppUtils.getAllAppInfo(mContext, false);
                 mAppAdpater = new AppAdpater(allAppInfo);
                 mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override
@@ -316,7 +316,7 @@ public class AppBar extends BaseView implements View.OnTouchListener {
 
     @OnClick(R.id.app_bar_sound)
     void soundOnClick() {
-        SoundCtlUtils.openVolume(mContext);
+        SoundCtlUtils.getInstance().openVolume(mContext);
     }
 
 

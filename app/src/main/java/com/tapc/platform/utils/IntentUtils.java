@@ -143,7 +143,7 @@ public class IntentUtils {
     }
 
     public static void startApp(Context context, String packageName) {
-        Intent LaunchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        context.startActivity(LaunchIntent);
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        context.startActivity(launchIntent);
     }
 }

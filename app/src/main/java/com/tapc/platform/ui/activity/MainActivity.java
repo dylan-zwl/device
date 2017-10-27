@@ -20,11 +20,17 @@ public class MainActivity extends BaseActivity {
         System.gc();
         float a = getResources().getDisplayMetrics().density;
         IntentUtils.startActivity(mContext, UserSettingActivity.class);
+//        IntentUtils.startActivity(mContext, SystemSettingActivity.class);
     }
 
     @OnClick(R.id.main_start)
     void start() {
         IntentUtils.startActivity(mContext, StartActivity.class);
         finish();
+    }
+
+    @OnClick(R.id.main_start_setting)
+    void startSetting() {
+        IntentUtils.startActivity(mContext, UserSettingActivity.class);
     }
 }

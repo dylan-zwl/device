@@ -49,5 +49,6 @@
         <attr name="value" format="reference|string"/>
         <attr name="txsize" format="dimension"/>
         <attr name="isShowBtn" format="boolean"/>
+        <attr name="btnName" format="reference|string"/>
     </declare-styleable>
 </resources>

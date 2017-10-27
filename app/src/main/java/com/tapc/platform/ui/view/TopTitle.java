@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
@@ -22,7 +22,7 @@ public class TopTitle extends BaseView {
     TextView mTitleTv;
 
     @BindView(R.id.title_back)
-    Button mBack;
+    ImageView mBack;
 
     public TopTitle(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -41,6 +41,13 @@ public class TopTitle extends BaseView {
         }
     }
 
+    public void setTitleOnClickListener(@Nullable OnClickListener l) {
+        mTitleTv.setOnClickListener(l);
+    }
+
+    public void setTitleClickable(boolean clickable) {
+        mTitleTv.setClickable(clickable);
+    }
 
     @Override
     protected int getContentView() {

@@ -20,19 +20,24 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/10/20.
  */
 
-public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapater.InstallViewHolder, AppSettingItem> {
+public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapater.SettingAppViewHolder,
+        AppSettingItem> {
+    public static final int INSTALL = 0;
+    public static final int UNINSTALL = 1;
+    private int mSettingType = INSTALL;
 
     public class Status {
-        public static final int NO_INSTALL = 0;
-        public static final int INSTALLED = 1;
-        public static final int INSTALLING = 2;
-        public static final int INSTALL_FAILED = 3;
-        public static final int INSTALL_SUCCESSED = 4;
-        public static final int NO_SHOW = 0xff;
+        public static final int NO_SHOW = 0;
+        public static final int NO_INSTALL = 1;
+        public static final int INSTALLED = 2;
+        public static final int INSTALLING = 3;
+        public static final int INSTALL_FAILED = 4;
+        public static final int INSTALL_SUCCESSED = 5;
     }
 
-    public SettingAppAdapater(List<AppSettingItem> datas) {
+    public SettingAppAdapater(List<AppSettingItem> datas, int settingType) {
         super(datas);
+        mSettingType = settingType;
     }
 
     @Override
@@ -41,12 +46,12 @@ public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapat
     }
 
     @Override
-    InstallViewHolder getViewHolder(View view) {
-        return new InstallViewHolder(view);
+    SettingAppViewHolder getViewHolder(View view) {
+        return new SettingAppViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final InstallViewHolder holder, int position) {
+    public void onBindViewHolder(final SettingAppViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         final AppSettingItem item = mDatas.get(position);
         String name = item.getLabel();
@@ -70,6 +75,7 @@ public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapat
                 holder.statusTx.setText("安装成功");
                 break;
             case Status.NO_SHOW:
+            default:
                 holder.statusTx.setVisibility(View.GONE);
                 break;
         }
@@ -80,11 +86,19 @@ public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapat
                 item.setChecked(isChecked);
             }
         });
-        holder.installBtn.setTag(item);
-        holder.installBtn.setOnClickListener(this);
+        holder.btn.setTag(item);
+        switch (mSettingType) {
+            case INSTALL:
+                holder.btn.setText("安装");
+                break;
+            case UNINSTALL:
+                holder.btn.setText("卸载");
+                break;
+        }
+        holder.btn.setOnClickListener(this);
     }
 
-    public class InstallViewHolder extends RecyclerView.ViewHolder {
+    public class SettingAppViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.setting_app_chx)
         CheckBox chx;
         @BindView(R.id.setting_app_ic)
@@ -94,9 +108,9 @@ public class SettingAppAdapater extends BaseRecyclerViewAdapter<SettingAppAdapat
         @BindView(R.id.setting_app_status)
         TextView statusTx;
         @BindView(R.id.setting_app_btn)
-        Button installBtn;
+        Button btn;
 
-        public InstallViewHolder(View view) {
+        public SettingAppViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }

@@ -1,64 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:Commons="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:padding="60dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:Commons="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/setting_wifi_item_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_round_border"
-        android:gravity="center_horizontal"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <com.tapc.platform.ui.view.SettingFunction
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            Commons:name="待机">
+            android:background="@drawable/bg_round_border"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="60dp">
 
-        </com.tapc.platform.ui.view.SettingFunction>
+            <com.tapc.platform.ui.view.SettingFunctionTbtn
+                android:id="@+id/setting_erp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                Commons:name="待机">
 
-        <com.tapc.platform.ui.view.SettingFunction
-            android:layout_width="wrap_content"
+            </com.tapc.platform.ui.view.SettingFunctionTbtn>
+
+            <com.tapc.platform.ui.view.SettingFunctionTbtn
+                android:id="@+id/setting_unmanned_run_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                Commons:name="空跑检测">
+
+            </com.tapc.platform.ui.view.SettingFunctionTbtn>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            Commons:name="空跑检测">
+            android:layout_marginTop="36dp"
+            android:background="@drawable/bg_round_border"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="60dp">
 
-        </com.tapc.platform.ui.view.SettingFunction>
+            <com.tapc.platform.ui.view.SettingFunctionTbtn
+                android:id="@+id/setting_rfid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                Commons:name="刷卡功能">
+
+            </com.tapc.platform.ui.view.SettingFunctionTbtn>
+
+            <com.tapc.platform.ui.view.SettingParameterEdit
+                android:id="@+id/setting_rfid_ip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                Commons:name="IP:">
+
+            </com.tapc.platform.ui.view.SettingParameterEdit>
+
+            <com.tapc.platform.ui.view.SettingParameterEdit
+                android:id="@+id/setting_rfid_port"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                Commons:name="Port:">
+
+            </com.tapc.platform.ui.view.SettingParameterEdit>
+        </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/bg_round_border"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <com.tapc.platform.ui.view.SettingFunction
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            Commons:name="刷卡功能">
-
-        </com.tapc.platform.ui.view.SettingFunction>
-
-        <com.tapc.platform.ui.view.SettingParameterEdit
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            Commons:name="IP:">
-
-        </com.tapc.platform.ui.view.SettingParameterEdit>
-
-        <com.tapc.platform.ui.view.SettingParameterEdit
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            Commons:name="Port:">
-
-        </com.tapc.platform.ui.view.SettingParameterEdit>
-    </LinearLayout>
-</LinearLayout>
+</RelativeLayout>

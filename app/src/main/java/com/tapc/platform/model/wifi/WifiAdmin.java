@@ -256,6 +256,7 @@ public class WifiAdmin {
     }
 
     public void removeNetwork(int networkId) {
+        disConnectionWifi(networkId);
         mWifiManager.removeNetwork(networkId);
     }
 

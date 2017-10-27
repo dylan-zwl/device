@@ -1,27 +1,18 @@
 package com.tapc.platform.ui.activity.settings.user;
 
 import android.widget.CompoundButton;
-import android.widget.RadioButton;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.settings.BaseSettingActivity;
 import com.tapc.platform.utils.FragmentUtils;
 
-import butterknife.BindView;
+import butterknife.OnCheckedChanged;
 
 /**
  * Created by Administrator on 2017/10/10.
  */
 
-public class UserSettingActivity extends BaseSettingActivity implements CompoundButton.OnCheckedChangeListener {
-    @BindView(R.id.settings_language_btn)
-    RadioButton mLanguageBtn;
-    @BindView(R.id.settings_net_btn)
-    RadioButton mNeteBtn;
-    @BindView(R.id.settings_bluetooth_btn)
-    RadioButton mBlutoothBtn;
-    @BindView(R.id.settings_device_btn)
-    RadioButton mOtherBtn;
+public class UserSettingActivity extends BaseSettingActivity {
 
     @Override
     protected int getContentView() {
@@ -31,18 +22,15 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
     @Override
     protected void initView() {
         super.initView();
-        mLanguageBtn.setOnCheckedChangeListener(this);
-        mNeteBtn.setOnCheckedChangeListener(this);
-        mBlutoothBtn.setOnCheckedChangeListener(this);
-        mOtherBtn.setOnCheckedChangeListener(this);
-        mLanguageBtn.setChecked(true);
-        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, WifiFragment.class);
+//        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, WifiFragment.class);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, BluetoothFragment.class);
 //        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, LanguageFragment.class);
-//        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, UserDeviceFragment.class);
+        FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, UserDeviceFragment.class);
+        mSettingTopBar.setTitleClick(true);
     }
 
-    @Override
+    @OnCheckedChanged({R.id.settings_language_btn, R.id.settings_net_btn, R.id.settings_bluetooth_btn, R.id
+            .settings_device_btn})
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             buttonView.setTextColor(getResources().getColor(R.color.commonColor1));
@@ -61,7 +49,9 @@ public class UserSettingActivity extends BaseSettingActivity implements Compound
                     cls = UserDeviceFragment.class;
                     break;
             }
-//            FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, cls);
+            if (cls != null) {
+                FragmentUtils.replaceFragment(mContext, getFragmentManager(), R.id.settings_fl, cls);
+            }
         } else {
             buttonView.setTextColor(getResources().getColor(R.color.commonColor2));
         }

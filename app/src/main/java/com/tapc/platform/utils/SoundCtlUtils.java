@@ -21,58 +21,73 @@ public class SoundCtlUtils {
         return sSoundCtlUtils;
     }
 
-    public static void openVolume(Context context) {
+    public int getMaxVolume(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        return audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    public int getVolume(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        return audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+    }
+
+    public void openVolume(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_SAME, AudioManager
                 .FLAG_SHOW_UI);
     }
 
-    public static void addVolume(Context context) {
+    public void setVolume(Context context, int volume) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, volume, AudioManager.FLAG_VIBRATE);
+    }
+
+
+    public void addVolume(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_RAISE, AudioManager
                 .FLAG_SHOW_UI);
     }
 
-    public static void subVolume(Context context) {
+    public void subVolume(Context context) {
         AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         audioManager.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_LOWER, AudioManager
                 .FLAG_SHOW_UI);
     }
 
-    private MediaPlayer mMediaPlayer;
-
-    private void releasePlayer() {
-        if (mMediaPlayer != null) {
-            mMediaPlayer.release();
-            mMediaPlayer = null;
+    private void releasePlayer(MediaPlayer players) {
+        if (players != null) {
+            players.release();
         }
     }
 
     public void playBeep(final Context context, final int rid) {
         new Thread(new Runnable() {
             public void run() {
+                MediaPlayer mediaPlayer = null;
                 try {
                     if (rid != 0) {
-                        releasePlayer();
-                        mMediaPlayer = MediaPlayer.create(context, rid);
-                        mMediaPlayer.start();
-                        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                            @Override
-                            public void onCompletion(MediaPlayer players) {
-                                releasePlayer();
-                            }
-                        });
-                        mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                            @Override
-                            public boolean onError(MediaPlayer players, int arg1, int arg2) {
-                                releasePlayer();
-                                return false;
-                            }
-                        });
+                        mediaPlayer = MediaPlayer.create(context.getApplicationContext(), rid);
+                        if (mediaPlayer != null) {
+                            mediaPlayer.start();
+                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer players) {
+                                    releasePlayer(players);
+                                }
+                            });
+                            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                                @Override
+                                public boolean onError(MediaPlayer players, int arg1, int arg2) {
+                                    releasePlayer(players);
+                                    return false;
+                                }
+                            });
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    releasePlayer();
+                    releasePlayer(mediaPlayer);
                 }
             }
         }).start();

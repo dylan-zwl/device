@@ -14,12 +14,13 @@
 
     <EditText
         android:id="@+id/setting_parameter_et"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:background="@drawable/btn_setting_common1"
         android:digits="1234567890."
         android:gravity="center"
         android:maxLength="5"
+        android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size3"/>
 </RelativeLayout>

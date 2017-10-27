@@ -58,6 +58,7 @@
         <activity android:name=".ui.activity.stop.StopActivity"/>
         <activity android:name=".ui.activity.start.CountdownActivity"/>
         <activity android:name=".ui.activity.settings.user.UserSettingActivity"/>
+        <activity android:name=".ui.activity.settings.system.SystemSettingActivity"/>
 
         <service android:name=".service.StartService">
             <intent-filter>

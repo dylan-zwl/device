@@ -39,4 +39,9 @@ public abstract class BaseFragment extends RxFragment {
 
     protected void initView() {
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 }

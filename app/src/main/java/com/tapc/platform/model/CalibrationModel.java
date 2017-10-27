@@ -16,11 +16,24 @@ public class CalibrationModel {
         mController = controller;
     }
 
-    public void start(@NonNull MachineOperateController.ResultListener resultListener) {
+    public void startLeftCal(@NonNull MachineOperateController.ResultListener resultListener) {
         mController.startLeftCal(resultListener);
     }
 
-    public void stop() {
+    public void stopLeftCal() {
         mController.stopLeftCal();
+    }
+
+    public void startRightCal(@NonNull MachineOperateController.ResultListener resultListener) {
+    }
+
+    public void stopRightCal() {
+    }
+
+    public boolean checkCalCompleted(int data) {
+        if (data == 0xff) {
+            return true;
+        }
+        return false;
     }
 }

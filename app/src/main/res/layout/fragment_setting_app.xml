@@ -1,86 +1,95 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_round_border"
+                android:padding="60dp">
 
     <LinearLayout
+        android:id="@+id/setting_wifi_item_ll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/app_all_select"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:button="@drawable/chx_setting_app"/>
-
-            <TextView
-                android:id="@+id/app_all_select_tx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="24dp"
-                android:layout_toRightOf="@+id/app_all_select"
-                android:text="全选"
-                android:textColor="@color/commonColor1"
-                android:textSize="@dimen/tx_size3"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="64dp"
-                android:layout_toRightOf="@+id/app_all_select_tx"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center_vertical">
 
                 <CheckBox
-                    android:id="@+id/app_system_show"
+                    android:id="@+id/app_all_select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
                     android:button="@drawable/chx_setting_app"/>
 
                 <TextView
+                    android:id="@+id/app_all_select_tx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="24dp"
-                    android:text="显示系统软件"
+                    android:layout_toRightOf="@+id/app_all_select"
+                    android:text="全选"
                     android:textColor="@color/commonColor1"
                     android:textSize="@dimen/tx_size3"/>
-            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
+                    android:layout_toRightOf="@+id/app_all_select_tx"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <CheckBox
+                        android:id="@+id/app_system_show"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:button="@drawable/chx_setting_app"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:text="显示系统软件"
+                        android:textColor="@color/commonColor1"
+                        android:textSize="@dimen/tx_size3"/>
+                </LinearLayout>
 
 
-            <Button
-                android:id="@+id/app_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/btn_setting_common3"
-                android:textColor="@color/commonColor1"
-                android:textSize="@dimen/tx_size3"/>
-        </RelativeLayout>
+                <Button
+                    android:id="@+id/app_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/btn_setting_common3"
+                    android:textColor="@color/commonColor1"
+                    android:textSize="@dimen/tx_size3"/>
+            </RelativeLayout>
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/bg_start_title_line"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/app_rv"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/bg_start_title_line"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:divider="@null">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/app_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:divider="@null">
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>

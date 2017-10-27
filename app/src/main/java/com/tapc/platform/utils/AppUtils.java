@@ -145,4 +145,15 @@ public class AppUtils {
         }
         return pName.contains(packageName);
     }
+
+    public static String getVersionName(Context context, String pkgName) {
+        String versionName = "";
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(pkgName, 0);
+            versionName = packageInfo.versionName;
+        } catch (Exception e) {
+        }
+        return versionName;
+    }
 }

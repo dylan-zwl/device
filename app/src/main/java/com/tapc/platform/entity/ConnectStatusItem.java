@@ -11,6 +11,7 @@ public class ConnectStatusItem {
     private int connectedStatus;
     private int level;
     private int pwdType;
+    private int networkId;
 
     public String getSSID() {
         return SSID;
@@ -51,5 +52,13 @@ public class ConnectStatusItem {
 
     public void setPwdType(int pwdType) {
         this.pwdType = pwdType;
+    }
+
+    public int getNetworkId() {
+        return networkId;
+    }
+
+    public void setNetworkId(int networkId) {
+        this.networkId = networkId;
     }
 }
