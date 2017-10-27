@@ -8,8 +8,7 @@
         android:id="@+id/dev_infor_ic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"/>
+        android:layout_centerVertical="true"/>
 
     <TextView
         android:id="@+id/dev_infor_name"
@@ -27,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/dev_infor_name"
         android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size3"/>

@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.text.TextUtils;
 
 import com.jht.tapc.jni.KeyEvent;
 import com.tapc.platform.entity.DeviceType;
@@ -16,9 +17,11 @@ import com.tapc.platform.library.common.SystemSettings;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.model.ConfigModel;
 import com.tapc.platform.service.LocalBinder;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.NetUtils;
 
 /**
  * Created by Administrator on 2017/8/21.
@@ -56,6 +59,14 @@ public class TapcApplication extends Application {
         mKeyEvent = new KeyEvent(null, 0);
         mKeyEvent.initCom();
         initControl(this);
+        initDeviceId();
+    }
+
+    private void initDeviceId() {
+        String id = NetUtils.getLocalMacAddress(this);
+        if (!TextUtils.isEmpty(id)) {
+            ConfigModel.setDeviceId(this, id);
+        }
     }
 
     private void initControl(Context context) {

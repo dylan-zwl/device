@@ -55,6 +55,10 @@ public class SettingDevInfor extends BaseView {
         commonArray.recycle();
     }
 
+    public void setInforSize(float size) {
+        mText.setTextSize(size);
+    }
+
     public void setInfor(String text) {
         mText.setText(text);
     }

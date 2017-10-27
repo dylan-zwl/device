@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp"
-        android:clickable="false"
+        android:enabled="false"
         android:text="@string/title_start_activity"
         android:textColor="@color/commonColor1"
         android:textSize="@dimen/tx_size4"/>

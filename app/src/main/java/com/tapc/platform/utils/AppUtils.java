@@ -17,6 +17,7 @@ import android.util.Log;
 import com.tapc.platform.entity.AppInfoEntity;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,5 +156,24 @@ public class AppUtils {
         } catch (Exception e) {
         }
         return versionName;
+    }
+
+    public static void clearAppExit(Context context, List<AppInfoEntity> listAppInfo) {
+        if (listAppInfo == null) {
+            return;
+        }
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (AppInfoEntity appInfoEntity : listAppInfo) {
+            Method method = null;
+            try {
+                method = Class.forName("android.app.ActivityManager").getMethod("forceStopPackage",
+                        String.class);
+                method.invoke(manager, appInfoEntity.getPkgName());
+            } catch (Exception e) {
+                Log.d(TAG, "app " + appInfoEntity.getPkgName() + " exit failed");
+                continue;
+            }
+            Log.d(TAG, "app " + appInfoEntity.getPkgName() + " exit successed");
+        }
     }
 }

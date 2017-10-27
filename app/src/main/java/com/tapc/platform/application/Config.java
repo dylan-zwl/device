@@ -11,4 +11,6 @@ public class Config {
     public static boolean isFanOpen = false;
 
     public static final String SETTING_FILE_NAME = "setting";
+
+    public static final String MEDIA_FILE = "/sdcard/tapc";
 }

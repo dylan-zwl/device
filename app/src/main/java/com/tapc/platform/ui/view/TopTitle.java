@@ -46,7 +46,7 @@ public class TopTitle extends BaseView {
     }
 
     public void setTitleClickable(boolean clickable) {
-        mTitleTv.setClickable(clickable);
+        mTitleTv.setEnabled(clickable);
     }
 
     @Override

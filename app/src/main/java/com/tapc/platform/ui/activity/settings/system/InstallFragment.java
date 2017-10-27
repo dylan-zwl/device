@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 
 import com.tapc.platform.R;
+import com.tapc.platform.application.Config;
 import com.tapc.platform.entity.AppSettingItem;
 import com.tapc.platform.model.install.InstallModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
@@ -56,7 +57,7 @@ public class InstallFragment extends BaseFragment {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
                 mModel = new InstallModel(mContext);
-                String path = "";
+                String path = Config.MEDIA_FILE + "/third_app/";
                 mShowList = mModel.getFiles(path, ".apk");
                 if (mShowList != null && mShowList.size() > 0) {
                     e.onNext("show");
@@ -102,7 +103,7 @@ public class InstallFragment extends BaseFragment {
                 mModel.setListener(new InstallModel.Listener() {
                     @Override
                     public void completed(AppSettingItem item, String s, int i) {
-
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -133,6 +134,10 @@ public class InstallFragment extends BaseFragment {
             case R.id.setting_app_btn:
                 break;
             case R.id.setting_app_chx:
+                for (AppSettingItem item : mShowList) {
+                    item.setChecked(true);
+                }
+                mAdapter.notifyDataSetChanged();
                 break;
         }
     }

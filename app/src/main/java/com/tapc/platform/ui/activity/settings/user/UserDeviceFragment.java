@@ -1,20 +1,32 @@
 package com.tapc.platform.ui.activity.settings.user;
 
-import android.content.pm.IPackageDataObserver;
-import android.os.RemoteException;
 import android.provider.Settings;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
+import com.tapc.platform.application.Config;
+import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.model.BacklightModel;
 import com.tapc.platform.model.ConfigModel;
 import com.tapc.platform.ui.fragment.BaseFragment;
+import com.tapc.platform.ui.widget.AlertDialog;
 import com.tapc.platform.utils.AppUtils;
+import com.tapc.platform.utils.FileUtils;
+import com.tapc.platform.utils.RxjavaUtils;
 import com.tapc.platform.utils.SoundCtlUtils;
+import com.trello.rxlifecycle2.android.FragmentEvent;
+
+import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2017/10/10.
@@ -80,7 +92,7 @@ public class UserDeviceFragment extends BaseFragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int value, boolean fromUser) {
                 SoundCtlUtils.getInstance().setVolume(mContext, value);
-                mBacklightValumeTv.setText(value);
+                mBacklightValumeTv.setText(String.valueOf(value));
             }
 
             @Override
@@ -98,15 +110,37 @@ public class UserDeviceFragment extends BaseFragment {
 
     @OnClick(R.id.setting_clear_cache)
     void clearCache() {
-        AppUtils.clearAppUserData(mContext, mContext.getPackageName(), new IPackageDataObserver.Stub() {
+        new AlertDialog(mContext).setMsgText("是否确定?").setOnClickListener(new AlertDialog.Listener() {
             @Override
-            public void onRemoveCompleted(String s, boolean result) throws RemoteException {
-                if (result) {
-
-                } else {
-
-                }
+            public void positiveOnCick() {
+                startClear();
             }
-        });
+
+            @Override
+            public void negativeOnClick() {
+
+            }
+        }).show();
+    }
+
+    private void startClear() {
+        RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
+                List<AppInfoEntity> mlistAppInfo = AppUtils.getAllAppInfo(mContext, false);
+                AppUtils.clearAppExit(mContext, mlistAppInfo);
+                for (AppInfoEntity app : mlistAppInfo) {
+                    AppUtils.clearAppUserData(mContext, app.getPkgName(), null);
+                }
+                FileUtils.RecursionDeleteFile(new File(Config.MEDIA_FILE));
+                e.onNext("show");
+                e.onComplete();
+            }
+        }, new Consumer() {
+            @Override
+            public void accept(@NonNull Object o) throws Exception {
+                new AlertDialog(mContext).setMsgText("清除完成").setButtonVisibility(View.GONE).setTimeOut(3000);
+            }
+        }, bindUntilEvent(FragmentEvent.DESTROY_VIEW));
     }
 }

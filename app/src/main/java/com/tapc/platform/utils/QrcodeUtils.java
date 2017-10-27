@@ -2,6 +2,10 @@ package com.tapc.platform.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.SystemClock;
+import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
@@ -11,6 +15,12 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.util.Hashtable;
 
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+
 /**
  * Created by Administrator on 2017/3/22.
  */
@@ -19,7 +29,10 @@ public class QrcodeUtils {
     /**
      * 生成二维码图片
      */
-    public static Bitmap createImage(String QrcodeStr, int width, int height, int minPandingSize) {
+    public static Bitmap createImage(String qrcodeStr, int width, int height, int minPandingSize) {
+        if (width == 0 || height == 0 || TextUtils.isEmpty(qrcodeStr)) {
+            return null;
+        }
         Bitmap bitmap;
         try {
             int startX = 0;
@@ -30,7 +43,7 @@ public class QrcodeUtils {
             Hashtable<EncodeHintType, String> hints = new Hashtable<EncodeHintType, String>();
             hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
 
-            BitMatrix martix = writer.encode(QrcodeStr, BarcodeFormat.QR_CODE, width, height, hints);
+            BitMatrix martix = writer.encode(qrcodeStr, BarcodeFormat.QR_CODE, width, height, hints);
             int[] pixels = new int[width * height];
             for (int y = 0; y < height; y++) {
                 for (int x = 0; x < width; x++) {
@@ -105,6 +118,26 @@ public class QrcodeUtils {
             e.getStackTrace();
         }
         return bitmap;
+    }
+
+    public static void show(final String qrcodeStr, final ImageView imageView, final int minPandingSize,
+                            ObservableTransformer composer) {
+        RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
+                SystemClock.sleep(500);
+                e.onNext(QrcodeUtils.createImage(qrcodeStr, imageView.getWidth(), imageView.getHeight(),
+                        minPandingSize));
+            }
+        }, new Consumer() {
+            @Override
+            public void accept(@NonNull Object o) throws Exception {
+                Bitmap bitmap = (Bitmap) o;
+                if (bitmap != null) {
+                    imageView.setBackground(new BitmapDrawable(bitmap));
+                }
+            }
+        }, composer);
     }
 
 }

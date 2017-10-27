@@ -18,8 +18,8 @@ public abstract class BaseSettingActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         mSettingTopBar.dismiss();
         mSettingTopBar = null;
     }

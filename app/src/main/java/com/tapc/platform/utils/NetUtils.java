@@ -3,6 +3,8 @@ package com.tapc.platform.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 
 /**
  * Created by Administrator on 2017/9/8.
@@ -49,5 +51,23 @@ public class NetUtils {
             }
         }
         return false;
+    }
+
+
+    /**
+     * 获取本机Mac地址
+     */
+    public static String getLocalMacAddress(Context context) {
+        String macAddress = "";
+        WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wifi.getConnectionInfo();
+        try {
+            macAddress = info.getMacAddress().replace(":", "");
+        } catch (Exception e) {
+        }
+        if (macAddress == null) {
+            macAddress = "";
+        }
+        return macAddress;
     }
 }

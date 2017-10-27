@@ -103,7 +103,7 @@ public class UninstallFragment extends BaseFragment {
                 mModel.setListener(new UninstallModel.Listener() {
                     @Override
                     public void completed(AppSettingItem item, String s, int i) {
-
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -132,8 +132,13 @@ public class UninstallFragment extends BaseFragment {
     void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
             case R.id.setting_app_btn:
+
                 break;
             case R.id.setting_app_chx:
+                for (AppSettingItem item : mShowList) {
+                    item.setChecked(true);
+                }
+                mAdapter.notifyDataSetChanged();
                 break;
         }
     }

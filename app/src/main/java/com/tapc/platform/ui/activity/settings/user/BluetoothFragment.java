@@ -144,11 +144,6 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
             mList.set(index, bluetoothDevice);
             mAdpater.notifyItemChanged(index);
         }
-//        for (int index = 0; index < mList.size(); index++) {
-//            if (mList.get(index).equals(bluetoothDevice)) {
-//
-//            }
-//        }
     }
 
     @Override
