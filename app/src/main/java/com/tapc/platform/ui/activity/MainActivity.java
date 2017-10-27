@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
 //        IntentUtils.startActivity(mContext, UserSettingActivity.class);
 //        IntentUtils.startActivity(mContext, SystemSettingActivity.class);
 
-        QrcodeUtils.show(ConfigModel.getDeviceId(mContext, ""), mQrIv, 10, bindUntilEvent(ActivityEvent.DESTROY));
+        QrcodeUtils.show(ConfigModel.getDeviceId(mContext, ""), mQrIv, 10, bindUntilEvent(ActivityEvent.STOP));
     }
 
     @Override

@@ -128,6 +128,7 @@ public class QrcodeUtils {
                 SystemClock.sleep(500);
                 e.onNext(QrcodeUtils.createImage(qrcodeStr, imageView.getWidth(), imageView.getHeight(),
                         minPandingSize));
+                e.onComplete();
             }
         }, new Consumer() {
             @Override
