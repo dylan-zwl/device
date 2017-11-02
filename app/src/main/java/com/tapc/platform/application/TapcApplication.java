@@ -6,9 +6,10 @@ import android.content.Context;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 
-import com.jht.tapc.jni.KeyEvent;
 import com.tapc.platform.entity.DeviceType;
+import com.tapc.platform.jni.Drive;
 import com.tapc.platform.library.abstractset.ProgramSetting;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.BikeSystemSettings;
@@ -32,6 +33,7 @@ public class TapcApplication extends Application {
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
+    private Drive mDrive;
     private Class<?> mHomeActivity;
     private ProgramSetting mProgramSetting;
 
@@ -56,8 +58,10 @@ public class TapcApplication extends Application {
             }
         }, Context.BIND_AUTO_CREATE);
 
-        mKeyEvent = new KeyEvent(null, 0);
-        mKeyEvent.initCom();
+        mDrive = new Drive();
+//        mDrive.openUinput(Drive.UINPUT_DEVICE_NAME);
+        mDrive.initCom(Drive.UART_DEVICE_NAME, 115200);
+
         initControl(this);
         initDeviceId();
     }
@@ -79,7 +83,7 @@ public class TapcApplication extends Application {
         if (systemSettings != null) {
             systemSettings.Load(this, null);
             systemSettings.mPath = "/mnt/sdcard/premierprograms.db";
-            AppSettings.setPlatform(CommonEnum.Platform.RK3188);
+            AppSettings.setPlatform(CommonEnum.Platform.S700);
             AppSettings.setLoopbackMode(false);
             MachineController controller = MachineController.getInstance();
             controller.initController(this);
@@ -96,8 +100,8 @@ public class TapcApplication extends Application {
         return mService;
     }
 
-    public KeyEvent getKeyEvent() {
-        return mKeyEvent;
+    public Drive getKeyEvent() {
+        return mDrive;
     }
 
     public Class<?> getHomeActivity() {

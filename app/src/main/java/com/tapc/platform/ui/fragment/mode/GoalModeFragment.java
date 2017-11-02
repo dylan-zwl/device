@@ -54,20 +54,20 @@ public class GoalModeFragment extends ModeBaseFragment {
                             list.add(new ParameterSet("时间", "30", "min", defValues));
                             break;
                         case DISTANCE:
-                            list.add(new ParameterSet("距离", "30", "km", defValues));
+                            list.add(new ParameterSet("距离", "5", "km", defValues));
                             break;
                         case CALORIE:
-                            list.add(new ParameterSet("卡路里", "30", "kcal", defValues));
+                            list.add(new ParameterSet("卡路里", "100", "kcal", defValues));
                             break;
                     }
 
                     if (goalModeItem.getName() == R.string.heart_rate) {
                         list.add(new ParameterSet("心率", "80", "", defValues));
-                        list.add(new ParameterSet("年龄", "6", "kg", defValues));
-                        list.add(new ParameterSet("体重", "6", "kg", defValues));
+                        list.add(new ParameterSet("年龄", "25", "kg", defValues));
+                        list.add(new ParameterSet("体重", "60", "kg", defValues));
                     } else {
-                        list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
-                        list.add(new ParameterSet("坡度", "6", "%", defValues));
+                        list.add(new ParameterSet("速度", "1.0", "km/h", defValues));
+                        list.add(new ParameterSet("坡度", "0", "%", defValues));
                     }
                     mListener.switchParameterSettingsFragment(mContext, list, RunType.NOMAL, goalModeItem
                             .getProgramType());

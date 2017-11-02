@@ -24,15 +24,15 @@ public class NetModel {
     }
 
     public NetModel url(@NonNull String url) {
-        this.mUrl = url;
+        mUrl = url;
         return this;
     }
 
-    public void post(Object content, GenericsCallback genericsCallback) {
+    public void post(Object object, GenericsCallback genericsCallback) {
         genericsCallback.setmGenericsSerializator(serializator);
         String contentStr = "";
-        if (content != null) {
-            contentStr = new Gson().toJson(content);
+        if (object != null) {
+            contentStr = new Gson().toJson(object);
         }
         mOkHttpUtils.postString().url(mUrl).tag(this).content(contentStr).build().execute(genericsCallback);
     }

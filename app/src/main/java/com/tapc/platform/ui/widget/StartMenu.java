@@ -12,6 +12,8 @@ import android.view.WindowManager;
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.AppInfoEntity;
+import com.tapc.platform.library.common.AppSettings;
+import com.tapc.platform.library.common.CommonEnum;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
@@ -85,13 +87,14 @@ public class StartMenu extends BaseSystemView {
 
     @OnClick(R.id.start_menu_back)
     void backOnClick() {
-        TapcApplication.getInstance().getKeyEvent().backEvent();
+        TapcApplication.getInstance().getKeyEvent().back();
     }
 
     @OnClick(R.id.start_menu_home)
     void homeOnClick() {
         try {
-            if (AppUtils.isApplicationBroughtToBackground(mContext)) {
+            if (AppUtils.isApplicationBroughtToBackground(mContext) || AppSettings.getPlatform() == CommonEnum
+                    .Platform.S700) {
                 IntentUtils.startActivity(mContext, TapcApplication.getInstance().getHomeActivity(), null, Intent
                         .FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }

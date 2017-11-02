@@ -59,7 +59,6 @@ public class RunInforBar extends BaseSystemView implements Observer {
         mRecyclerView.setAdapter(mRunInforAdpater);
 
         mWorkOuting = WorkOuting.getInstance();
-        mWorkOuting.subscribeObserverNotification(this);
     }
 
     @Override
@@ -144,6 +143,12 @@ public class RunInforBar extends BaseSystemView implements Observer {
                 mRunInforAdpater.notifyDataSetChanged();
             }
         }
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        mWorkOuting.subscribeObserverNotification(this);
     }
 
     @Override

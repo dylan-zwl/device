@@ -47,7 +47,7 @@ public class StartActivity extends BaseActivity {
         FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, new SelectModeFragment(mListener));
 //        FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, ProgramStageFragment.class);
 
-        mTopTitle.setOnClickListener(new View.OnClickListener() {
+        mTopTitle.setBackListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mParameterSettingsFragment != null) {

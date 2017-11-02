@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
 import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.IntentUtils;
 import com.tapc.platform.utils.WindowManagerUtils;
@@ -44,6 +45,10 @@ public class ErrorDialog extends BaseSystemView {
     @Override
     protected void initView() {
         super.initView();
+        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
+        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
+        int safekey = MachineController.getInstance().getSafeKeyStatus();
+        setSafeKeyShow(safekey);
     }
 
     @Override
@@ -55,13 +60,6 @@ public class ErrorDialog extends BaseSystemView {
     @Override
     protected int getContentView() {
         return R.layout.dialog_error;
-    }
-
-    public void init() {
-        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
-        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
-        int safekey = MachineController.getInstance().getSafeKeyStatus();
-        setSafeKeyShow(safekey);
     }
 
     @OnClick(R.id.error_left_tv)
@@ -79,6 +77,7 @@ public class ErrorDialog extends BaseSystemView {
     void rightOnClick() {
         if (isHideError) {
             setVisibility(GONE);
+            isShowError = false;
             if (mErrorReceiver != null) {
                 mContext.unregisterReceiver(mErrorReceiver);
             }
@@ -102,7 +101,6 @@ public class ErrorDialog extends BaseSystemView {
 //                String errorStr = Integer.toHexString(status);
 //                String text = String.format(mErrorCode, errorStr);
 //                mErrorCodeTx.setText(text);
-//                WorkoutBroadcase.send(mContext, DeviceWorkout.STOP);
                 mErrorCodeLL.setVisibility(VISIBLE);
                 isShowError = true;
             }
@@ -127,16 +125,16 @@ public class ErrorDialog extends BaseSystemView {
         } else {
             mSafeKeyLL.setVisibility(VISIBLE);
             isShowSafeKey = true;
-//            WorkoutBroadcase.send(mContext, DeviceWorkout.STOP);
+            WorkOuting.getInstance().stop();
         }
         resetDialogStatus();
     }
 
     private void resetDialogStatus() {
         if (isShowSafeKey || isShowError) {
-            setVisibility(VISIBLE);
+            show();
         } else {
-            setVisibility(GONE);
+            dismiss();
         }
     }
 }

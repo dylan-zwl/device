@@ -81,6 +81,9 @@ public class QrcodeUtils {
         return bitmap;
     }
 
+    /**
+     * 添加logo
+     */
     public static Bitmap addQrLogo(Bitmap src, Bitmap logo) {
         if (src == null) {
             return null;
@@ -120,8 +123,14 @@ public class QrcodeUtils {
         return bitmap;
     }
 
+    /**
+     * 显示二维码
+     */
     public static void show(final String qrcodeStr, final ImageView imageView, final int minPandingSize,
                             ObservableTransformer composer) {
+        if (TextUtils.isEmpty(qrcodeStr)) {
+            return;
+        }
         RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/gesture_ll"
+              android:id="@+id/countdown_ll"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:background="@drawable/bg_countdown"
               android:gravity="center">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/countdown_iv"-->
-        <!--android:layout_width="400dp"-->
-        <!--android:layout_height="400dp"-->
-        <!--android:scaleType="fitXY"/>-->
-    <pl.droidsonroids.gif.GifImageView
+    <TextView
         android:id="@+id/countdown_iv"
-        android:layout_width="400dp"
-        android:layout_height="400dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:textColor="@color/commonColor1"
+        android:textSize="600dp"/>
+    <!--<pl.droidsonroids.gif.GifImageView-->
+    <!--android:id="@+id/countdown_iv"-->
+    <!--android:layout_width="400dp"-->
+    <!--android:layout_height="400dp"/>-->
 </LinearLayout>

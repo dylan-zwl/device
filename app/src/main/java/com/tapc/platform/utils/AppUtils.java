@@ -31,6 +31,10 @@ public class AppUtils {
         return sAppInforList;
     }
 
+
+    /**
+     * 获取安装应用列表
+     */
     public static ArrayList<AppInfoEntity> getAllAppInfo(Context context, boolean isShowSystemApp) {
         ArrayList<AppInfoEntity> mlistAppInfo = new ArrayList<AppInfoEntity>();
         PackageManager pm = context.getPackageManager();
@@ -85,7 +89,7 @@ public class AppUtils {
 
 
     /**
-     * 安装apk
+     * install app
      */
     public static void installApp(Context context, File file) {
         Intent intent = new Intent();
@@ -107,6 +111,9 @@ public class AppUtils {
         return false;
     }
 
+    /**
+     * uninstall app
+     */
     public static void unInstallApp(Context context, String pkgName) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_DELETE);
@@ -125,6 +132,9 @@ public class AppUtils {
         return false;
     }
 
+    /**
+     * 清除缓存
+     */
     public static void clearAppUserData(Context context, String pakageName, IPackageDataObserver.Stub observer) {
         try {
             PackageManager pm = context.getPackageManager();
@@ -134,6 +144,9 @@ public class AppUtils {
         }
     }
 
+    /**
+     * app是否已安装
+     */
     public static boolean isAppInstalled(Context context, String packageName) {
         final PackageManager packageManager = context.getPackageManager();
         List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
@@ -147,6 +160,9 @@ public class AppUtils {
         return pName.contains(packageName);
     }
 
+    /**
+     * 获取版本号
+     */
     public static String getVersionName(Context context, String pkgName) {
         String versionName = "";
         try {
@@ -158,6 +174,9 @@ public class AppUtils {
         return versionName;
     }
 
+    /**
+     * 清除app进程
+     */
     public static void clearAppExit(Context context, List<AppInfoEntity> listAppInfo) {
         if (listAppInfo == null) {
             return;

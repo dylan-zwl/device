@@ -12,8 +12,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
-import java.util.List;
-
 /**
  * Created by Administrator on 2016/11/13.
  */
@@ -102,21 +100,6 @@ public class IntentUtils {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);// 注意
         intent.addCategory(Intent.CATEGORY_HOME);
         context.startActivity(intent);
-    }
-
-    /**
-     * 判断当前应用程序处于前台还是后台
-     */
-    public static boolean isApplicationBroughtToBackground(Context context) {
-        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(1);
-        if (!tasks.isEmpty()) {
-            ComponentName topActivity = tasks.get(0).topActivity;
-            if (!topActivity.getPackageName().equals(context.getPackageName())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public static boolean isTopActivity(Context context, Class cls) {

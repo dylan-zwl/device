@@ -22,6 +22,7 @@ import com.tapc.platform.application.Config;
 import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.ui.activity.settings.user.UserSettingActivity;
 import com.tapc.platform.ui.adpater.AppAdpater;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
@@ -147,12 +148,12 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
 
     @OnClick(R.id.app_bar_wifi)
     void openWifiSetting() {
-
+        UserSettingActivity.lunch(mContext,"wifi");
     }
 
     @OnClick(R.id.app_bar_bluetooth)
     void openBtSetting() {
-
+        UserSettingActivity.lunch(mContext,"bluetooth");
     }
 
     private void setFanShowStatus() {

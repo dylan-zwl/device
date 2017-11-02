@@ -39,6 +39,8 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
     CheckBox mProgramChx;
     @BindView(R.id.shortcut_runinfor_bar)
     CheckBox mRunInforBarChx;
+    @BindView(R.id.shortcut_screen)
+    CheckBox mScreenChx;
 
     private BottomBar mBottomBar;
     private AppBar mAppBar;
@@ -79,7 +81,6 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
         mProgramChx.setChecked(mProgramStageDialog.isShown());
         mRunInforBarChx.setChecked(mRunInforBar.isShown());
     }
-
 
     @OnClick(R.id.shortcut_key)
     void shortcutKey() {
@@ -142,9 +143,19 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
 
     }
 
-    @OnCheckedChanged(R.id.shortcut_screen)
-    void funScreen(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked) {
+    public void setFullScreen(boolean eable) {
+        mScreenChx.setChecked(!eable);
+    }
+
+    private void fullScreen(boolean eable) {
+        if (eable) {
+            mAppBar.hide();
+            mRunInforBar.hide();
+            mProgramStageDialog.hide();
+            mBottomBar.dismiss();
+//            mProgramChx.setChecked(false);
+//            mRunInforBarChx.setChecked(false);
+        } else {
             mAppBar.show();
             if (mRunInforBarChx.isChecked()) {
                 mRunInforBar.show();
@@ -153,23 +164,21 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
                 mProgramStageDialog.show();
             }
             mBottomBar.show();
-        } else {
-            mAppBar.hide();
-            mRunInforBar.hide();
-            mProgramStageDialog.hide();
-            mBottomBar.dismiss();
-//            mProgramChx.setChecked(false);
-//            mRunInforBarChx.setChecked(false);
         }
+    }
+
+    @OnCheckedChanged(R.id.shortcut_screen)
+    void fullScreen(CompoundButton buttonView, boolean isChecked) {
+        fullScreen(!isChecked);
     }
 
     @Override
     public void show() {
-        super.show();
         mBottomBar.show();
         mAppBar.show();
         mRunInforBar.show();
         mProgramStageDialog.show();
+        super.show();
         initShow();
     }
 

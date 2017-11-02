@@ -31,11 +31,9 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(path: ':okhttplibrary')
-
     /* leakcanary */
     //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
     //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
-
     compile project(path: ':vaplayer')
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -49,9 +47,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
     compile 'com.youth.banner:banner:1.4.10'
-    compile files('src/libs/keyboard.jar')
     compile(name: 'workout', ext: 'aar')
-    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
+    //    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     compile 'com.google.zxing:core:3.3.0'
     provided files('src/libs/classes-full-3188.jar')
     provided files('src/libs/classes-full-8935.jar')

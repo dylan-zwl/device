@@ -84,30 +84,37 @@
 
             </com.tapc.platform.ui.view.DeviceCtl>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="376dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="16dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:gravity="center_horizontal">
 
                 <TextView
                     android:id="@+id/bottombar_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:text="00:00:00"
                     android:textColor="@color/commonColor1"
                     android:textSize="@dimen/tx_size7"/>
 
-                <ProgressBar
+                <SeekBar
                     android:id="@+id/bottombar_time_progrress"
-                    style="?android:progressBarStyleHorizontal"
-                    android:layout_width="210dp"
-                    android:layout_height="6dp"
+                    android:layout_width="240dp"
+                    android:layout_height="8dp"
+                    android:layout_below="@id/bottombar_time"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginTop="20dp"
                     android:max="100"
-                    android:progressDrawable="@drawable/pbar_common"/>
-            </LinearLayout>
+                    android:maxHeight="6dp"
+                    android:minHeight="6dp"
+                    android:progressDrawable="@drawable/pbar_common"
+                    android:thumb="@null"/>
+            </RelativeLayout>
 
             <com.tapc.platform.ui.view.DeviceCtl
                 android:id="@+id/bottombar_right_ctl"

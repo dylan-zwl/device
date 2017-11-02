@@ -27,6 +27,7 @@ public class BluetoothModel {
     public BluetoothModel(Context context) {
         mContext = context;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        mBluetoothAdapter.getProfileProxy(mContext, mProfileServiceListener, BluetoothProfile.A2DP);
     }
 
     public BluetoothAdapter getAdapter() {
@@ -44,7 +45,6 @@ public class BluetoothModel {
             intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
             intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
             mContext.registerReceiver(mBluetoothReceiver, intentFilter);
-            mBluetoothAdapter.getProfileProxy(mContext, mProfileServiceListener, BluetoothProfile.A2DP);
         }
     }
 

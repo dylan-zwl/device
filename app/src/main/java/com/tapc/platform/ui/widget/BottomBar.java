@@ -8,12 +8,11 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.entity.WidgetShowStatus;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.CommonEnum;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
@@ -56,7 +55,7 @@ public class BottomBar extends BaseSystemView implements Observer {
     @BindView(R.id.bottombar_time)
     TextView mTimeTv;
     @BindView(R.id.bottombar_time_progrress)
-    ProgressBar mTimePbar;
+    SeekBar mProgressBar;
 
     @BindView(R.id.bottombar_resume)
     Button mResumeBtn;
@@ -102,11 +101,9 @@ public class BottomBar extends BaseSystemView implements Observer {
                 treadmillProgramSetting.setIncline(TreadmillSystemSettings.MIN_INCLINE);
                 programSetting = treadmillProgramSetting;
             }
-            mWorkOuting = WorkOuting.getInstance();
             mWorkOuting.setProgramSetting(programSetting);
             mWorkOuting.start();
         }
-        mWorkOuting.subscribeObserverNotification(this);
     }
 
     private void initCtlView() {
@@ -234,7 +231,7 @@ public class BottomBar extends BaseSystemView implements Observer {
     @OnClick(R.id.bottombar_resume)
     void resume() {
         if (mWorkOuting.isPausing()) {
-            TapcApplication.getInstance().getService().setCountDownVisibility(WidgetShowStatus.VISIBLE);
+            TapcApplication.getInstance().getService().getCountdownDialog().show();
         }
     }
 
@@ -244,10 +241,14 @@ public class BottomBar extends BaseSystemView implements Observer {
     }
 
     @Override
+    public void show() {
+        super.show();
+        mWorkOuting.subscribeObserverNotification(this);
+    }
+
+    @Override
     public void onDestroy() {
-        if (mWorkOuting != null) {
-            mWorkOuting.unsubscribeObserverNotification(this);
-        }
+        mWorkOuting.unsubscribeObserverNotification(this);
         mLeftDeviceCtl.cancelObserable();
         mRightDeviceCtl.cancelObserable();
     }
@@ -274,27 +275,30 @@ public class BottomBar extends BaseSystemView implements Observer {
                         case TIME:
                             int time = workout.getTotalTime();
                             int goalTime = (int) workout.getGoal();
-                            mTimePbar.setProgress(time / goalTime);
+                            mProgressBar.setMax(goalTime);
+                            mProgressBar.setProgress(time);
                             mTimeTv.setText(String.format("%02d:%02d:%02d", time / 3600, time % 3600 / 60, time % 60));
                             break;
                         case DISTANCE:
                             float distance = workout.getTotalDistance();
                             float goalDistance = workout.getGoal();
-                            mTimePbar.setProgress((int) (distance / goalDistance));
-                            mTimeTv.setText(String.format("%.02d", distance));
+                            mProgressBar.setMax((int) (goalDistance * 1000));
+                            mProgressBar.setProgress((int) (distance * 1000));
+                            mTimeTv.setText(String.format("%.02f", distance));
                             break;
                         case CALORIE:
                             float calorie = workout.getTotalCalorie();
                             float goalCalorie = workout.getGoal();
-                            mTimePbar.setProgress((int) (calorie / goalCalorie));
-                            mTimeTv.setText(String.format("%.02d", calorie));
+                            mProgressBar.setMax((int) (goalCalorie * 1000));
+                            mProgressBar.setProgress((int) (calorie * 1000));
+                            mTimeTv.setText(String.format("%.02f", calorie));
                             break;
                     }
                     break;
-                case MACHINE_LEFT:
+                case UI_LEFT:
                     mLeftDeviceCtl.setValue(workout.getIncline());
                     break;
-                case MACHINE_RIGHT:
+                case UI_RIGHT:
                     mRightDeviceCtl.setValue(workout.getSpeed());
                     break;
                 case UI_PAUSE:
@@ -308,7 +312,7 @@ public class BottomBar extends BaseSystemView implements Observer {
 
     @OnClick(R.id.bottombar_back)
     void backOnClick() {
-        TapcApplication.getInstance().getKeyEvent().backEvent();
+        TapcApplication.getInstance().getKeyEvent().back();
     }
 
     @OnClick(R.id.bottombar_home)

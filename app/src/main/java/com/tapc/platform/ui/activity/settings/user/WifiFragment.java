@@ -1,9 +1,5 @@
 package com.tapc.platform.ui.activity.settings.user;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
@@ -21,12 +17,14 @@ import android.widget.ToggleButton;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ConnectStatusItem;
+import com.tapc.platform.entity.WifiConnectStatus;
 import com.tapc.platform.model.wifi.WifiAdmin;
 import com.tapc.platform.model.wifi.WifiPassard;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.WifiAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
-import com.tapc.platform.utils.IntentUtils;
+import com.tapc.platform.utils.RxjavaUtils;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +32,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2017/10/10.
@@ -71,10 +73,12 @@ public class WifiFragment extends BaseFragment {
     @Override
     protected void initView() {
         super.initView();
-        mHandler = new Handler();
-        IntentUtils.registerReceiver(mContext, mNetWorkBroadcastReceiver, ConnectivityManager.CONNECTIVITY_ACTION,
-                WifiManager.RSSI_CHANGED_ACTION);
+        initList();
+        mEnableTBtn.setChecked(mWifiAdmin.isWifiEnabled());
+    }
 
+    private void initList() {
+        mHandler = new Handler();
         mWifiAdmin = new WifiAdmin(mContext);
         mShowList = new ArrayList<>();
         mAdpater = new WifiAdpater(mShowList);
@@ -102,14 +106,13 @@ public class WifiFragment extends BaseFragment {
                 setPwdVisibility(true);
             }
         });
-
-        mEnableTBtn.setChecked(mWifiAdmin.isWifiEnabled());
     }
 
     @OnCheckedChanged(R.id.setting_wifi_enable)
     void wifiEnableChange(CompoundButton buttonView, boolean isChecked) {
         if (isChecked) {
             mWifiAdmin.openWifi();
+            mLoading.setVisibility(View.VISIBLE);
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -126,6 +129,8 @@ public class WifiFragment extends BaseFragment {
             mWifiAdmin.closeWifi();
         }
         mRecyclerview.setVisibility(View.GONE);
+        mLoading.setVisibility(View.GONE);
+
     }
 
     @OnClick(R.id.setting_wifi_cancel_save)
@@ -139,32 +144,59 @@ public class WifiFragment extends BaseFragment {
     void connectOnClick() {
         String name = mConnectBtn.getText().toString();
         if (name.equals("连接")) {
-            String pwd = mPwdEdit.getEditableText().toString();
+            final String pwd = mPwdEdit.getEditableText().toString();
             if (TextUtils.isEmpty(pwd)) {
                 return;
             }
-            int networkId = mWifiAdmin.addWifiConfig(mWifiAdmin.getWifiList().get(0).SSID, pwd, mConnectStatusItem
-                    .getPwdType());
-            mWifiAdmin.getConfiguration();
-            boolean result = mWifiAdmin.connectWifi(networkId);
-            for (ConnectStatusItem item : mShowList) {
-                item.setConnectedStatus(0);
-            }
-            if (result) {
-                mConnectStatusItem.setConnectedStatus(1);
-            } else {
-                mConnectStatusItem.setConnectedStatus(2);
-            }
-            mAdpater.notifyDataSetChanged();
+            RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
+                @Override
+                public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
+                    e.onNext("start");
+                    int networkId = mWifiAdmin.addWifiConfig(mConnectStatusItem.getSSID(), pwd,
+                            mConnectStatusItem.getPwdType());
+                    mWifiAdmin.getConfiguration();
+                    boolean result = mWifiAdmin.connectWifi(networkId);
+                    for (ConnectStatusItem item : mShowList) {
+                        item.setConnectedStatus(WifiConnectStatus.NOMAL);
+                    }
+                    if (result) {
+                        mConnectStatusItem.setConnectedStatus(WifiConnectStatus.CONCECTED);
+                    } else {
+                        mConnectStatusItem.setConnectedStatus(WifiConnectStatus.FAILED);
+                    }
+                    e.onNext("stop");
+                    e.onComplete();
+                }
+            }, new Consumer() {
+                @Override
+                public void accept(@NonNull Object o) throws Exception {
+                    switch ((String) o) {
+                        case "start":
+                            mLoading.setVisibility(View.VISIBLE);
+                            break;
+                        case "stop":
+                            mLoading.setVisibility(View.GONE);
+                            mAdpater.notifyDataSetChanged();
+                            break;
+                    }
+                }
+            }, bindUntilEvent(FragmentEvent.DESTROY_VIEW));
         } else {
-            mConnectStatusItem.setConnectedStatus(0);
-            mWifiAdmin.disConnectionWifi(mConnectStatusItem.getNetworkId());
+            cancelConnect();
         }
         setPwdVisibility(false);
     }
 
+    private void cancelConnect() {
+        mConnectStatusItem.setConnectedStatus(0);
+        mWifiAdmin.disConnectionWifi(mConnectStatusItem.getNetworkId());
+        mAdpater.notifyDataSetChanged();
+    }
+
+
     @OnClick(R.id.setting_wifi_cancel)
     void cancelOnClick() {
+        cancelConnect();
         setPwdVisibility(false);
     }
 
@@ -205,23 +237,8 @@ public class WifiFragment extends BaseFragment {
             }
         }
         mAdpater.notifyDataSetChanged();
+        mLoading.setVisibility(View.GONE);
     }
-
-
-    public BroadcastReceiver mNetWorkBroadcastReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            switch (action) {
-                case ConnectivityManager.CONNECTIVITY_ACTION:
-                    break;
-                case WifiManager.RSSI_CHANGED_ACTION:
-                    break;
-            }
-            if (action.equals(WifiManager.RSSI_CHANGED_ACTION)) {
-//                showNetWork(context);
-            }
-        }
-    };
 
     private void setPwdVisibility(boolean visibility) {
         if (visibility) {

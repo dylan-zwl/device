@@ -1,5 +1,6 @@
 package com.tapc.platform.ui.activity.settings.user;
 
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -107,9 +108,10 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
 
     @Override
     public void actionAclConnected(BluetoothDevice bluetoothDevice) {
-        mAdpater.setConnectedDevice(bluetoothDevice);
-        refreshList(bluetoothDevice);
-        mAdpater.notifyDataSetChanged();
+        if (bluetoothDevice.getBluetoothClass().getMajorDeviceClass() == BluetoothClass.Device.AUDIO_VIDEO_HEADPHONES) {
+            mAdpater.setConnectedDevice(bluetoothDevice);
+            refreshList(bluetoothDevice);
+        }
     }
 
     @Override

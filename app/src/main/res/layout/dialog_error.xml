@@ -2,9 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/bg_skin"
-                android:gravity="center"
-                android:orientation="vertical">
+                android:background="@drawable/bg_skin">
 
     <TextView
         android:id="@+id/error_left_tv"
@@ -36,10 +34,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
             android:lineSpacingExtra="24dp"
-            android:text="安全锁已开启/n请将安全锁放回原位解锁跑步机"
+            android:text="安全锁已开启\n请将安全锁放回原位解锁跑步机"
             android:textColor="@color/commonColor1"
             android:textSize="40sp"/>
     </LinearLayout>
@@ -50,8 +48,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
-
     </LinearLayout>
-
-
 </RelativeLayout>

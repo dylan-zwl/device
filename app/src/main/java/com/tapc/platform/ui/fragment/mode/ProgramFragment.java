@@ -35,10 +35,12 @@ public class ProgramFragment extends ModeBaseFragment {
     protected void initView() {
         ArrayList<String> programList = WorkOuting.getProgramName();
         List<PragramRunItem> list = new ArrayList<PragramRunItem>();
-        for (String programItem : programList) {
-            PragramRunItem item = new PragramRunItem();
-            item.setName(programItem);
-            list.add(item);
+        if (programList != null) {
+            for (String programItem : programList) {
+                PragramRunItem item = new PragramRunItem();
+                item.setName(programItem);
+                list.add(item);
+            }
         }
         PragramRunItem customItem = new PragramRunItem();
         customItem.setName("自定义");
@@ -61,9 +63,9 @@ public class ProgramFragment extends ModeBaseFragment {
                     defValues.add("20");
                     defValues.add("30");
                     list.add(new ParameterSet("时间", "30", "min", defValues));
-                    list.add(new ParameterSet("体重", "6", "kg", defValues));
-                    list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
-                    list.add(new ParameterSet("坡度", "6", "%", defValues));
+                    list.add(new ParameterSet("体重", "60", "kg", defValues));
+                    list.add(new ParameterSet("速度", "1.0", "km/h", defValues));
+                    list.add(new ParameterSet("坡度", "0", "%", defValues));
                     mListener.switchParameterSettingsFragment(mContext, list, RunType.NOMAL, ProgramType.TIME);
                 }
             }

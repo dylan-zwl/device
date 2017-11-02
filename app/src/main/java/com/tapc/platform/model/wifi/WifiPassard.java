@@ -10,9 +10,6 @@ import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
  */
 
 public class WifiPassard {
-    /**
-     * These values are matched in string arrays -- changes must be kept in sync
-     */
     static final int SECURITY_NONE = 0;
     static final int SECURITY_WEP = 1;
     static final int SECURITY_WPA_PSK = 2;

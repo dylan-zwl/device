@@ -235,9 +235,9 @@ public class WifiAdmin {
 
     private WifiConfiguration isExsits(String ssid) {
         WifiConfiguration config = new WifiConfiguration();
-        if (mWifiList.size() > 0) {
-            for (int i = 0; i < mWifiList.size(); i++) {
-                if (mWifiList.get(i).SSID.equals(ssid)) {
+        if (mWifiConfigurations.size() > 0) {
+            for (int i = 0; i < mWifiConfigurations.size(); i++) {
+                if (mWifiConfigurations.get(i).SSID.equals(ssid)) {
                     config = mWifiConfigurations.get(i);
                 }
             }
@@ -294,7 +294,7 @@ public class WifiAdmin {
     }
 
     /**
-     * 判定指定WIFI是否已经配置好,依据WIFI的地址BSSID,返回NetId
+     * 判定指定WIFI是否已经配置好,依据WIFI的地址SSID,返回NetId
      *
      * @param SSID
      * @return
@@ -302,9 +302,10 @@ public class WifiAdmin {
     public int isConfiguration(String SSID) {
         Log.i("isConfiguration", String.valueOf(wifiConfigList.size()));
         for (int i = 0; i < wifiConfigList.size(); i++) {
-            Log.i(wifiConfigList.get(i).SSID,
-                    String.valueOf(wifiConfigList.get(i).networkId));
-            if (wifiConfigList.get(i).SSID.equals(SSID)) {// 地址相同
+            Log.i(wifiConfigList.get(i).SSID, String.valueOf(wifiConfigList.get(i).networkId));
+            String configSSID = wifiConfigList.get(i).SSID;
+            configSSID = configSSID.substring(1, configSSID.length() - 1);
+            if (configSSID.equals(SSID)) {
                 return wifiConfigList.get(i).networkId;
             }
         }

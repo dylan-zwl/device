@@ -144,7 +144,7 @@ public class RunVaActivity extends RunBaseActivity {
             case UI_RESUME:
                 setPlayPause(false);
                 break;
-            case MACHINE_LEFT:
+            case UI_LEFT:
                 if (AppSettings.getPlatform() == CommonEnum.Platform.TCC8935) {
                     mPlayer.initVideoSpeed(100000, 200000);
                 } else {
@@ -173,6 +173,7 @@ public class RunVaActivity extends RunBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        WorkOuting.getInstance().unsubscribeObserverNotification(this);
         if (mDisposable != null) {
             mDisposable.dispose();
             mDisposable = null;

@@ -51,7 +51,7 @@ public class SettingTopBar extends BaseSystemView {
         mTopBar.setBackListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TapcApplication.getInstance().getKeyEvent().backEvent();
+                TapcApplication.getInstance().getKeyEvent().back();
             }
         });
 
