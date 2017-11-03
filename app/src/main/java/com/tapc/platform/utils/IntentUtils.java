@@ -108,6 +108,11 @@ public class IntentUtils {
         return app.getClassName().equals(cls.getName());
     }
 
+    public static void startApp(Context context, String packageName) {
+        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
+        context.startActivity(launchIntent);
+    }
+
     public static void registerReceiver(Context context, BroadcastReceiver receiver, String... actionList) {
         IntentFilter filter = new IntentFilter();
         for (String action : actionList) {
@@ -125,8 +130,14 @@ public class IntentUtils {
         context.sendBroadcast(intent);
     }
 
-    public static void startApp(Context context, String packageName) {
-        Intent launchIntent = context.getPackageManager().getLaunchIntentForPackage(packageName);
-        context.startActivity(launchIntent);
+
+    public static void unregisterReceiver(Context context, BroadcastReceiver receiver) {
+        if (receiver != null) {
+            try {
+                context.unregisterReceiver(receiver);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

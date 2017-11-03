@@ -36,9 +36,7 @@ public class KeyModel {
     }
 
     public void stopListen() {
-        if (mKeyboardReceiver != null) {
-            mContext.unregisterReceiver(mKeyboardReceiver);
-            mKeyboardReceiver = null;
-        }
+        IntentUtils.unregisterReceiver(mContext, mKeyboardReceiver);
+        mKeyboardReceiver = null;
     }
 }

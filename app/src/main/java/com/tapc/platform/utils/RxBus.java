@@ -17,17 +17,17 @@ import io.reactivex.subjects.Subject;
  * Created by Administrator on 2017/9/8.
  */
 public class RxBus {
-    private static RxBus instance;
+    private static RxBus sInstance;
 
-    public static RxBus getInstance() {
-        if (instance == null) {
+    public static RxBus getsInstance() {
+        if (sInstance == null) {
             synchronized (RxBus.class) {
-                if (instance == null) {
-                    instance = new RxBus();
+                if (sInstance == null) {
+                    sInstance = new RxBus();
                 }
             }
         }
-        return instance;
+        return sInstance;
     }
 
     private Subject<Object> subject;

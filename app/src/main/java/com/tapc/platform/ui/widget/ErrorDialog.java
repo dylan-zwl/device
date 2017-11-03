@@ -79,7 +79,7 @@ public class ErrorDialog extends BaseSystemView {
             setVisibility(GONE);
             isShowError = false;
             if (mErrorReceiver != null) {
-                mContext.unregisterReceiver(mErrorReceiver);
+                IntentUtils.unregisterReceiver(mContext, mErrorReceiver);
             }
         }
     }

@@ -80,13 +80,12 @@ public class StartService extends Service implements Observer {
         WorkOuting.getInstance().subscribeObserverNotification(this);
     }
 
-    private void stopDevice() {
+    public void stopDevice() {
         if (mShortcutKey != null) {
             mShortcutKey.dismiss();
             mShortcutKey = null;
         }
         WorkOuting.getInstance().unsubscribeObserverNotification(this);
-        IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     @Override
@@ -95,7 +94,8 @@ public class StartService extends Service implements Observer {
         if (workoutUpdate != null) {
             switch (workoutUpdate) {
                 case UI_STOP:
-                    stopDevice();
+//                    stopDevice();
+                    IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
                     break;
                 case UI_RESUME:
                     getCountdownDialog().dismiss();

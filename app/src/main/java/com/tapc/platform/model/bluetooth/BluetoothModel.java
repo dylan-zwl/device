@@ -11,6 +11,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.tapc.platform.utils.IntentUtils;
+
 import java.lang.reflect.Method;
 
 /**
@@ -22,12 +24,11 @@ public class BluetoothModel {
     private BluetoothAdapter mBluetoothAdapter;
     private BluetoothA2dp mBTA2DP;
     private Listener mListener;
-    private boolean isRegisterReceiver;
+    private BroadcastReceiver mBluetoothReceiver;
 
     public BluetoothModel(Context context) {
         mContext = context;
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        mBluetoothAdapter.getProfileProxy(mContext, mProfileServiceListener, BluetoothProfile.A2DP);
     }
 
     public BluetoothAdapter getAdapter() {
@@ -35,8 +36,36 @@ public class BluetoothModel {
     }
 
     public void start() {
-        if (isRegisterReceiver == false) {
-            isRegisterReceiver = true;
+        if (mBluetoothReceiver == null) {
+            mBluetoothReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    if (mListener == null) {
+                        return;
+                    }
+                    BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                    switch (intent.getAction()) {
+                        case BluetoothDevice.ACTION_FOUND:
+                            mListener.actionFound(bluetoothDevice);
+                            break;
+                        case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
+                            mListener.actionBondStateChanged(bluetoothDevice);
+                            break;
+                        case BluetoothDevice.ACTION_ACL_CONNECTED:
+                            mListener.actionAclConnected(bluetoothDevice);
+                            break;
+                        case BluetoothDevice.ACTION_ACL_DISCONNECTED:
+                            mListener.actionAclDisconnected(bluetoothDevice);
+                            break;
+                        case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
+                            mListener.actionDiscoveryStarted();
+                            break;
+                        case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
+                            mListener.actionDiscoveryFinished();
+                            break;
+                    }
+                }
+            };
             IntentFilter intentFilter = new IntentFilter();
             intentFilter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
             intentFilter.addAction(BluetoothDevice.ACTION_ACL_DISCONNECTED);
@@ -45,14 +74,14 @@ public class BluetoothModel {
             intentFilter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
             intentFilter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
             mContext.registerReceiver(mBluetoothReceiver, intentFilter);
+            mBluetoothAdapter.getProfileProxy(mContext, mProfileServiceListener, BluetoothProfile.A2DP);
         }
     }
 
     public void stop() {
-        if (mBluetoothReceiver != null && isRegisterReceiver) {
-            mContext.unregisterReceiver(mBluetoothReceiver);
-            isRegisterReceiver = false;
-        }
+        cancelDiscovery();
+        IntentUtils.unregisterReceiver(mContext, mBluetoothReceiver);
+        mBluetoothReceiver = null;
     }
 
     //max time : 300
@@ -100,36 +129,6 @@ public class BluetoothModel {
     public int getState() {
         return mBluetoothAdapter.getState();
     }
-
-    private BroadcastReceiver mBluetoothReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (mListener == null) {
-                return;
-            }
-            BluetoothDevice bluetoothDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            switch (intent.getAction()) {
-                case BluetoothDevice.ACTION_FOUND:
-                    mListener.actionFound(bluetoothDevice);
-                    break;
-                case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
-                    mListener.actionBondStateChanged(bluetoothDevice);
-                    break;
-                case BluetoothDevice.ACTION_ACL_CONNECTED:
-                    mListener.actionAclConnected(bluetoothDevice);
-                    break;
-                case BluetoothDevice.ACTION_ACL_DISCONNECTED:
-                    mListener.actionAclDisconnected(bluetoothDevice);
-                    break;
-                case BluetoothAdapter.ACTION_DISCOVERY_STARTED:
-                    mListener.actionDiscoveryStarted();
-                    break;
-                case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
-                    mListener.actionDiscoveryFinished();
-                    break;
-            }
-        }
-    };
 
     public void setOnLitener(Listener listener) {
         mListener = listener;

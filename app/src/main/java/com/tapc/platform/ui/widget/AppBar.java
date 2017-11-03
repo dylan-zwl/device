@@ -179,7 +179,7 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
     private void initStatusView() {
         //wifi
         setWifi();
-        RxBus.getInstance().subscribe(this, NetworkInfo.class, new Consumer<NetworkInfo>() {
+        RxBus.getsInstance().subscribe(this, NetworkInfo.class, new Consumer<NetworkInfo>() {
             @Override
             public void accept(@NonNull NetworkInfo networkInfo) throws Exception {
                 setWifi();
@@ -190,7 +190,7 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
             }
         });
         //bluetooth
-        RxBus.getInstance().subscribe(this, BluetoothConnectStatus.class, new Consumer<BluetoothConnectStatus>() {
+        RxBus.getsInstance().subscribe(this, BluetoothConnectStatus.class, new Consumer<BluetoothConnectStatus>() {
             @Override
             public void accept(@NonNull BluetoothConnectStatus status) throws Exception {
                 if (status.isConnected()) {
@@ -335,7 +335,7 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
             mDisposable.dispose();
             mDisposable = null;
         }
-        RxBus.getInstance().unSubscribe(this);
+        RxBus.getsInstance().unSubscribe(this);
     }
 
     private class animation extends DefaultItemAnimator {

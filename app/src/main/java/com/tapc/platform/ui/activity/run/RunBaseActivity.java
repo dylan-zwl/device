@@ -1,5 +1,7 @@
 package com.tapc.platform.ui.activity.run;
 
+import android.view.KeyEvent;
+
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.BaseActivity;
@@ -50,5 +52,13 @@ public class RunBaseActivity extends BaseActivity implements Observer {
     protected void onDestroy() {
         super.onDestroy();
         WorkOuting.getInstance().unsubscribeObserverNotification(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

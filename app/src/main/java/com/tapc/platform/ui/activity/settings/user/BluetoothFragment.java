@@ -49,6 +49,11 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
     @Override
     protected void initView() {
         super.initView();
+        initListView();
+        startDiscovery();
+    }
+
+    private void initListView() {
         mHandler = new Handler();
         mList = new ArrayList<>();
         mAdpater = new BluetoothAdpater(mList);
@@ -56,7 +61,9 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
         mRecyclerview.setAdapter(mAdpater);
         mAdpater.setOnItemClickListener(this);
         mAdpater.notifyDataSetChanged();
+    }
 
+    private void startDiscovery() {
         mBluetoothModel = new BluetoothModel(mContext);
         mBluetoothModel.setOnLitener(this);
         mBluetoothModel.start();

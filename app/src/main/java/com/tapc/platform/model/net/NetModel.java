@@ -6,17 +6,30 @@ import com.google.gson.Gson;
 import com.tapc.platform.okhttplibrary.OkHttpUtils;
 import com.tapc.platform.okhttplibrary.callback.GenericsCallback;
 import com.tapc.platform.okhttplibrary.callback.IGenericsSerializator;
+import com.tapc.platform.utils.RxBus;
 
 /**
  * Created by Administrator on 2017/8/17.
  */
 
 public class NetModel {
+    private static NetModel sInstance;
     private OkHttpUtils mOkHttpUtils;
     private String mUrl;
 
-    public NetModel() {
+    public void NetModel() {
         mOkHttpUtils = OkHttpUtils.getInstance();
+    }
+
+    public static NetModel getInstance() {
+        if (sInstance == null) {
+            synchronized (RxBus.class) {
+                if (sInstance == null) {
+                    sInstance = new NetModel();
+                }
+            }
+        }
+        return sInstance;
     }
 
     public OkHttpUtils getOkhttpUtils() {

@@ -13,9 +13,9 @@ public class BlueBroadcastReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         if (BluetoothDevice.ACTION_ACL_CONNECTED == action) {
-            RxBus.getInstance().post(new BluetoothConnectStatus(true));
+            RxBus.getsInstance().post(new BluetoothConnectStatus(true));
         } else if (BluetoothDevice.ACTION_ACL_DISCONNECTED == action) {
-            RxBus.getInstance().post(new BluetoothConnectStatus(false));
+            RxBus.getsInstance().post(new BluetoothConnectStatus(false));
         }
     }
 }

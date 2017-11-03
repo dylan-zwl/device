@@ -14,7 +14,7 @@ public class NetWorkBroadcastReceiver extends BroadcastReceiver {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeInfo = manager.getActiveNetworkInfo();
         if (activeInfo != null) {
-            RxBus.getInstance().post(activeInfo);
+            RxBus.getsInstance().post(activeInfo);
         }
     }
 }

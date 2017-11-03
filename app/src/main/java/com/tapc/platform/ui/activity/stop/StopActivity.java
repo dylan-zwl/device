@@ -1,9 +1,8 @@
 package com.tapc.platform.ui.activity.stop;
 
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Button;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.WorkoutInforItem;
@@ -14,6 +13,7 @@ import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.MainActivity;
 import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
 import com.tapc.platform.ui.view.RoundProgressBar;
+import com.tapc.platform.ui.view.TopTitle;
 import com.tapc.platform.utils.IntentUtils;
 
 import java.util.ArrayList;
@@ -25,12 +25,13 @@ import butterknife.OnClick;
 public class StopActivity extends BaseActivity {
     @BindView(R.id.recyclerview)
     RecyclerView mRecyclerview;
-    @BindView(R.id.title_back)
-    Button mBackBtn;
+    @BindView(R.id.result_title)
+    TopTitle mTitle;
     @BindView(R.id.result_round_pbar)
     RoundProgressBar mRoundProgressBar;
 
-    List<WorkoutInforItem> mDataList;
+    private List<WorkoutInforItem> mDataList;
+    private Handler mHandler;
 
     @Override
     protected int getContentView() {
@@ -40,10 +41,26 @@ public class StopActivity extends BaseActivity {
     @Override
     protected void initView() {
         super.initView();
-        mBackBtn.setVisibility(View.VISIBLE);
+        mTapcApp.getService().stopDevice();
 
+        mTitle.setShowBack(true);
         mTapcApp.setProgramSetting(null);
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initListView();
+            }
+        }, 1000);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                back();
+            }
+        }, 30000);
+    }
 
+    private void initListView() {
         mDataList = new ArrayList<WorkoutInforItem>();
         TreadmillWorkoutInfo workoutInfo = (TreadmillWorkoutInfo) WorkOuting.getInstance().getWorkoutInfo();
         if (workoutInfo != null) {
@@ -63,7 +80,7 @@ public class StopActivity extends BaseActivity {
                     String.valueOf(heartRate), getString(R.string.heart_rate_unit));
             initDataList(WorkoutInforType.SPEED, R.drawable.ic_result_speed, getString(R.string.speed), String.format
                     ("%.1f", speed), getString(R.string.speed_unit));
-
+            mRoundProgressBar.setMax((int) workoutInfo.getRemainGoal());
             mRoundProgressBar.setProgress(50);
         }
         WorkoutResultAdpater adpater = new WorkoutResultAdpater(mDataList);
@@ -81,5 +98,11 @@ public class StopActivity extends BaseActivity {
     void back() {
         IntentUtils.startActivity(mContext, MainActivity.class);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
     }
 }

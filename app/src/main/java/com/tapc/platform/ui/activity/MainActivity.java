@@ -1,5 +1,6 @@
 package com.tapc.platform.ui.activity;
 
+import android.content.Intent;
 import android.widget.ImageView;
 
 import com.tapc.platform.R;
@@ -40,7 +41,8 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.main_start)
     void start() {
-        IntentUtils.startActivity(mContext, StartActivity.class);
+        IntentUtils.startActivity(mContext, StartActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+                .FLAG_ACTIVITY_CLEAR_TOP);
         finish();
     }
 

@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.tapc.platform.R;
@@ -13,11 +14,13 @@ import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.ui.activity.BaseActivity;
+import com.tapc.platform.ui.activity.MainActivity;
 import com.tapc.platform.ui.fragment.mode.SelectModeFragment;
 import com.tapc.platform.ui.fragment.parametersettings.ParameterSettingsFragment;
 import com.tapc.platform.ui.fragment.program.ProgramStageFragment;
 import com.tapc.platform.ui.view.TopTitle;
 import com.tapc.platform.utils.FragmentUtils;
+import com.tapc.platform.utils.IntentUtils;
 
 import java.util.List;
 
@@ -45,7 +48,6 @@ public class StartActivity extends BaseActivity {
         mTapcApp.getService().getStartMenu().show();
         mManager = getFragmentManager();
         FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, new SelectModeFragment(mListener));
-//        FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, ProgramStageFragment.class);
 
         mTopTitle.setBackListener(new View.OnClickListener() {
             @Override
@@ -107,6 +109,18 @@ public class StartActivity extends BaseActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mContext.startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            mTapcApp.getService().getStartMenu().dismiss();
+            IntentUtils.startActivity(mContext, MainActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+                    .FLAG_ACTIVITY_CLEAR_TOP);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
