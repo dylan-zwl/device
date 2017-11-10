@@ -4,7 +4,7 @@ import android.support.annotation.IdRes;
 import android.widget.RadioGroup;
 
 import com.tapc.platform.R;
-import com.tapc.platform.model.ConfigModel;
+import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.model.language.LanguageModel;
 import com.tapc.platform.ui.fragment.BaseFragment;
 

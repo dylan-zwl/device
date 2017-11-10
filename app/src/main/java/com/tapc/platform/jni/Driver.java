@@ -7,7 +7,7 @@ import android.view.KeyEvent;
  * Created by Administrator on 2017/11/2.
  */
 
-public class Drive {
+public class Driver {
     static {
         System.loadLibrary("drive");
     }
@@ -60,7 +60,5 @@ public class Drive {
      * @Description: 初始化串口
      * @param: devName：驱动名字  baudRate：波特率
      */
-    public static final String UART_DEVICE_NAME = "/dev/ttyS0";
-
     public static native int initCom(String devName, int baudRate);
 }

@@ -8,7 +8,7 @@ import android.widget.CompoundButton;
 import com.tapc.platform.R;
 import com.tapc.platform.application.Config;
 import com.tapc.platform.entity.AppSettingItem;
-import com.tapc.platform.model.install.InstallModel;
+import com.tapc.platform.model.app.InstallModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.SettingAppAdapater;
 import com.tapc.platform.ui.fragment.BaseFragment;

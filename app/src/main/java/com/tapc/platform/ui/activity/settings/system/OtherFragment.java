@@ -3,7 +3,7 @@ package com.tapc.platform.ui.activity.settings.system;
 import android.widget.CompoundButton;
 
 import com.tapc.platform.R;
-import com.tapc.platform.model.ConfigModel;
+import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SettingFunctionTbtn;
 

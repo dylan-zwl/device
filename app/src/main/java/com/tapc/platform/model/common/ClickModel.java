@@ -1,4 +1,4 @@
-package com.tapc.platform.model;
+package com.tapc.platform.model.common;
 
 import java.util.Timer;
 import java.util.TimerTask;

@@ -1,4 +1,4 @@
-package com.tapc.platform.model.install;
+package com.tapc.platform.model.app;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -37,8 +37,7 @@ public class InstallModel {
 
     public void installApp(final AppSettingItem item) {
         final Object lock = new Object();
-        boolean result = AppUtils.installApp(mContext, new File(item.getPath()), new IPackageInstallObserver
-                .Stub() {
+        boolean result = AppUtils.installApp(mContext, new File(item.getPath()), new IPackageInstallObserver.Stub() {
             @Override
             public void packageInstalled(String s, int i) throws RemoteException {
                 if (mListener != null) {

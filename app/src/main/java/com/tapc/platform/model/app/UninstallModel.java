@@ -1,4 +1,4 @@
-package com.tapc.platform.model.uninstall;
+package com.tapc.platform.model.app;
 
 import android.content.Context;
 import android.content.pm.IPackageDeleteObserver;

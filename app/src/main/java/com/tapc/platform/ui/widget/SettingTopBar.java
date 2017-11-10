@@ -8,7 +8,7 @@ import android.view.WindowManager;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.model.ClickModel;
+import com.tapc.platform.model.common.ClickModel;
 import com.tapc.platform.ui.activity.settings.system.SystemSettingActivity;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.ui.view.TopTitle;

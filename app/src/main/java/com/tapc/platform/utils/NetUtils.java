@@ -17,10 +17,9 @@ public class NetUtils {
     }
 
     /**
-     * 判断网络是否连接
+     * 功能描述 : 判断网络是否连接
      *
-     * @param context
-     * @return
+     * @param :
      */
     public static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
@@ -37,7 +36,9 @@ public class NetUtils {
     }
 
     /**
-     * 判断是否是wifi连接
+     * 功能描述 : 判断网络连接类型
+     *
+     * @param :
      */
     public static boolean isOfConnectType(Context context, int type) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context
@@ -55,7 +56,9 @@ public class NetUtils {
 
 
     /**
-     * 获取本机Mac地址
+     * 功能描述 : 获取mac地址
+     *
+     * @param :
      */
     public static String getLocalMacAddress(Context context) {
         String macAddress = "";

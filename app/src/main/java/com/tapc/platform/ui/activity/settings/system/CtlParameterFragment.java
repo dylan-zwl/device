@@ -10,7 +10,7 @@ import com.tapc.platform.entity.CtlParameterItem;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.controller.MachineOperateController;
 import com.tapc.platform.library.uart.Utility;
-import com.tapc.platform.model.CalibrationModel;
+import com.tapc.platform.model.common.CalibrationModel;
 import com.tapc.platform.ui.adpater.CtlParameterAdpater;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SettingFunctionBtn;

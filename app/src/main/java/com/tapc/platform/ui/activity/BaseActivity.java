@@ -31,4 +31,10 @@ public abstract class BaseActivity extends RxActivity {
 
     protected void initView() {
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mTapcApp.getRefWatcher().watch(this);
+    }
 }

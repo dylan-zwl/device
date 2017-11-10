@@ -48,7 +48,7 @@ public class ErrorDialog extends BaseSystemView {
         IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
         IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
         int safekey = MachineController.getInstance().getSafeKeyStatus();
-        setSafeKeyShow(safekey);
+//        setSafeKeyShow(safekey);
     }
 
     @Override
@@ -76,11 +76,12 @@ public class ErrorDialog extends BaseSystemView {
     @OnClick(R.id.error_right_tv)
     void rightOnClick() {
         if (isHideError) {
-            setVisibility(GONE);
+            mErrorCodeLL.setVisibility(GONE);
             isShowError = false;
             if (mErrorReceiver != null) {
                 IntentUtils.unregisterReceiver(mContext, mErrorReceiver);
             }
+            resetDialogStatus();
         }
     }
 

@@ -21,15 +21,15 @@ public class Client {
 
     public void setListener(SocketListener listener) {
         if (mIn != null) {
-            mIn.setmListener(listener);
+            mIn.setListener(listener);
         }
     }
 
-    public ClientInputThread getmIn() {
+    public ClientInputThread getIn() {
         return mIn;
     }
 
-    public ClientOutputThread getmOut() {
+    public ClientOutputThread getOut() {
         return mOut;
     }
 }

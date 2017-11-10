@@ -12,8 +12,8 @@ public class TcpClient {
     private int mPort;
     private Socket mSocket;
     private Client mClient;
-    private SocketListener listener;
     private int mTimeOut;
+    private SocketListener mListener;
 
     public TcpClient() {
     }
@@ -28,7 +28,6 @@ public class TcpClient {
             mSocket.connect(new InetSocketAddress(mIp, mPort), mTimeOut);
             if (mSocket.isConnected()) {
                 mClient = new Client(mSocket);
-                mClient.setListener(listener);
                 mClient.start();
                 isConnected = true;
             } else {
@@ -37,9 +36,11 @@ public class TcpClient {
         } catch (IOException e) {
             e.printStackTrace();
             closeSocket();
+            if (mListener != null) {
+                mListener.onError(e);
+            }
             isConnected = false;
         }
-        setOpenStatus(isConnected);
         return isConnected;
     }
 
@@ -54,7 +55,7 @@ public class TcpClient {
     public void setReadStatus(boolean vailable) {
         if (mSocket != null) {
             if (mClient != null) {
-                mClient.getmIn().setReadStatus(vailable);
+                mClient.getIn().setReadStatus(vailable);
             }
         }
     }
@@ -72,12 +73,12 @@ public class TcpClient {
         mSocket = null;
     }
 
-    public void stop() {
+    public void close() {
         if (mClient != null) {
-            mClient.getmIn().setStart(false);
-            mClient.getmOut().setStart(false);
-            mClient.getmIn().interrupt();
-            mClient.getmOut().interrupt();
+            mClient.getIn().setStart(false);
+            mClient.getOut().setStart(false);
+            mClient.getIn().interrupt();
+            mClient.getOut().interrupt();
             SystemClock.sleep(100);
         }
         mClient = null;
@@ -87,27 +88,19 @@ public class TcpClient {
     public void sendData(String data) {
         if (data != null && !data.isEmpty() && mClient != null) {
             data += "\n";
-            mClient.getmOut().sendMsg(data.getBytes());
+            mClient.getOut().sendMsg(data.getBytes());
         }
     }
 
     public void sendData(byte[] dataBuffer) {
         if (mClient != null) {
-            mClient.getmOut().sendMsg(dataBuffer);
+            mClient.getOut().sendMsg(dataBuffer);
         }
     }
 
-    private void setOpenStatus(boolean isConnect) {
-        listener.onOpen(isConnect);
-    }
-
-    public SocketListener getListener() {
-        return listener;
-    }
-
     public void setListener(SocketListener listener) {
-        this.listener = listener;
-        if (mClient != null) {
+        if (mClient != null && listener != null) {
+            mListener = listener;
             mClient.setListener(listener);
         }
     }
@@ -116,16 +109,7 @@ public class TcpClient {
         return mIp;
     }
 
-    public void setIp(String ip) {
-        this.mIp = ip;
-    }
-
     public int getPort() {
         return mPort;
     }
-
-    public void setPort(int port) {
-        this.mPort = port;
-    }
-
 }

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.widget.ImageView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.model.ConfigModel;
+import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.ui.activity.settings.user.UserSettingActivity;
 import com.tapc.platform.ui.activity.start.StartActivity;
 import com.tapc.platform.utils.IntentUtils;

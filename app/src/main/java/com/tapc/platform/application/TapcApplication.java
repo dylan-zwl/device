@@ -8,8 +8,10 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.tapc.platform.entity.DeviceType;
-import com.tapc.platform.jni.Drive;
+import com.tapc.platform.jni.Driver;
 import com.tapc.platform.library.abstractset.ProgramSetting;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.BikeSystemSettings;
@@ -18,7 +20,7 @@ import com.tapc.platform.library.common.SystemSettings;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.workouting.WorkOuting;
-import com.tapc.platform.model.ConfigModel;
+import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.service.LocalBinder;
 import com.tapc.platform.service.StartService;
 import com.tapc.platform.utils.IntentUtils;
@@ -29,19 +31,19 @@ import com.tapc.platform.utils.NetUtils;
  */
 
 public class TapcApplication extends Application {
-    //private RefWatcher mRefWatcher;
+    private RefWatcher mRefWatcher;
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
-    private Drive mDrive;
+    private Driver mDrive;
     private Class<?> mHomeActivity;
     private ProgramSetting mProgramSetting;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        //内存泄漏检测工具
-//        mRefWatcher = LeakCanary.install(this);
+//        内存泄漏检测工具
+        mRefWatcher = LeakCanary.install(this);
         mInstance = this;
         IntentUtils.bindService(this, StartService.class, new ServiceConnection() {
             @Override
@@ -58,9 +60,9 @@ public class TapcApplication extends Application {
             }
         }, Context.BIND_AUTO_CREATE);
 
-        mDrive = new Drive();
-//        mDrive.openUinput(Drive.UINPUT_DEVICE_NAME);
-        mDrive.initCom(Drive.UART_DEVICE_NAME, 115200);
+        mDrive = new Driver();
+//        mDrive.openUinput(Driver.UINPUT_DEVICE_NAME);
+        mDrive.initCom(CommonEnum.Platform.S700.getPlatform(), 115200);
 
         initControl(this);
         initDeviceId();
@@ -92,6 +94,10 @@ public class TapcApplication extends Application {
         }
     }
 
+    public RefWatcher getRefWatcher() {
+        return mRefWatcher;
+    }
+
     public static TapcApplication getInstance() {
         return mInstance;
     }
@@ -100,7 +106,7 @@ public class TapcApplication extends Application {
         return mService;
     }
 
-    public Drive getKeyEvent() {
+    public Driver getKeyEvent() {
         return mDrive;
     }
 

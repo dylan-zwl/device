@@ -32,8 +32,9 @@ dependencies {
     })
     compile project(path: ':okhttplibrary')
     /* leakcanary */
-    //    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
-    //    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.2'
+
     compile project(path: ':vaplayer')
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:appcompat-v7:25.3.1'

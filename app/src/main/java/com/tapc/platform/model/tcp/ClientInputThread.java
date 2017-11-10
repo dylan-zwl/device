@@ -32,8 +32,8 @@ public class ClientInputThread extends Thread {
         isCanRead = vailable;
     }
 
-    public void setmListener(SocketListener mListener) {
-        this.mListener = mListener;
+    public void setListener(SocketListener listener) {
+        this.mListener = listener;
     }
 
     @Override

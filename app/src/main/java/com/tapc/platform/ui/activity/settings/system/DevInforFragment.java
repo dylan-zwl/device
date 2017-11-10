@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.tapc.platform.R;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.controller.MachineOperateController;
-import com.tapc.platform.model.ConfigModel;
+import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SettingDevInfor;
 import com.tapc.platform.utils.AppUtils;

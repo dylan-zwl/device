@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.tapc.platform">
 
-
+    //系统窗口
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     //存储
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
