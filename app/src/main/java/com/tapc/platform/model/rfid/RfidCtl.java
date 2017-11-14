@@ -266,7 +266,6 @@ public class RfidCtl {
         mNowCmdCode = cmdCode;
         mAdapter.sendData(datas.length, datas);
         SystemClock.sleep(100);
-        mAdapter.setReadStatus(1);
         return datas;
     }
 

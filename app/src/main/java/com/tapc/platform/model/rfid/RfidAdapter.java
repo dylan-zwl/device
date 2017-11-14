@@ -8,6 +8,4 @@ public interface RfidAdapter {
     void setRecvListerner(RecvListener recvListener);
 
     void sendData(int length, byte[] datas);
-
-    void setReadStatus(int readStatus);
 }
