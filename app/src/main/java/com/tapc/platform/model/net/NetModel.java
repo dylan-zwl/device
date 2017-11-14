@@ -6,34 +6,23 @@ import com.google.gson.Gson;
 import com.tapc.platform.okhttplibrary.OkHttpUtils;
 import com.tapc.platform.okhttplibrary.callback.GenericsCallback;
 import com.tapc.platform.okhttplibrary.callback.IGenericsSerializator;
-import com.tapc.platform.utils.RxBus;
+
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/8/17.
  */
 
-public class NetModel {
-    private static NetModel sInstance;
-    private OkHttpUtils mOkHttpUtils;
+public class NetModel<P> {
     private String mUrl;
+    private Map<String, String> mHeaders;
 
     public void NetModel() {
-        mOkHttpUtils = OkHttpUtils.getInstance();
+
     }
 
-    public static NetModel getInstance() {
-        if (sInstance == null) {
-            synchronized (RxBus.class) {
-                if (sInstance == null) {
-                    sInstance = new NetModel();
-                }
-            }
-        }
-        return sInstance;
-    }
-
-    public OkHttpUtils getOkhttpUtils() {
-        return mOkHttpUtils;
+    public void NetModel(@NonNull String url) {
+        mUrl = url;
     }
 
     public NetModel url(@NonNull String url) {
@@ -41,23 +30,33 @@ public class NetModel {
         return this;
     }
 
-    public void post(Object object, GenericsCallback genericsCallback) {
-        genericsCallback.setmGenericsSerializator(serializator);
+    public NetModel headers(Map<String, String> headers) {
+        mHeaders = headers;
+        return this;
+    }
+
+    public void post(P object, GenericsCallback genericsCallback) {
+        genericsCallback.setmGenericsSerializator(sSerializator);
         String contentStr = "";
         if (object != null) {
             contentStr = new Gson().toJson(object);
         }
-        mOkHttpUtils.postString().url(mUrl).tag(this).content(contentStr).build().execute(genericsCallback);
+        OkHttpUtils.getInstance().postString().url(mUrl).headers(mHeaders).tag(this).content(contentStr).build().execute
+                (genericsCallback);
     }
 
-    private IGenericsSerializator serializator = new IGenericsSerializator() {
+    private static IGenericsSerializator sSerializator = new IGenericsSerializator() {
         @Override
         public <T> T transform(String response, Class<T> classOfT) {
             return new Gson().fromJson(response, classOfT);
         }
     };
 
-    public void stop() {
-        mOkHttpUtils.cancelTag(this);
+    public OkHttpUtils getOkhttpUtils() {
+        return OkHttpUtils.getInstance();
+    }
+
+    public void cancelTag() {
+        OkHttpUtils.getInstance().cancelTag(this);
     }
 }

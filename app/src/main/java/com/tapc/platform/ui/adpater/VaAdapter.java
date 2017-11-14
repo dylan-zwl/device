@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/25.
  */
 
-public class VaAdpater extends BaseRecyclerViewAdapter<VaAdpater.VaViewHolder, PlayEntity> implements View
+public class VaAdapter extends BaseRecyclerViewAdapter<VaAdapter.VaViewHolder, PlayEntity> implements View
         .OnClickListener {
 
-    public VaAdpater(List<PlayEntity> list) {
+    public VaAdapter(List<PlayEntity> list) {
         super(list);
     }
 

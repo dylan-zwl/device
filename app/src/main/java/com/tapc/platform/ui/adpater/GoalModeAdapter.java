@@ -18,9 +18,9 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/25.
  */
 
-public class GoalModeAdpater extends BaseRecyclerViewAdapter<GoalModeAdpater.GoalViewHolder, GoalModeItem> {
+public class GoalModeAdapter extends BaseRecyclerViewAdapter<GoalModeAdapter.GoalViewHolder, GoalModeItem> {
 
-    public GoalModeAdpater(List<GoalModeItem> list) {
+    public GoalModeAdapter(List<GoalModeItem> list) {
         super(list);
     }
 

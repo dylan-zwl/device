@@ -11,7 +11,7 @@ import com.tapc.platform.entity.RunType;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.ProgramAdpater;
+import com.tapc.platform.ui.adpater.ProgramAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,9 +47,9 @@ public class ProgramFragment extends ModeBaseFragment {
         customItem.setType(PragramRunItem.Type.ADD_PROGRAM);
         list.add(customItem);
 
-        ProgramAdpater programAdpater = new ProgramAdpater(list);
+        ProgramAdapter programAdapter = new ProgramAdapter(list);
 
-        programAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PragramRunItem>() {
+        programAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PragramRunItem>() {
             @Override
             public void onItemClick(View view, PragramRunItem pragramRunItem) {
                 if (mListener != null) {
@@ -72,7 +72,7 @@ public class ProgramFragment extends ModeBaseFragment {
         });
 
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 4));
-        mRecyclerview.setAdapter(programAdpater);
-        programAdpater.notifyDataSetChanged();
+        mRecyclerview.setAdapter(programAdapter);
+        programAdapter.notifyDataSetChanged();
     }
 }

@@ -18,12 +18,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.Config;
 import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.ui.activity.settings.user.UserSettingActivity;
-import com.tapc.platform.ui.adpater.AppAdpater;
+import com.tapc.platform.ui.adpater.AppAdapter;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.AppUtils;
@@ -71,7 +70,8 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
     @BindView(R.id.app_bar_fan)
     ImageButton mFan;
 
-    private AppAdpater mAppAdpater;
+    private static boolean isFanOpen = false;
+    private AppAdapter mAppAdapter;
     private WindowManager.LayoutParams mWindowManagerParams;
     private Handler mHandler;
     private Animation mHideAnimation;
@@ -111,8 +111,8 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
                 allAppInfo = AppUtils.getAllAppInfo(mContext, false);
-                mAppAdpater = new AppAdpater(allAppInfo);
-                mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+                mAppAdapter = new AppAdapter(allAppInfo);
+                mAppAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override
                     public void onItemClick(View view, AppInfoEntity appInfoEntity) {
                         mContext.startActivity(appInfoEntity.getIntent());
@@ -125,7 +125,7 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
             public void accept(@NonNull String s) throws Exception {
                 mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager
                         .HORIZONTAL));
-                mRecyclerview.setAdapter(mAppAdpater);
+                mRecyclerview.setAdapter(mAppAdapter);
                 initStatusView();
             }
         });
@@ -148,16 +148,16 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
 
     @OnClick(R.id.app_bar_wifi)
     void openWifiSetting() {
-        UserSettingActivity.lunch(mContext,"wifi");
+        UserSettingActivity.lunch(mContext, "wifi");
     }
 
     @OnClick(R.id.app_bar_bluetooth)
     void openBtSetting() {
-        UserSettingActivity.lunch(mContext,"bluetooth");
+        UserSettingActivity.lunch(mContext, "bluetooth");
     }
 
     private void setFanShowStatus() {
-        if (Config.isFanOpen) {
+        if (isFanOpen) {
             mFan.setBackgroundResource(R.drawable.ic_fan_on);
         } else {
             mFan.setBackgroundResource(R.drawable.ic_fan_off);
@@ -166,12 +166,12 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
 
     @OnClick(R.id.app_bar_fan)
     void fanOnClick() {
-        if (Config.isFanOpen) {
+        if (isFanOpen) {
             MachineController.getInstance().setFanSpeed(0);
-            Config.isFanOpen = false;
+            isFanOpen = false;
         } else {
             MachineController.getInstance().setFanSpeed(1);
-            Config.isFanOpen = true;
+            isFanOpen = true;
         }
         setFanShowStatus();
     }

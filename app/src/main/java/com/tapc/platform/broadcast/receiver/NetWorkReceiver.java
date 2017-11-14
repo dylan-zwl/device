@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 
 import com.tapc.platform.utils.RxBus;
 
-public class NetWorkBroadcastReceiver extends BroadcastReceiver {
+public class NetWorkReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

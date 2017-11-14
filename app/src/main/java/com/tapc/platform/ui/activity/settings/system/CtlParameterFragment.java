@@ -11,7 +11,7 @@ import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.controller.MachineOperateController;
 import com.tapc.platform.library.uart.Utility;
 import com.tapc.platform.model.common.CalibrationModel;
-import com.tapc.platform.ui.adpater.CtlParameterAdpater;
+import com.tapc.platform.ui.adpater.CtlParameterAdapter;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SettingFunctionBtn;
 import com.tapc.platform.ui.widget.AlertDialog;
@@ -34,7 +34,7 @@ public class CtlParameterFragment extends BaseFragment {
     @BindView(R.id.setting_calibration_incline)
     SettingFunctionBtn mInclineBtn;
 
-    private CtlParameterAdpater mAdapter;
+    private CtlParameterAdapter mAdapter;
     private List<CtlParameterItem> mList;
     private CalibrationModel mCalibrationModel;
     private MachineController mMachineController;
@@ -102,7 +102,7 @@ public class CtlParameterFragment extends BaseFragment {
 
     private void initParameter() {
         mList = new ArrayList<>();
-        mAdapter = new CtlParameterAdpater(mList);
+        mAdapter = new CtlParameterAdapter(mList);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.setAdapter(mAdapter);
         startGetMachineParam();

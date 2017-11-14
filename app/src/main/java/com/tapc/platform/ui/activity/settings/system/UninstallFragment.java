@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.AppSettingItem;
+import com.tapc.platform.model.app.AppSettingItem;
 import com.tapc.platform.model.app.UninstallModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.SettingAppAdapater;

@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.FastSetDeviceAdpater;
+import com.tapc.platform.ui.adpater.FastSetDeviceAdapter;
 import com.tapc.platform.ui.widget.BaseView;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class FastDeviceCtl extends BaseView {
     Button mIcon;
 
     private List<String> mDataList;
-    private FastSetDeviceAdpater mAdpater;
+    private FastSetDeviceAdapter mAdpater;
     private int mIconId;
 
     @Override
@@ -43,7 +43,7 @@ public class FastDeviceCtl extends BaseView {
     @Override
     protected void initView() {
         super.initView();
-        mAdpater = new FastSetDeviceAdpater(mDataList);
+        mAdpater = new FastSetDeviceAdapter(mDataList);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerview.setLayoutManager(manager);

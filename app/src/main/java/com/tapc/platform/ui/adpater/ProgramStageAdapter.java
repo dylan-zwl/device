@@ -18,10 +18,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/12.
  */
 
-public class ProgramStageAdpater extends BaseRecyclerViewAdapter<ProgramStageAdpater.ProgramStageViewHolder,
+public class ProgramStageAdapter extends BaseRecyclerViewAdapter<ProgramStageAdapter.ProgramStageViewHolder,
         ProgramStage> {
 
-    public ProgramStageAdpater(List<ProgramStage> datas) {
+    public ProgramStageAdapter(List<ProgramStage> datas) {
         super(datas);
     }
 

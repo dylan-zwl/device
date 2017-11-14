@@ -14,7 +14,7 @@ import com.tapc.platform.library.data.TreadmillWorkout;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutGoal;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
-import com.tapc.platform.ui.adpater.RunInforAdpater;
+import com.tapc.platform.ui.adpater.RunInforAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.WindowManagerUtils;
 
@@ -35,7 +35,7 @@ public class RunInforBar extends BaseSystemView implements Observer {
     @BindView(R.id.run_infor_bg)
     LinearLayout mBg;
 
-    private RunInforAdpater mRunInforAdpater;
+    private RunInforAdapter mRunInforAdapter;
     List<WorkoutInforItem> mDataList;
     private WorkOuting mWorkOuting;
 
@@ -52,11 +52,11 @@ public class RunInforBar extends BaseSystemView implements Observer {
     protected void initView() {
         super.initView();
         mDataList = new ArrayList<>();
-        mRunInforAdpater = new RunInforAdpater(mDataList);
+        mRunInforAdapter = new RunInforAdapter(mDataList);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(manager);
-        mRecyclerView.setAdapter(mRunInforAdpater);
+        mRecyclerView.setAdapter(mRunInforAdapter);
 
         mWorkOuting = WorkOuting.getInstance();
     }
@@ -140,7 +140,7 @@ public class RunInforBar extends BaseSystemView implements Observer {
                             break;
                     }
                 }
-                mRunInforAdpater.notifyDataSetChanged();
+                mRunInforAdapter.notifyDataSetChanged();
             }
         }
     }

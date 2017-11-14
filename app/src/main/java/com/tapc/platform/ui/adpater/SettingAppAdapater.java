@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.AppSettingItem;
+import com.tapc.platform.model.app.AppSettingItem;
 
 import java.util.List;
 

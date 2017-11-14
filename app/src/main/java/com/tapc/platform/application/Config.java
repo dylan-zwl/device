@@ -8,7 +8,7 @@ import com.tapc.platform.entity.DeviceType;
 
 public class Config {
     public static DeviceType DEVICE_TYPE = DeviceType.TREADMILL;
-    public static boolean isFanOpen = false;
+
 
     public static final String SETTING_FILE_NAME = "setting";
 

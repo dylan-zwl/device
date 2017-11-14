@@ -14,7 +14,7 @@ import com.tapc.platform.application.TapcApplication;
 import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.CommonEnum;
-import com.tapc.platform.ui.adpater.AppAdpater;
+import com.tapc.platform.ui.adpater.AppAdapter;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.AppUtils;
@@ -42,7 +42,7 @@ public class StartMenu extends BaseSystemView {
     @BindView(R.id.menu_bar_rv)
     RecyclerView mRecyclerview;
 
-    private AppAdpater mAppAdpater;
+    private AppAdapter mAppAdapter;
     private Disposable mDisposable;
 
     @Override
@@ -61,8 +61,8 @@ public class StartMenu extends BaseSystemView {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
                 ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext, false);
-                mAppAdpater = new AppAdpater(allAppInfo);
-                mAppAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
+                mAppAdapter = new AppAdapter(allAppInfo);
+                mAppAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override
                     public void onItemClick(View view, AppInfoEntity appInfoEntity) {
                         mContext.startActivity(appInfoEntity.getIntent());
@@ -75,7 +75,7 @@ public class StartMenu extends BaseSystemView {
             public void accept(@NonNull String s) throws Exception {
                 mRecyclerview.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager
                         .HORIZONTAL));
-                mRecyclerview.setAdapter(mAppAdpater);
+                mRecyclerview.setAdapter(mAppAdapter);
             }
         });
     }

@@ -10,10 +10,10 @@ import java.util.List;
  * Created by Administrator on 2017/7/13.
  */
 
-public class BaseAppAdpater<T> extends BaseAdapter {
+public class BaseAppAdapter<T> extends BaseAdapter {
     private List<T> mList;
 
-    public BaseAppAdpater(List<T> list) {
+    public BaseAppAdapter(List<T> list) {
         this.mList = list;
     }
 

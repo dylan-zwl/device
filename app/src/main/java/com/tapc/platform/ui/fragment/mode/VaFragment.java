@@ -12,7 +12,7 @@ import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.VaAdpater;
+import com.tapc.platform.ui.adpater.VaAdapter;
 import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class VaFragment extends ModeBaseFragment {
     RecyclerView mRecyclerview;
 
     private ArrayList<PlayEntity> mPlayList;
-    private VaAdpater mVaAdpater;
+    private VaAdapter mVaAdapter;
     private static List<String> VA_FILE_PATH;
 
     @Override
@@ -47,9 +47,9 @@ public class VaFragment extends ModeBaseFragment {
     @Override
     protected void initView() {
         List<PlayEntity> list = new ArrayList<PlayEntity>();
-        mVaAdpater = new VaAdpater(list);
+        mVaAdapter = new VaAdapter(list);
 
-        mVaAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PlayEntity>() {
+        mVaAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<PlayEntity>() {
             @Override
             public void onItemClick(View view, PlayEntity playEntity) {
                 if (mListener != null) {
@@ -68,7 +68,7 @@ public class VaFragment extends ModeBaseFragment {
         });
 
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 3));
-        mRecyclerview.setAdapter(mVaAdpater);
+        mRecyclerview.setAdapter(mVaAdapter);
 
         mPlayList = new ArrayList<PlayEntity>();
         Observable.create(new ObservableOnSubscribe<Object>() {
@@ -89,7 +89,7 @@ public class VaFragment extends ModeBaseFragment {
                 (FragmentEvent.DESTROY_VIEW)).subscribe(new Consumer<Object>() {
             @Override
             public void accept(@NonNull Object o) throws Exception {
-                mVaAdpater.notifyDataSetChanged(mPlayList);
+                mVaAdapter.notifyDataSetChanged(mPlayList);
             }
         });
     }

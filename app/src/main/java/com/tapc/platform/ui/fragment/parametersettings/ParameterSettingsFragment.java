@@ -14,7 +14,7 @@ import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.ParameterSetAdpater;
+import com.tapc.platform.ui.adpater.ParameterSetAdapter;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.KeyboardView;
 
@@ -31,7 +31,7 @@ public class ParameterSettingsFragment extends BaseFragment {
     @BindView(R.id.paramenter_settings_recyclerview)
     RecyclerView mRecyclerview;
 
-    private ParameterSetAdpater mAdpater;
+    private ParameterSetAdapter mAdpater;
 
     private ProgramType mProgramType = ProgramType.NORMAL;
     private List<ParameterSet> mDataList;
@@ -59,7 +59,7 @@ public class ParameterSettingsFragment extends BaseFragment {
         if (mDataList == null) {
             mDataList = new ArrayList<ParameterSet>();
         }
-        mAdpater = new ParameterSetAdpater(mDataList);
+        mAdpater = new ParameterSetAdapter(mDataList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mDataList.size());
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerview.setLayoutManager(gridLayoutManager);
@@ -92,7 +92,7 @@ public class ParameterSettingsFragment extends BaseFragment {
             }
         });
 
-        mAdpater.setDefValueListener(new ParameterSetAdpater.DefValueListener() {
+        mAdpater.setDefValueListener(new ParameterSetAdapter.DefValueListener() {
             @Override
             public void onDefValueBtnClick(Object value, int position) {
                 String showValue = String.valueOf(value);

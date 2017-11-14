@@ -5,7 +5,6 @@ import android.content.pm.IPackageDeleteObserver;
 import android.os.RemoteException;
 
 import com.tapc.platform.entity.AppInfoEntity;
-import com.tapc.platform.entity.AppSettingItem;
 import com.tapc.platform.utils.AppUtils;
 
 import java.util.ArrayList;

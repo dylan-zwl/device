@@ -8,7 +8,6 @@ import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.util.Log;
 
-import com.tapc.platform.entity.AppSettingItem;
 import com.tapc.platform.utils.AppUtils;
 
 import java.io.File;

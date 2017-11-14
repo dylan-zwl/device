@@ -18,10 +18,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/5.
  */
 
-public class BluetoothAdpater extends BaseRecyclerViewAdapter<BluetoothAdpater.WifiViewHolder, BluetoothDevice> {
+public class BluetoothAdapter extends BaseRecyclerViewAdapter<BluetoothAdapter.WifiViewHolder, BluetoothDevice> {
     private BluetoothDevice mConnectedDevice;
 
-    public BluetoothAdpater(List datas) {
+    public BluetoothAdapter(List datas) {
         super(datas);
     }
 

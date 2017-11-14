@@ -18,8 +18,8 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/4.
  */
 
-public class ProgramAdpater extends BaseRecyclerViewAdapter<ProgramAdpater.PragramViewHolder, PragramRunItem> {
-    public ProgramAdpater(List datas) {
+public class ProgramAdapter extends BaseRecyclerViewAdapter<ProgramAdapter.PragramViewHolder, PragramRunItem> {
+    public ProgramAdapter(List datas) {
         super(datas);
     }
 

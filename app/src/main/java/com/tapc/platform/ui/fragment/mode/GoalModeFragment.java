@@ -9,7 +9,7 @@ import com.tapc.platform.entity.GoalModeItem;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.RunType;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.GoalModeAdpater;
+import com.tapc.platform.ui.adpater.GoalModeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +35,12 @@ public class GoalModeFragment extends ModeBaseFragment {
         for (GoalModeItem item : GoalModeItem.values()) {
             list.add(item);
         }
-        GoalModeAdpater goalModeAdpater = new GoalModeAdpater(list);
+        GoalModeAdapter goalModeAdapter = new GoalModeAdapter(list);
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 5));
-        mRecyclerview.setAdapter(goalModeAdpater);
-        goalModeAdpater.notifyDataSetChanged();
+        mRecyclerview.setAdapter(goalModeAdapter);
+        goalModeAdapter.notifyDataSetChanged();
 
-        goalModeAdpater.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<GoalModeItem>() {
+        goalModeAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<GoalModeItem>() {
             @Override
             public void onItemClick(View view, GoalModeItem goalModeItem) {
                 if (mListener != null) {

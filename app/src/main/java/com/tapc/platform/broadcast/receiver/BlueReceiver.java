@@ -8,7 +8,7 @@ import android.content.Intent;
 import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.utils.RxBus;
 
-public class BlueBroadcastReceiver extends BroadcastReceiver {
+public class BlueReceiver extends BroadcastReceiver {
 
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();

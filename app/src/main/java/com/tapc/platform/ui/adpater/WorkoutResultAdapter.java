@@ -14,30 +14,32 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Administrator on 2017/8/28.
+ * Created by Administrator on 2017/9/5.
  */
 
-public class RunInforAdpater extends BaseRecyclerViewAdapter<RunInforAdpater.RunInforViewHolder, WorkoutInforItem> {
+public class WorkoutResultAdapter extends BaseRecyclerViewAdapter<WorkoutResultAdapter.WorkoutResultViewHolder,
+        WorkoutInforItem> {
 
-    public RunInforAdpater(List datas) {
+    public WorkoutResultAdapter(List datas) {
         super(datas);
     }
 
     @Override
     int getContentView() {
-        return R.layout.item_run_infor;
+        return R.layout.view_workout_result_infor;
     }
 
     @Override
-    RunInforViewHolder getViewHolder(View view) {
-        return new RunInforViewHolder(view);
+    WorkoutResultViewHolder getViewHolder(View view) {
+        return new WorkoutResultViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RunInforViewHolder holder, int position) {
+    public void onBindViewHolder(WorkoutResultViewHolder holder, int position) {
         super.onBindViewHolder(holder, position);
         WorkoutInforItem item = mDatas.get(position);
-        holder.icon.setBackgroundResource(item.getIcon());
+        holder.icon.setImageResource(item.getIcon());
+        holder.name.setText(item.getName());
         String value = item.getValue();
         if (value != null) {
             holder.value.setText(value);
@@ -45,17 +47,20 @@ public class RunInforAdpater extends BaseRecyclerViewAdapter<RunInforAdpater.Run
         holder.unit.setText(item.getUnit());
     }
 
-    public class RunInforViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.run_infor_ic)
+    public class WorkoutResultViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.result_icon)
         ImageView icon;
-        @BindView(R.id.run_infor_value)
+        @BindView(R.id.result_value)
         TextView value;
-        @BindView(R.id.run_infor_unit)
+        @BindView(R.id.result_unit)
         TextView unit;
+        @BindView(R.id.result_name)
+        TextView name;
 
-        public RunInforViewHolder(View view) {
+        public WorkoutResultViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
     }
+
 }

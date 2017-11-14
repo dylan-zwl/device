@@ -13,7 +13,7 @@ import android.widget.ToggleButton;
 import com.tapc.platform.R;
 import com.tapc.platform.model.bluetooth.BluetoothModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.BluetoothAdpater;
+import com.tapc.platform.ui.adpater.BluetoothAdapter;
 import com.tapc.platform.ui.fragment.BaseFragment;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
     @BindView(R.id.bluetooth_enable)
     ToggleButton mEnableTBtn;
 
-    private BluetoothAdpater mAdpater;
+    private BluetoothAdapter mAdpater;
     private BluetoothModel mBluetoothModel;
     private List<BluetoothDevice> mList;
     private Handler mHandler;
@@ -56,7 +56,7 @@ public class BluetoothFragment extends BaseFragment implements BluetoothModel.Li
     private void initListView() {
         mHandler = new Handler();
         mList = new ArrayList<>();
-        mAdpater = new BluetoothAdpater(mList);
+        mAdpater = new BluetoothAdapter(mList);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerview.setAdapter(mAdpater);
         mAdpater.setOnItemClickListener(this);

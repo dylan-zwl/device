@@ -10,7 +10,7 @@ import com.tapc.platform.R;
 import com.tapc.platform.entity.ProgramStage;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.ProgramStageAdpater;
+import com.tapc.platform.ui.adpater.ProgramStageAdapter;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SetStageParameter;
 import com.tapc.platform.utils.RecyclerViewUtils;
@@ -37,7 +37,7 @@ public class ProgramStageFragment extends BaseFragment {
     @BindView(R.id.set_stage_parameter_right)
     SetStageParameter mSetRight;
 
-    private ProgramStageAdpater mProgramAdpater;
+    private ProgramStageAdapter mProgramAdpater;
     private int mCurrentStage;
     private List<ProgramStage> mList;
     private RecyclerViewUtils mRecyclerViewUtils;
@@ -71,7 +71,7 @@ public class ProgramStageFragment extends BaseFragment {
             item.setTime(5);
             mList.add(item);
         }
-        mProgramAdpater = new ProgramStageAdpater(mList);
+        mProgramAdpater = new ProgramStageAdapter(mList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerview.setLayoutManager(linearLayoutManager);

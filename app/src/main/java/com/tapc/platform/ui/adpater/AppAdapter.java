@@ -19,10 +19,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/8/29.
  */
 
-public class AppAdpater extends BaseRecyclerViewAdapter<AppAdpater.AppViewHolder, AppInfoEntity> {
+public class AppAdapter extends BaseRecyclerViewAdapter<AppAdapter.AppViewHolder, AppInfoEntity> {
     private int lastPosition = -1;
 
-    public AppAdpater(List datas) {
+    public AppAdapter(List datas) {
         super(datas);
     }
 

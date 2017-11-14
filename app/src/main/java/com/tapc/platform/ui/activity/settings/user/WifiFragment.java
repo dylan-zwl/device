@@ -21,7 +21,7 @@ import com.tapc.platform.entity.WifiConnectStatus;
 import com.tapc.platform.model.wifi.WifiAdmin;
 import com.tapc.platform.model.wifi.WifiPassard;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
-import com.tapc.platform.ui.adpater.WifiAdpater;
+import com.tapc.platform.ui.adpater.WifiAdapter;
 import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.utils.RxjavaUtils;
 import com.trello.rxlifecycle2.android.FragmentEvent;
@@ -60,7 +60,7 @@ public class WifiFragment extends BaseFragment {
     EditText mPwdEdit;
 
     private WifiAdmin mWifiAdmin;
-    private WifiAdpater mAdpater;
+    private WifiAdapter mAdpater;
     private Handler mHandler;
     private List<ConnectStatusItem> mShowList;
     private ConnectStatusItem mConnectStatusItem;
@@ -81,7 +81,7 @@ public class WifiFragment extends BaseFragment {
         mHandler = new Handler();
         mWifiAdmin = new WifiAdmin(mContext);
         mShowList = new ArrayList<>();
-        mAdpater = new WifiAdpater(mShowList);
+        mAdpater = new WifiAdapter(mShowList);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerview.setAdapter(mAdpater);
         mAdpater.notifyDataSetChanged();

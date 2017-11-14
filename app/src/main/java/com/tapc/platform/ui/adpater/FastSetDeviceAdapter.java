@@ -15,10 +15,10 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/6.
  */
 
-public class FastSetDeviceAdpater extends BaseRecyclerViewAdapter<FastSetDeviceAdpater.FastSetDeviceViewHolder,
+public class FastSetDeviceAdapter extends BaseRecyclerViewAdapter<FastSetDeviceAdapter.FastSetDeviceViewHolder,
         String> {
 
-    public FastSetDeviceAdpater(List datas) {
+    public FastSetDeviceAdapter(List datas) {
         super(datas);
     }
 

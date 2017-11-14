@@ -17,9 +17,9 @@ import butterknife.ButterKnife;
  * Created by Administrator on 2017/9/5.
  */
 
-public class WifiAdpater extends BaseRecyclerViewAdapter<WifiAdpater.WifiViewHolder, ConnectStatusItem> {
+public class WifiAdapter extends BaseRecyclerViewAdapter<WifiAdapter.WifiViewHolder, ConnectStatusItem> {
 
-    public WifiAdpater(List datas) {
+    public WifiAdapter(List datas) {
         super(datas);
     }
 

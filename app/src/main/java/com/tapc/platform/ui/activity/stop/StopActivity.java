@@ -11,7 +11,7 @@ import com.tapc.platform.library.data.TreadmillWorkoutInfo;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.BaseActivity;
 import com.tapc.platform.ui.activity.MainActivity;
-import com.tapc.platform.ui.adpater.WorkoutResultAdpater;
+import com.tapc.platform.ui.adpater.WorkoutResultAdapter;
 import com.tapc.platform.ui.view.RoundProgressBar;
 import com.tapc.platform.ui.view.TopTitle;
 import com.tapc.platform.utils.IntentUtils;
@@ -83,7 +83,7 @@ public class StopActivity extends BaseActivity {
             mRoundProgressBar.setMax((int) workoutInfo.getRemainGoal());
             mRoundProgressBar.setProgress(50);
         }
-        WorkoutResultAdpater adpater = new WorkoutResultAdpater(mDataList);
+        WorkoutResultAdapter adpater = new WorkoutResultAdapter(mDataList);
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 5));
         mRecyclerview.setAdapter(adpater);
         adpater.notifyDataSetChanged();

@@ -19,10 +19,10 @@ import butterknife.OnClick;
  * Created by Administrator on 2017/8/31.
  */
 
-public class ParameterSetAdpater extends BaseRecyclerViewAdapter<ParameterSetAdpater.ParameterViewHolder,
+public class ParameterSetAdapter extends BaseRecyclerViewAdapter<ParameterSetAdapter.ParameterViewHolder,
         ParameterSet> {
 
-    public ParameterSetAdpater(List<ParameterSet> datas) {
+    public ParameterSetAdapter(List<ParameterSet> datas) {
         super(datas);
     }
 
