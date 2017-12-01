@@ -1,21 +1,20 @@
 package com.tapc.platform.ui.activity.run;
 
 import android.view.View;
-import android.widget.Button;
 
 import com.tapc.platform.R;
 import com.tapc.platform.ui.activity.BaseActivity;
+import com.tapc.platform.ui.view.TopTitle;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2017/9/5.
  */
 
 public class RunInforActivity extends BaseActivity {
-    @BindView(R.id.title_back)
-    Button mBackBtn;
+    @BindView(R.id.run_infor_title)
+    TopTitle mTopTitle;
 
     @Override
     protected int getContentView() {
@@ -24,17 +23,18 @@ public class RunInforActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        mBackBtn.setVisibility(View.VISIBLE);
+        mTopTitle.setShowBack(true);
+        mTopTitle.setBackListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        finish();
-    }
-
-    @OnClick(R.id.title_back)
-    void back() {
         finish();
     }
 }

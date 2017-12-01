@@ -1,1 +1,1 @@
-include ':app', ':okhttplibrary', ':vaplayer'
+include ':app', ':okhttplibrary', ':vaplayer', ':faceplatform-ui', ':faceplatform-release'

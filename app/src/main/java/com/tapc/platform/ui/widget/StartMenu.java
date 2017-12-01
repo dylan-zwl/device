@@ -11,9 +11,10 @@ import android.view.WindowManager;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.CommonEnum;
+import com.tapc.platform.model.app.AppInfoEntity;
+import com.tapc.platform.model.app.AppModel;
 import com.tapc.platform.ui.adpater.AppAdapter;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
@@ -60,7 +61,7 @@ public class StartMenu extends BaseSystemView {
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                ArrayList<AppInfoEntity> allAppInfo = AppUtils.getAllAppInfo(mContext, false);
+                ArrayList<AppInfoEntity> allAppInfo = AppModel.getAllAppInfo(mContext, false);
                 mAppAdapter = new AppAdapter(allAppInfo);
                 mAppAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override

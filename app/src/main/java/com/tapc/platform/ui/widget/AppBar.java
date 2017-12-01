@@ -18,14 +18,14 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.entity.BluetoothConnectStatus;
 import com.tapc.platform.library.controller.MachineController;
+import com.tapc.platform.model.app.AppInfoEntity;
+import com.tapc.platform.model.app.AppModel;
 import com.tapc.platform.ui.activity.settings.user.UserSettingActivity;
 import com.tapc.platform.ui.adpater.AppAdapter;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
-import com.tapc.platform.utils.AppUtils;
 import com.tapc.platform.utils.NetUtils;
 import com.tapc.platform.utils.RxBus;
 import com.tapc.platform.utils.SoundCtlUtils;
@@ -110,7 +110,7 @@ public class AppBar extends BaseSystemView implements View.OnTouchListener {
         mDisposable = Observable.create(new ObservableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<String> s) throws Exception {
-                allAppInfo = AppUtils.getAllAppInfo(mContext, false);
+                allAppInfo = AppModel.getAllAppInfo(mContext, false);
                 mAppAdapter = new AppAdapter(allAppInfo);
                 mAppAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<AppInfoEntity>() {
                     @Override

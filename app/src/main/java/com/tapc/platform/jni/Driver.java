@@ -9,12 +9,12 @@ import android.view.KeyEvent;
 
 public class Driver {
     static {
-        System.loadLibrary("drive");
+        System.loadLibrary("driver");
     }
 
     /**
      * @Description: 模拟键值
-     * @param: KEY_EVENT_TYPE =0 ：使用sendKeyDownUpSync  KEY_EVENT_TYPE =0 ： 使用uinput驱动
+     * @param: KEY_EVENT_TYPE =0 ：使用sendKeyDownUpSync  KEY_EVENT_TYPE !=0 ： 使用uinput驱动
      */
     public static final int KEY_EVENT_TYPE = 0;
     public static final String UINPUT_DEVICE_NAME = "/dev/uinput";

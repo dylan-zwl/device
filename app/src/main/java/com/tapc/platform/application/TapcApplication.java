@@ -35,7 +35,7 @@ public class TapcApplication extends Application {
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
-    private Driver mDrive;
+    private Driver mDriver;
     private Class<?> mHomeActivity;
     private ProgramSetting mProgramSetting;
 
@@ -43,8 +43,11 @@ public class TapcApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        内存泄漏检测工具
-        mRefWatcher = LeakCanary.install(this);
+        if (Config.Debug.OPEN_REF_WATCHER) {
+            mRefWatcher = LeakCanary.install(this);
+        }
         mInstance = this;
+
         IntentUtils.bindService(this, StartService.class, new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
@@ -60,9 +63,9 @@ public class TapcApplication extends Application {
             }
         }, Context.BIND_AUTO_CREATE);
 
-        mDrive = new Driver();
-//        mDrive.openUinput(Driver.UINPUT_DEVICE_NAME);
-        mDrive.initCom(CommonEnum.Platform.S700.getPlatform(), 115200);
+        mDriver = new Driver();
+//        mDriver.openUinput(Driver.UINPUT_DEVICE_NAME);
+        mDriver.initCom(CommonEnum.Platform.S700.getPlatform(), 115200);
 
         initControl(this);
         initDeviceId();
@@ -94,6 +97,12 @@ public class TapcApplication extends Application {
         }
     }
 
+    public void addRefWatcher(Object watchedReference) {
+        if (mRefWatcher != null) {
+            mRefWatcher.watch(watchedReference);
+        }
+    }
+
     public RefWatcher getRefWatcher() {
         return mRefWatcher;
     }
@@ -107,7 +116,7 @@ public class TapcApplication extends Application {
     }
 
     public Driver getKeyEvent() {
-        return mDrive;
+        return mDriver;
     }
 
     public Class<?> getHomeActivity() {

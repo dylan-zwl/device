@@ -9,8 +9,14 @@ import com.tapc.platform.entity.DeviceType;
 public class Config {
     public static DeviceType DEVICE_TYPE = DeviceType.TREADMILL;
 
-
-    public static final String SETTING_FILE_NAME = "setting";
-
     public static final String MEDIA_FILE = "/sdcard/tapc";
+
+    public class Debug {
+        public static final boolean OPEN_REF_WATCHER = true;
+    }
+
+    public class Face {
+        public static final String appName = "cloud-face-face-android";
+        public static final String licenseFileName = "idl-license.face-android";
+    }
 }

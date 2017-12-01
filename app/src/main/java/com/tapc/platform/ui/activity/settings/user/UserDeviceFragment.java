@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.Config;
-import com.tapc.platform.entity.AppInfoEntity;
+import com.tapc.platform.model.app.AppInfoEntity;
+import com.tapc.platform.model.app.AppModel;
 import com.tapc.platform.model.common.BacklightModel;
 import com.tapc.platform.model.common.ConfigModel;
 import com.tapc.platform.ui.fragment.BaseFragment;
@@ -127,7 +128,7 @@ public class UserDeviceFragment extends BaseFragment {
         RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
-                List<AppInfoEntity> mlistAppInfo = AppUtils.getAllAppInfo(mContext, false);
+                List<AppInfoEntity> mlistAppInfo = AppModel.getAllAppInfo(mContext, false);
                 AppUtils.clearAppExit(mContext, mlistAppInfo);
                 for (AppInfoEntity app : mlistAppInfo) {
                     AppUtils.clearAppUserData(mContext, app.getPkgName(), null);

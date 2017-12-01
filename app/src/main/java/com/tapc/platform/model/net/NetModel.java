@@ -4,8 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.tapc.platform.okhttplibrary.OkHttpUtils;
-import com.tapc.platform.okhttplibrary.callback.GenericsCallback;
-import com.tapc.platform.okhttplibrary.callback.IGenericsSerializator;
+import com.tapc.platform.okhttplibrary.callback.StringCallback;
 
 import java.util.Map;
 
@@ -13,7 +12,7 @@ import java.util.Map;
  * Created by Administrator on 2017/8/17.
  */
 
-public class NetModel<P> {
+public class NetModel {
     private String mUrl;
     private Map<String, String> mHeaders;
 
@@ -35,22 +34,19 @@ public class NetModel<P> {
         return this;
     }
 
-    public void post(P object, GenericsCallback genericsCallback) {
-        genericsCallback.setmGenericsSerializator(sSerializator);
+    public void post(Object object, StringCallback callback) {
         String contentStr = "";
         if (object != null) {
             contentStr = new Gson().toJson(object);
         }
-        OkHttpUtils.getInstance().postString().url(mUrl).headers(mHeaders).tag(this).content(contentStr).build().execute
-                (genericsCallback);
+        OkHttpUtils.getInstance().postString().tag(this).url(mUrl).headers(mHeaders).content(contentStr).build().execute
+                (callback);
     }
 
-    private static IGenericsSerializator sSerializator = new IGenericsSerializator() {
-        @Override
-        public <T> T transform(String response, Class<T> classOfT) {
-            return new Gson().fromJson(response, classOfT);
-        }
-    };
+    public void post(Map<String, String> params, StringCallback callback) {
+        OkHttpUtils.getInstance().post().tag(this).url(mUrl).headers(mHeaders).params(params).build().execute
+                (callback);
+    }
 
     public OkHttpUtils getOkhttpUtils() {
         return OkHttpUtils.getInstance();

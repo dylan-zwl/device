@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.IPackageDeleteObserver;
 import android.os.RemoteException;
 
-import com.tapc.platform.entity.AppInfoEntity;
 import com.tapc.platform.utils.AppUtils;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class UninstallModel {
     }
 
     public List<AppSettingItem> getFiles() {
-        ArrayList<AppInfoEntity> allLstAppInfo = AppUtils.getAllAppInfo(mContext, false);
+        ArrayList<AppInfoEntity> allLstAppInfo = AppModel.getAllAppInfo(mContext, false);
         List<AppSettingItem> items = new ArrayList<>();
         if (allLstAppInfo != null) {
             for (AppInfoEntity entity : allLstAppInfo) {

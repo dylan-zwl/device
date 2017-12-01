@@ -3,7 +3,6 @@ package com.tapc.platform.utils;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -128,13 +127,13 @@ public class QrcodeUtils {
      */
     public static void show(final String qrcodeStr, final ImageView imageView, final int minPandingSize,
                             ObservableTransformer composer) {
-        if (TextUtils.isEmpty(qrcodeStr)) {
+        if (TextUtils.isEmpty(qrcodeStr) || imageView == null ||
+                imageView.getWidth() == 0 || imageView.getHeight() == 0) {
             return;
         }
         RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Object> e) throws Exception {
-                SystemClock.sleep(500);
                 e.onNext(QrcodeUtils.createImage(qrcodeStr, imageView.getWidth(), imageView.getHeight(),
                         minPandingSize));
                 e.onComplete();
@@ -143,7 +142,7 @@ public class QrcodeUtils {
             @Override
             public void accept(@NonNull Object o) throws Exception {
                 Bitmap bitmap = (Bitmap) o;
-                if (bitmap != null) {
+                if (bitmap != null && imageView != null) {
                     imageView.setBackground(new BitmapDrawable(bitmap));
                 }
             }

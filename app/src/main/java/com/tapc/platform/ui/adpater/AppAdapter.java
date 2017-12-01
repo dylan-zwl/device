@@ -7,7 +7,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 
 import com.tapc.platform.R;
-import com.tapc.platform.entity.AppInfoEntity;
+import com.tapc.platform.model.app.AppInfoEntity;
 import com.tapc.platform.ui.view.RoundRectImageView;
 
 import java.util.List;

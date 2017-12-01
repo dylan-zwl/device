@@ -5,9 +5,12 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_skin">
 
-    <include
+    <com.tapc.platform.ui.view.TopTitle
         android:id="@+id/run_infor_title"
-        layout="@layout/view_title"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </com.tapc.platform.ui.view.TopTitle>
 
     <ImageView
         android:id="@+id/run_infor_bottom_line"
