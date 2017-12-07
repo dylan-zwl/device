@@ -2,6 +2,7 @@ package com.tapc.platform.ui.activity;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.tapc.platform.R;
@@ -69,5 +70,13 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

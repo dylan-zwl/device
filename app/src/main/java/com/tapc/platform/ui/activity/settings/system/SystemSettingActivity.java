@@ -24,7 +24,7 @@ public class SystemSettingActivity extends BaseSettingActivity {
     @Override
     protected void initView() {
         super.initView();
-        ((RadioButton) findViewById(R.id.settings_parameter_btn)).setChecked(true);
+        ((RadioButton) findViewById(R.id.settings_device_infor_btn)).setChecked(true);
     }
 
     @OnCheckedChanged({R.id.settings_device_infor_btn, R.id.settings_parameter_btn, R.id.settings_install_btn, R.id

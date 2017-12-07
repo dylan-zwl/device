@@ -2,6 +2,7 @@ package com.tapc.platform.model.net;
 
 import android.text.TextUtils;
 
+import com.tapc.platform.okhttplibrary.OkHttpUtils;
 import com.tapc.platform.okhttplibrary.callback.StringCallback;
 
 import java.util.HashMap;
@@ -15,7 +16,6 @@ import java.util.Set;
 public class FaceNetModel {
     private Map<String, String> mHeaders;
     private String mGroupId;
-    private String mImage;
     private String mAccessToken;
 
     public FaceNetModel() {
@@ -30,10 +30,8 @@ public class FaceNetModel {
     }
 
     public void getToken(String client_id, String client_secret, StringCallback callback) {
-//        FaceToken faceToken = new FaceToken();
-//        faceToken.setClient_id(client_id);
-//        faceToken.setClient_secret(client_secret);
-        new NetModel().url(Urls.faceAccessToken).post("", callback);
+        OkHttpUtils.getInstance().postString().tag(this).url(Urls.faceAccessToken).headers(mHeaders).content("")
+                .build().execute(callback);
     }
 
 
@@ -60,7 +58,8 @@ public class FaceNetModel {
         params.put("image", image);
         params.put("action_type", "replace");
 
-        new NetModel().url(Urls.faceUserAdd + mAccessToken).headers(mHeaders).post(params, callback);
+        OkHttpUtils.getInstance().post().tag(this).url(Urls.faceUserAdd + mAccessToken).headers(mHeaders).params(params)
+                .build().execute(callback);
     }
 
     public void identify(HashMap<String, String> imageMap, StringCallback callback) {
@@ -82,7 +81,8 @@ public class FaceNetModel {
         params.put("image", image);
         params.put("ext_fields", "");
         params.put("user_top_num", "1");
-        new NetModel().url(Urls.identify + mAccessToken).headers(mHeaders).post(params, callback);
+        OkHttpUtils.getInstance().post().tag(this).url(Urls.identify + mAccessToken).headers(mHeaders).params(params)
+                .build().execute(callback);
     }
 
     public String getAccessToken() {
@@ -91,5 +91,9 @@ public class FaceNetModel {
 
     public void setAccessToken(String access_token) {
         this.mAccessToken = "?access_token=" + access_token + "&";
+    }
+
+    public void cancelTag() {
+        OkHttpUtils.getInstance().cancelTag(this);
     }
 }

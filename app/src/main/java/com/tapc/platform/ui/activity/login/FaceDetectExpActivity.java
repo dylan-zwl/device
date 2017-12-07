@@ -92,6 +92,7 @@ public class FaceDetectExpActivity extends FaceDetectActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     mDefaultDialog.dismiss();
+                                    finish();
                                 }
                             });
             mDefaultDialog = builder.create();
@@ -200,4 +201,12 @@ public class FaceDetectExpActivity extends FaceDetectActivity {
         super.finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mCamera != null) {
+            mCamera.stopPreview();
+        }
+        mFaceNetModel.cancelTag();
+    }
 }

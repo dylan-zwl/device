@@ -134,4 +134,10 @@ public class TapcApplication extends Application {
     public void setProgramSetting(ProgramSetting programSetting) {
         this.mProgramSetting = programSetting;
     }
+
+    public void reload() {
+        IntentUtils.stopService(this, StartService.class);
+        MachineController.getInstance().stop();
+        System.exit(1);
+    }
 }

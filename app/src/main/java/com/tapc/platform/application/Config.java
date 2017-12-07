@@ -12,7 +12,7 @@ public class Config {
     public static final String MEDIA_FILE = "/sdcard/tapc";
 
     public class Debug {
-        public static final boolean OPEN_REF_WATCHER = true;
+        public static final boolean OPEN_REF_WATCHER = false;
     }
 
     public class Face {
