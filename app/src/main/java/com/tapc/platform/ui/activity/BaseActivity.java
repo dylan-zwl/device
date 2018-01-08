@@ -35,6 +35,6 @@ public abstract class BaseActivity extends RxActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mTapcApp.addRefWatcher(this);
+//        mTapcApp.addRefWatcher(this);
     }
 }

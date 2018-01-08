@@ -36,7 +36,8 @@ public class AppModel {
                     isSystemApp = true;
                 }
 
-                if (isShowSystemApp == false && isSystemApp) {
+                if (isShowSystemApp == false && isSystemApp && !applicationInfo.packageName.equals("com.actions" +
+                        ".owlplayer") && !applicationInfo.packageName.equals("com.android.music")) {
                     continue;
                 }
                 String pakageName = applicationInfo.packageName;

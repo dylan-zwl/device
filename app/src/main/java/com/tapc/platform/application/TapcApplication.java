@@ -8,8 +8,6 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.tapc.platform.entity.DeviceType;
 import com.tapc.platform.jni.Driver;
 import com.tapc.platform.library.abstractset.ProgramSetting;
@@ -31,7 +29,7 @@ import com.tapc.platform.utils.NetUtils;
  */
 
 public class TapcApplication extends Application {
-    private RefWatcher mRefWatcher;
+//    private RefWatcher mRefWatcher;
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
@@ -44,7 +42,7 @@ public class TapcApplication extends Application {
         super.onCreate();
 //        内存泄漏检测工具
         if (Config.Debug.OPEN_REF_WATCHER) {
-            mRefWatcher = LeakCanary.install(this);
+//            mRefWatcher = LeakCanary.install(this);
         }
         mInstance = this;
 
@@ -97,15 +95,15 @@ public class TapcApplication extends Application {
         }
     }
 
-    public void addRefWatcher(Object watchedReference) {
-        if (mRefWatcher != null) {
-            mRefWatcher.watch(watchedReference);
-        }
-    }
-
-    public RefWatcher getRefWatcher() {
-        return mRefWatcher;
-    }
+//    public void addRefWatcher(Object watchedReference) {
+//        if (mRefWatcher != null) {
+//            mRefWatcher.watch(watchedReference);
+//        }
+//    }
+//
+//    public RefWatcher getRefWatcher() {
+//        return mRefWatcher;
+//    }
 
     public static TapcApplication getInstance() {
         return mInstance;

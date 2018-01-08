@@ -1,9 +1,11 @@
 package com.tapc.platform.model.tcp;
 
-import java.io.IOException;
-
 public interface SocketListener {
-    void onMessage(byte[] dataBuffer);
+	public void onMessage(byte[] dataBuffer);
 
-    void onError(IOException error);
+	public void onOpen(boolean isConnect);
+
+	public void onClose();
+
+	public void onError(String error);
 }
