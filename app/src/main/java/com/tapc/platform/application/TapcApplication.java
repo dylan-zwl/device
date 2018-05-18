@@ -29,7 +29,7 @@ import com.tapc.platform.utils.NetUtils;
  */
 
 public class TapcApplication extends Application {
-//    private RefWatcher mRefWatcher;
+    //    private RefWatcher mRefWatcher;
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
@@ -62,7 +62,7 @@ public class TapcApplication extends Application {
         }, Context.BIND_AUTO_CREATE);
 
         mDriver = new Driver();
-//        mDriver.openUinput(Driver.UINPUT_DEVICE_NAME);
+        mDriver.openUinput(Driver.UINPUT_DEVICE_NAME);
         mDriver.initCom(CommonEnum.Platform.S700.getPlatform(), 115200);
 
         initControl(this);

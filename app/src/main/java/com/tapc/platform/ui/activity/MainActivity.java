@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.model.common.ConfigModel;
-import com.tapc.platform.ui.activity.login.FaceDetectExpActivity;
 import com.tapc.platform.ui.activity.settings.user.UserSettingActivity;
 import com.tapc.platform.ui.activity.start.StartActivity;
 import com.tapc.platform.utils.IntentUtils;
@@ -62,8 +61,8 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.main_switch_login)
     void switchLogin() {
-        IntentUtils.startActivity(mContext, FaceDetectExpActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
-                .FLAG_ACTIVITY_CLEAR_TOP);
+//        IntentUtils.startActivity(mContext, FaceDetectExpActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
+//                .FLAG_ACTIVITY_CLEAR_TOP);
     }
 
     @Override

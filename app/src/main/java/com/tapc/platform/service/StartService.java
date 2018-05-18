@@ -54,6 +54,7 @@ public class StartService extends Service implements Observer {
 
     public void initErrorDialog() {
         mErrorDialog = new ErrorDialog(mContext);
+
     }
 
     public ShortcutKey getShortcutKey() {

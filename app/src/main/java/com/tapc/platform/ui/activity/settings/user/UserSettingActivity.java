@@ -3,6 +3,7 @@ package com.tapc.platform.ui.activity.settings.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
@@ -78,10 +79,22 @@ public class UserSettingActivity extends BaseSettingActivity {
                     cls = LanguageFragment.class;
                     break;
                 case R.id.settings_net_btn:
-                    cls = WifiFragment.class;
+                    boolean isUseSystemWifi = true;
+                    if (isUseSystemWifi) {
+                        this.startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                        return;
+                    } else {
+                        cls = WifiFragment.class;
+                    }
                     break;
                 case R.id.settings_bluetooth_btn:
-                    cls = BluetoothFragment.class;
+                    boolean isUseSystemBluetooth = true;
+                    if (isUseSystemBluetooth) {
+                        startActivity(new Intent(Settings.ACTION_BLUETOOTH_SETTINGS));
+                        return;
+                    } else {
+                        cls = BluetoothFragment.class;
+                    }
                     break;
                 case R.id.settings_device_btn:
                     cls = UserDeviceFragment.class;

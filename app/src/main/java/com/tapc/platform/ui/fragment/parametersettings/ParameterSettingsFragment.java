@@ -9,7 +9,6 @@ import android.widget.PopupWindow;
 
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
-import com.tapc.platform.library.abstractset.ProgramSetting;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
@@ -37,8 +36,6 @@ public class ParameterSettingsFragment extends BaseFragment {
     private List<ParameterSet> mDataList;
     private String mCurrentShowName;
     private PopupWindow mWindow;
-    private TreadmillProgramSetting mTreadmillProgramSetting;
-    private ProgramSetting mProgramSetting;
 
     @Override
     protected int getContentView() {

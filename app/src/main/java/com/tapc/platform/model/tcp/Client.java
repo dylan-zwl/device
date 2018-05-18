@@ -4,32 +4,32 @@ import java.net.Socket;
 
 public class Client {
 
-	private ClientInputThread in;
-	private ClientOutputThread out;
+	private ClientInputThread mIn;
+	private ClientOutputThread mOut;
 
 	public Client(Socket socket) {
-		in = new ClientInputThread(socket);
-		out = new ClientOutputThread(socket);
+		mIn = new ClientInputThread(socket);
+		mOut = new ClientOutputThread(socket);
 	}
 
 	public void start() {
-		in.setStart(true);
-		out.setStart(true);
-		in.start();
-		out.start();
+		mIn.setStart(true);
+		mOut.setStart(true);
+		mIn.start();
+		mOut.start();
 	}
 
 	public void setListener(SocketListener listener) {
-		if (in != null) {
-			in.setListener(listener);
+		if (mIn != null) {
+			mIn.setmListener(listener);
 		}
 	}
 
-	public ClientInputThread getIn() {
-		return in;
+	public ClientInputThread getmIn() {
+		return mIn;
 	}
 
-	public ClientOutputThread getOut() {
-		return out;
+	public ClientOutputThread getmOut() {
+		return mOut;
 	}
 }

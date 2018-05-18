@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.library.controller.MachineController;
@@ -30,7 +32,9 @@ public class ErrorDialog extends BaseSystemView {
     @BindView(R.id.error_safekey)
     LinearLayout mSafeKeyLL;
     @BindView(R.id.error_code)
-    LinearLayout mErrorCodeLL;
+    RelativeLayout mErrorCodeLL;
+    @BindView(R.id.error_code_tx)
+    TextView mErrorCodeTx;
 
     private boolean isHideError;
     private int mOldErrorStaus;
@@ -40,15 +44,15 @@ public class ErrorDialog extends BaseSystemView {
 
     public ErrorDialog(Context context) {
         super(context);
+        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
+        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
-        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
         int safekey = MachineController.getInstance().getSafeKeyStatus();
-//        setSafeKeyShow(safekey);
+        setSafeKeyShow(safekey);
     }
 
     @Override
@@ -95,13 +99,13 @@ public class ErrorDialog extends BaseSystemView {
                 return;
             }
             if (status == 0) {
-//                mErrorCodeTx.setText("");
+                mErrorCodeTx.setText("");
                 mErrorCodeLL.setVisibility(GONE);
                 isShowError = false;
             } else {
 //                String errorStr = Integer.toHexString(status);
-//                String text = String.format(mErrorCode, errorStr);
-//                mErrorCodeTx.setText(text);
+                String text = String.format("%x", status);
+                mErrorCodeTx.setText(text);
                 mErrorCodeLL.setVisibility(VISIBLE);
                 isShowError = true;
             }
