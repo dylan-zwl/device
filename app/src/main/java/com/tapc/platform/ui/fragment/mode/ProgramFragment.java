@@ -5,11 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.db.IntervalEntity;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.PragramRunItem;
 import com.tapc.platform.entity.RunType;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
-import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.model.program.ProgramModel;
 import com.tapc.platform.ui.adpater.BaseRecyclerViewAdapter;
 import com.tapc.platform.ui.adpater.ProgramAdapter;
 
@@ -33,19 +34,27 @@ public class ProgramFragment extends ModeBaseFragment {
 
     @Override
     protected void initView() {
-        ArrayList<String> programList = WorkOuting.getProgramName();
-        List<PragramRunItem> list = new ArrayList<PragramRunItem>();
-        if (programList != null) {
-            for (String programItem : programList) {
+        List<PragramRunItem> list = new ArrayList<>();
+        ProgramModel programModel = new ProgramModel(mContext, "program.db", "TAPC_PROG");
+        String program = "program";
+        List<List<IntervalEntity>> lists = programModel.getProgramList(program);
+        if (lists != null) {
+            int length = lists.size();
+            for (int i = 0; i < length; i++) {
                 PragramRunItem item = new PragramRunItem();
-                item.setName(programItem);
+                item.setName(program + (i + 1));
+                item.setProgram(lists.get(i));
                 list.add(item);
             }
         }
-        PragramRunItem customItem = new PragramRunItem();
-        customItem.setName("自定义");
-        customItem.setType(PragramRunItem.Type.ADD_PROGRAM);
-        list.add(customItem);
+
+        boolean isHasCustom = false;
+        if (isHasCustom) {
+            PragramRunItem customItem = new PragramRunItem();
+            customItem.setName("自定义");
+            customItem.setType(PragramRunItem.Type.ADD_PROGRAM);
+            list.add(customItem);
+        }
 
         ProgramAdapter programAdapter = new ProgramAdapter(list);
 
@@ -57,16 +66,13 @@ public class ProgramFragment extends ModeBaseFragment {
                         mListener.switchProgramStageFragment(mContext);
                         return;
                     }
-                    List<ParameterSet> list = new ArrayList<ParameterSet>();
-                    List<Object> defValues = new ArrayList<Object>();
-                    defValues.add("10");
-                    defValues.add("20");
-                    defValues.add("30");
-                    list.add(new ParameterSet("时间", "30", "min", defValues));
-                    list.add(new ParameterSet("体重", "60", "kg", defValues));
-                    list.add(new ParameterSet("速度", "1.0", "km/h", defValues));
-                    list.add(new ParameterSet("坡度", "0", "%", defValues));
-                    mListener.switchParameterSettingsFragment(mContext, list, RunType.NOMAL, ProgramType.TIME);
+                    List<ParameterSet> list = new ArrayList<>();
+                    list.add(new ParameterSet(getString(R.string.time), "30", getString(R.string.min_unit),
+                            getDefaultValues(30, 60, 90), new ParameterSet.Range(5, 120)));
+                    list.add(new ParameterSet(getString(R.string.weight), "60", getString(R.string.weight_unit),
+                            getDefaultValues(60, 80, 100), new ParameterSet.Range(20, 300)));
+                    ProgramType.TAPC_PROG.setName(pragramRunItem.getName());
+                    mListener.switchParameterSettingsFragment(mContext, list, RunType.NOMAL, ProgramType.TAPC_PROG);
                 }
             }
         });

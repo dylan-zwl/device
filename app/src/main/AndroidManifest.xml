@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.tapc.platform"
-          android:sharedUserId="android.uid.system"
           android:versionCode="1"
-          android:versionName="1.0.0">
+          android:versionName="1.0.1">
     <!-- android:sharedUserId="android.uid.system" -->
     //系统窗口
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -63,7 +62,7 @@
         android:supportsRtl="true"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:launchMode="singleInstance"
             android:screenOrientation="landscape">
             <intent-filter>

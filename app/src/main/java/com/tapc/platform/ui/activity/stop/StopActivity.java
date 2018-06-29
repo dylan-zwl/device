@@ -5,16 +5,20 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.tapc.platform.R;
+import com.tapc.platform.activity.MainActivity;
 import com.tapc.platform.entity.WorkoutInforItem;
 import com.tapc.platform.entity.WorkoutInforType;
+import com.tapc.platform.library.abstractset.WorkoutInfo;
 import com.tapc.platform.library.data.TreadmillWorkoutInfo;
-import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.activity.BaseActivity;
-import com.tapc.platform.ui.activity.MainActivity;
 import com.tapc.platform.ui.adpater.WorkoutResultAdapter;
 import com.tapc.platform.ui.view.RoundProgressBar;
 import com.tapc.platform.ui.view.TopTitle;
 import com.tapc.platform.utils.IntentUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,20 +53,14 @@ public class StopActivity extends BaseActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                initListView();
-            }
-        }, 1000);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 back();
             }
         }, 30000);
+        EventBus.getDefault().register(this);
     }
 
-    private void initListView() {
-        mDataList = new ArrayList<WorkoutInforItem>();
-        TreadmillWorkoutInfo workoutInfo = (TreadmillWorkoutInfo) WorkOuting.getInstance().getWorkoutInfo();
+    private void initListView(TreadmillWorkoutInfo workoutInfo) {
+        mDataList = new ArrayList<>();
         if (workoutInfo != null) {
             int time = workoutInfo.getTime();
             float distance = workoutInfo.getDistance();
@@ -80,18 +78,43 @@ public class StopActivity extends BaseActivity {
                     String.valueOf(heartRate), getString(R.string.heart_rate_unit));
             initDataList(WorkoutInforType.SPEED, R.drawable.ic_result_speed, getString(R.string.speed), String.format
                     ("%.1f", speed), getString(R.string.speed_unit));
-            mRoundProgressBar.setMax((int) workoutInfo.getRemainGoal());
-            mRoundProgressBar.setProgress(50);
+
+
+            int goal = (int) workoutInfo.getProgramType().getGoal() * 1000;
+            int progress = 0;
+            switch (workoutInfo.getProgramType().getWorkoutGoal()) {
+                case TIME:
+                    progress = time * 1000;
+                    break;
+                case CALORIE:
+                    progress = (int) (calorie * 1000);
+                    break;
+                case DISTANCE:
+                    progress = (int) (distance * 1000);
+                    break;
+            }
+            setProgress(goal, progress);
         }
+
         WorkoutResultAdapter adpater = new WorkoutResultAdapter(mDataList);
         mRecyclerview.setLayoutManager(new GridLayoutManager(mContext, 5));
         mRecyclerview.setAdapter(adpater);
         adpater.notifyDataSetChanged();
     }
 
+    private void setProgress(int max, int progress) {
+        mRoundProgressBar.setMax(max);
+        mRoundProgressBar.setProgress(progress);
+    }
+
     private void initDataList(WorkoutInforType type, int iconId, String name, String value, String unit) {
         WorkoutInforItem item = new WorkoutInforItem(type, iconId, name, value, unit);
         mDataList.add(item);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = true)
+    public void onResultEvent(WorkoutInfo workoutInfo) {
+        initListView((TreadmillWorkoutInfo) workoutInfo);
     }
 
     @OnClick(R.id.title_back)
@@ -104,5 +127,6 @@ public class StopActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.TapcApplication;
+import com.tapc.platform.jni.Driver;
 import com.tapc.platform.model.common.ClickModel;
 import com.tapc.platform.ui.activity.settings.system.SystemSettingActivity;
 import com.tapc.platform.ui.view.BaseSystemView;
@@ -51,7 +51,7 @@ public class SettingTopBar extends BaseSystemView {
         mTopBar.setBackListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                TapcApplication.getInstance().getKeyEvent().back();
+               Driver.back();
             }
         });
 

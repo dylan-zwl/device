@@ -15,6 +15,7 @@
         android:paddingTop="15dp">
 
         <com.tapc.platform.ui.view.ProgramChart
+            android:id="@+id/program_chart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             ProgramImage:bgFrameColor="@color/commonColor2"

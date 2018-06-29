@@ -4,8 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
+import com.tapc.platform.library.abstractset.WorkoutInfo;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.library.workouting.WorkoutUpdateObserver;
 import com.tapc.platform.ui.activity.stop.StopActivity;
 import com.tapc.platform.ui.widget.CountdownDialog;
 import com.tapc.platform.ui.widget.ErrorDialog;
@@ -13,10 +14,10 @@ import com.tapc.platform.ui.widget.ShortcutKey;
 import com.tapc.platform.ui.widget.StartMenu;
 import com.tapc.platform.utils.IntentUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Observable;
 import java.util.Observer;
-
-import static com.tapc.platform.library.common.SystemSettings.mContext;
 
 /**
  * Created by Administrator on 2017/8/25.
@@ -53,7 +54,7 @@ public class StartService extends Service implements Observer {
     }
 
     public void initErrorDialog() {
-        mErrorDialog = new ErrorDialog(mContext);
+        mErrorDialog = new ErrorDialog(this);
 
     }
 
@@ -63,7 +64,7 @@ public class StartService extends Service implements Observer {
 
     public CountdownDialog getCountdownDialog() {
         if (mCountdownDialog == null) {
-            mCountdownDialog = new CountdownDialog(mContext);
+            mCountdownDialog = new CountdownDialog(this);
         }
         return mCountdownDialog;
     }
@@ -86,20 +87,23 @@ public class StartService extends Service implements Observer {
             mShortcutKey.dismiss();
             mShortcutKey = null;
         }
-        WorkOuting.getInstance().unsubscribeObserverNotification(this);
+        WorkOuting.getInstance().unSubscribeObserverNotification(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-        if (workoutUpdate != null) {
-            switch (workoutUpdate) {
+        WorkoutUpdateObserver workoutUpdateObserver = (WorkoutUpdateObserver) arg;
+        if (workoutUpdateObserver != null) {
+            switch (workoutUpdateObserver.getWorkoutUpdate()) {
                 case UI_STOP:
-//                    stopDevice();
-                    IntentUtils.startActivity(mContext, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
                     break;
                 case UI_RESUME:
                     getCountdownDialog().dismiss();
+                    break;
+                case UI_SAVE_RESULT:
+                    WorkoutInfo workoutInfo = workoutUpdateObserver.getWorkoutInfo();
+                    EventBus.getDefault().postSticky(workoutInfo);
+                    IntentUtils.startActivity(this, StopActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK);
                     break;
             }
         }

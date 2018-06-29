@@ -16,7 +16,7 @@ public class Driver {
      * @Description: 模拟键值
      * @param: KEY_EVENT_TYPE =0 ：使用sendKeyDownUpSync  KEY_EVENT_TYPE !=0 ： 使用uinput驱动
      */
-    public static final int KEY_EVENT_TYPE = 0;
+    public static int KEY_EVENT_TYPE = 1;
     public static final String UINPUT_DEVICE_NAME = "/dev/uinput";
 
     public static native int openUinput(String devName);

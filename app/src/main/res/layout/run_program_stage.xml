@@ -13,36 +13,39 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/run_program_recommended_value"
+            android:id="@+id/run_program_current_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="-10dp"
             android:gravity="top"
-            android:text="0.0"
+            android:text=""
             android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size6"/>
 
         <TextView
+            android:id="@+id/run_program_differences"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
-            android:layout_toRightOf="@id/run_program_recommended_value"
-            android:text="+0.0"
+            android:layout_toRightOf="@id/run_program_current_value"
+            android:text=""
             android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
 
         <TextView
+            android:id="@+id/run_program_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="18dp"
-            android:text="速度"
+            android:text=""
             android:textColor="@color/commonColor1"
             android:textSize="@dimen/tx_size3"/>
     </RelativeLayout>
 
     <com.tapc.platform.ui.view.ProgramChart
+        android:id="@+id/program_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="6dp"

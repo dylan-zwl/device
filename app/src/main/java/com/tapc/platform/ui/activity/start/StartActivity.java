@@ -4,21 +4,23 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
 import com.tapc.platform.R;
+import com.tapc.platform.activity.MainActivity;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.RunType;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.ui.activity.BaseActivity;
-import com.tapc.platform.ui.activity.MainActivity;
 import com.tapc.platform.ui.fragment.mode.SelectModeFragment;
 import com.tapc.platform.ui.fragment.parametersettings.ParameterSettingsFragment;
 import com.tapc.platform.ui.fragment.program.ProgramStageFragment;
 import com.tapc.platform.ui.view.TopTitle;
+import com.tapc.platform.ui.widget.AlertDialog;
 import com.tapc.platform.utils.FragmentUtils;
 import com.tapc.platform.utils.IntentUtils;
 
@@ -45,7 +47,7 @@ public class StartActivity extends BaseActivity {
     protected void initView() {
         super.initView();
         mTapcApp.setHomeActivity(this.getClass());
-        mTapcApp.getService().getStartMenu().show();
+//        mTapcApp.getService().getStartMenu().show();
         mManager = getFragmentManager();
         FragmentUtils.replaceFragment(this, mManager, R.id.start_mode_fragment, new SelectModeFragment(mListener));
 
@@ -59,6 +61,9 @@ public class StartActivity extends BaseActivity {
                     mTapcApp.setProgramSetting(null);
                     FragmentUtils.replaceFragment(mContext, mManager, R.id.start_mode_fragment, new SelectModeFragment
                             (mListener));
+                } else {
+                    IntentUtils.startActivity(mContext, MainActivity.class);
+                    finish();
                 }
             }
         });
@@ -96,13 +101,19 @@ public class StartActivity extends BaseActivity {
 
     @OnClick(R.id.start)
     void onStartClick(View v) {
-        mTapcApp.getService().getStartMenu().dismiss();
-        Intent intent = new Intent();
         if (mParameterSettingsFragment != null) {
-            TreadmillProgramSetting programSetting = mParameterSettingsFragment.getmProgramSetting();
-//            intent.putExtra("program_setting", programSetting);
+            String overRangeStr = mParameterSettingsFragment.checkRange();
+            if (!TextUtils.isEmpty(overRangeStr)) {
+                new AlertDialog(mContext).setMsgText(overRangeStr).setButtonVisibility(View.GONE).setTimeOut(4000)
+                        .show();
+                return;
+            }
+            TreadmillProgramSetting programSetting = mParameterSettingsFragment.getProgramSetting();
             mTapcApp.setProgramSetting(programSetting);
         }
+
+        mTapcApp.getService().getStartMenu().dismiss();
+        Intent intent = new Intent();
         intent.setClass(mContext, CountdownActivity.class);
         intent.putExtra("run_type", mRunType);
         intent.putExtra("play_entity", mPlayEntity);
@@ -121,6 +132,12 @@ public class StartActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        finish();
     }
 
     @Override

@@ -13,14 +13,13 @@ import android.widget.TextView;
 
 import com.tapc.platform.R;
 import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.library.common.AppSettings;
-import com.tapc.platform.library.common.CommonEnum;
+import com.tapc.platform.jni.Driver;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.data.TreadmillProgramSetting;
 import com.tapc.platform.library.data.TreadmillWorkout;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
-import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.library.workouting.WorkoutUpdateObserver;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.ui.view.DeviceCtl;
 import com.tapc.platform.ui.view.FastDeviceCtl;
@@ -90,16 +89,19 @@ public class BottomBar extends BaseSystemView implements Observer {
 
     private void initWortout() {
         mWorkOuting = WorkOuting.getInstance();
-        if (mWorkOuting.isRunning() == false) {
+        if (!mWorkOuting.isRunning()) {
             TreadmillProgramSetting programSetting = (TreadmillProgramSetting) TapcApplication.getInstance()
                     .getProgramSetting();
             if (programSetting == null) {
-                ProgramType programType = ProgramType.NORMAL;
+                ProgramType programType = ProgramType.TIME;
                 programType.setGoal(120 * 60);
                 TreadmillProgramSetting treadmillProgramSetting = new TreadmillProgramSetting(programType);
                 treadmillProgramSetting.setSpeed(TreadmillSystemSettings.MIN_SPEED);
                 treadmillProgramSetting.setIncline(TreadmillSystemSettings.MIN_INCLINE);
                 programSetting = treadmillProgramSetting;
+            }
+            if (programSetting.getIncline() < 0) {
+                programSetting.setIncline(0.0f);
             }
             mWorkOuting.setProgramSetting(programSetting);
             mWorkOuting.start();
@@ -248,20 +250,20 @@ public class BottomBar extends BaseSystemView implements Observer {
 
     @Override
     public void onDestroy() {
-        mWorkOuting.unsubscribeObserverNotification(this);
+        mWorkOuting.unSubscribeObserverNotification(this);
         mLeftDeviceCtl.cancelObserable();
         mRightDeviceCtl.cancelObserable();
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-        if (workoutUpdate != null) {
+        WorkoutUpdateObserver workoutUpdateObserver = (WorkoutUpdateObserver) arg;
+        if (workoutUpdateObserver != null) {
             TreadmillWorkout workout = (TreadmillWorkout) mWorkOuting.getWorkout();
             if (workout == null) {
                 return;
             }
-            switch (workoutUpdate) {
+            switch (workoutUpdateObserver.getWorkoutUpdate()) {
                 case UI_UPDATE:
                     if (isFistInit) {
                         isFistInit = false;
@@ -312,18 +314,16 @@ public class BottomBar extends BaseSystemView implements Observer {
 
     @OnClick(R.id.bottombar_back)
     void backOnClick() {
-        TapcApplication.getInstance().getKeyEvent().back();
+        Driver.back();
     }
 
     @OnClick(R.id.bottombar_home)
     void homeOnClick() {
         try {
-            if (AppUtils.isApplicationBroughtToBackground(mContext) || AppSettings.getPlatform() == CommonEnum
-                    .Platform.S700) {
+            if (!AppUtils.isApplicationBroughtToBackground(mContext)) {
                 IntentUtils.startActivity(mContext, TapcApplication.getInstance().getHomeActivity(), null, Intent
                         .FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             }
-//            IntentUtils.home(mContext);
         } catch (Exception e) {
             Log.d(this.toString(), e.getMessage());
         }

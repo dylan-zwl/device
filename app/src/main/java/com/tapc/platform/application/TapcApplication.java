@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.IBinder;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -13,7 +14,7 @@ import com.tapc.platform.jni.Driver;
 import com.tapc.platform.library.abstractset.ProgramSetting;
 import com.tapc.platform.library.common.AppSettings;
 import com.tapc.platform.library.common.BikeSystemSettings;
-import com.tapc.platform.library.common.CommonEnum;
+import com.tapc.platform.library.common.Common;
 import com.tapc.platform.library.common.SystemSettings;
 import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.controller.MachineController;
@@ -33,7 +34,6 @@ public class TapcApplication extends Application {
     private static TapcApplication mInstance;
     private StartService mService;
     private KeyEvent mKeyEvent;
-    private Driver mDriver;
     private Class<?> mHomeActivity;
     private ProgramSetting mProgramSetting;
 
@@ -61,11 +61,9 @@ public class TapcApplication extends Application {
             }
         }, Context.BIND_AUTO_CREATE);
 
-        mDriver = new Driver();
-        mDriver.openUinput(Driver.UINPUT_DEVICE_NAME);
-        mDriver.initCom(CommonEnum.Platform.S700.getPlatform(), 115200);
+        initDriver();
 
-        initControl(this);
+        initControl();
         initDeviceId();
     }
 
@@ -76,23 +74,38 @@ public class TapcApplication extends Application {
         }
     }
 
-    private void initControl(Context context) {
+
+    /**
+     * 初始化串口驱动，uinput驱动
+     */
+    private void initDriver() {
+        Driver.KEY_EVENT_TYPE = 0;
+        Driver.openUinput(Driver.UINPUT_DEVICE_NAME);
+        Driver.initCom(Common.makeSerialPort(Build.DEVICE), 115200);
+    }
+
+    private void initControl() {
         SystemSettings systemSettings = null;
         if (Config.DEVICE_TYPE == DeviceType.TREADMILL) {
+            TreadmillSystemSettings.MAX_INCLINE = 15;
+            TreadmillSystemSettings.MIN_INCLINE = -3;
             systemSettings = new TreadmillSystemSettings();
         } else if (Config.DEVICE_TYPE == DeviceType.BIKE) {
             systemSettings = new BikeSystemSettings();
         }
-        if (systemSettings != null) {
-            systemSettings.Load(this, null);
-            systemSettings.mPath = "/mnt/sdcard/premierprograms.db";
-            AppSettings.setPlatform(CommonEnum.Platform.S700);
-            AppSettings.setLoopbackMode(false);
-            MachineController controller = MachineController.getInstance();
-            controller.initController(this);
-            controller.start();
-            WorkOuting.getInstance().initWorkOuting(controller.getMachineOperateListener(), this);
-        }
+        systemSettings.Load(getApplicationContext(), null);
+
+        //初始下控控制平台
+        AppSettings.setSerialPort(Common.makeSerialPort(Build.DEVICE));
+        //初始下控控制模式，true 为自动模式， false 为普通模式
+        AppSettings.setLoopbackMode(false);
+
+        //初始下控控制
+        MachineController controller = MachineController.getInstance();
+        controller.initController(this);
+        controller.start();
+
+        WorkOuting.getInstance().initWorkOuting(controller.getMachineOperateListener(), this);
     }
 
 //    public void addRefWatcher(Object watchedReference) {
@@ -111,10 +124,6 @@ public class TapcApplication extends Application {
 
     public StartService getService() {
         return mService;
-    }
-
-    public Driver getKeyEvent() {
-        return mDriver;
     }
 
     public Class<?> getHomeActivity() {

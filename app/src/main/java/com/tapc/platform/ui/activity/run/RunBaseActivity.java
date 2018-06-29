@@ -2,8 +2,8 @@ package com.tapc.platform.ui.activity.run;
 
 import android.view.KeyEvent;
 
-import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.library.workouting.WorkoutUpdateObserver;
 import com.tapc.platform.ui.activity.BaseActivity;
 
 import java.util.Observable;
@@ -34,14 +34,14 @@ public class RunBaseActivity extends BaseActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-        if (workoutUpdate != null) {
-            update(workoutUpdate);
+        WorkoutUpdateObserver workoutUpdateObserver = (WorkoutUpdateObserver) arg;
+        if (workoutUpdateObserver != null) {
+            update(workoutUpdateObserver);
         }
     }
 
-    protected void update(WorkoutUpdate workoutUpdate) {
-        switch (workoutUpdate) {
+    protected void update(WorkoutUpdateObserver workoutUpdate) {
+        switch (workoutUpdate.getWorkoutUpdate()) {
             case UI_STOP:
                 finish();
                 break;
@@ -51,7 +51,7 @@ public class RunBaseActivity extends BaseActivity implements Observer {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WorkOuting.getInstance().unsubscribeObserverNotification(this);
+        WorkOuting.getInstance().unSubscribeObserverNotification(this);
     }
 
     @Override

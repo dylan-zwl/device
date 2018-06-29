@@ -6,9 +6,9 @@ package com.tapc.platform.entity;
 
 public class CtlParameterItem {
     private String name;
-    private String value;
+    private int value;
 
-    public CtlParameterItem(String name, String value) {
+    public CtlParameterItem(String name, int value) {
         this.name = name;
         this.value = value;
     }
@@ -22,11 +22,11 @@ public class CtlParameterItem {
         this.name = name;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(int value) {
         this.value = value;
     }
 }

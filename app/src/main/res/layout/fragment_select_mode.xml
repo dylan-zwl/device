@@ -42,7 +42,8 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rbtn_mode"
                 android:drawableLeft="@drawable/ic_program"
-                android:text="运动模式"/>
+                android:text="运动模式"
+                android:visibility="visible"/>
 
             <RadioButton
                 android:id="@+id/select_map_mode"

@@ -8,6 +8,7 @@ import android.view.View;
 import com.tapc.platform.R;
 import com.tapc.platform.entity.ParameterSet;
 import com.tapc.platform.entity.RunType;
+import com.tapc.platform.library.common.TreadmillSystemSettings;
 import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.ValUtil;
@@ -53,15 +54,17 @@ public class VaFragment extends ModeBaseFragment {
             @Override
             public void onItemClick(View view, PlayEntity playEntity) {
                 if (mListener != null) {
-                    List<ParameterSet> list = new ArrayList<ParameterSet>();
-                    List<Object> defValues = new ArrayList<Object>();
-                    defValues.add("10");
-                    defValues.add("20");
-                    defValues.add("30");
-                    list.add(new ParameterSet("时间", "30", "min", defValues));
-                    list.add(new ParameterSet("体重", "6", "kg", defValues));
-                    list.add(new ParameterSet("速度", "3.0", "km/h", defValues));
-                    list.add(new ParameterSet("坡度", "6", "%", defValues));
+                    List<ParameterSet> list = new ArrayList<>();
+                    list.add(new ParameterSet(getString(R.string.time), "30", getString(R.string.min_unit),
+                            getDefaultValues(30, 60, 90), new ParameterSet.Range(5, 120)));
+                    list.add(new ParameterSet(getString(R.string.weight), "60", getString(R.string.weight_unit),
+                            getDefaultValues(60, 80, 100), new ParameterSet.Range(20, 300)));
+                    list.add(new ParameterSet(getString(R.string.speed), "1.0", getString(R.string.speed_unit),
+                            getDefaultValues(3.0, 6.0, 9.0), new ParameterSet.Range(TreadmillSystemSettings
+                            .MIN_SPEED, TreadmillSystemSettings.MAX_SPEED)));
+                    list.add(new ParameterSet(getString(R.string.incline), "0.0", getString(R.string
+                            .incline_unit), getDefaultValues(4.0, 8.0, 12.0), new ParameterSet.Range
+                            (TreadmillSystemSettings.MIN_INCLINE, TreadmillSystemSettings.MAX_INCLINE)));
                     mListener.switchParameterSettingsFragment(mContext, list, RunType.VA, ProgramType.TIME, playEntity);
                 }
             }

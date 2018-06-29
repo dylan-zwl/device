@@ -60,7 +60,7 @@ public class ProgramStageFragment extends BaseFragment {
         minRightValue = TreadmillSystemSettings.MIN_SPEED;
         maxRightValue = TreadmillSystemSettings.MAX_SPEED;
 
-        mList = new ArrayList<ProgramStage>();
+        mList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             ProgramStage item = new ProgramStage();
             item.setIndex(i);

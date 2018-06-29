@@ -13,12 +13,15 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.TapcApplication;
-import com.tapc.platform.service.StartService;
+import com.tapc.platform.entity.event.RunInforActivityExit;
 import com.tapc.platform.ui.activity.run.RunInforActivity;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.IntentUtils;
 import com.tapc.platform.utils.WindowManagerUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnCheckedChanged;
@@ -39,6 +42,8 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
     CheckBox mProgramChx;
     @BindView(R.id.shortcut_runinfor_bar)
     CheckBox mRunInforBarChx;
+    @BindView(R.id.shortcut_runinfor)
+    CheckBox mRunInforChx;
     @BindView(R.id.shortcut_screen)
     CheckBox mScreenChx;
 
@@ -47,7 +52,6 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
     private RunInforBar mRunInforBar;
     private ProgramStageDialog mProgramStageDialog;
 
-    private StartService service;
     private boolean isMove = false;
     private float mTouchX;
     private float mTouchY;
@@ -57,7 +61,6 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
 
     public ShortcutKey(Context context) {
         super(context);
-        service = TapcApplication.getInstance().getService();
         mShortcutKeyBtn.setOnTouchListener(this);
         moveToBottom = 1080 - getResources().getDimension(R.dimen.bottom_bar_h);
     }
@@ -114,8 +117,8 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
         }
     }
 
-    @OnCheckedChanged(R.id.shortcut_runinfor)
-    void runInforActivity(CompoundButton buttonView, boolean isChecked) {
+
+    private void setRunInforBarChx(boolean isChecked) {
         if (isChecked) {
             mAppBar.hide();
             mRunInforBar.hide();
@@ -134,8 +137,18 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
             mProgramChx.setVisibility(VISIBLE);
             mRunInforBarChx.setVisibility(VISIBLE);
         }
+    }
+
+    @OnCheckedChanged(R.id.shortcut_runinfor)
+    void runInforActivity(CompoundButton buttonView, boolean isChecked) {
+        setRunInforBarChx(isChecked);
         IntentUtils.startActivity(mContext, RunInforActivity.class, null, Intent.FLAG_ACTIVITY_NEW_TASK | Intent
                 .FLAG_ACTIVITY_CLEAR_TOP);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, priority = 100, sticky = true)
+    public void onRunInforActivityExit(RunInforActivityExit event) {
+        mRunInforChx.setChecked(false);
     }
 
     @OnClick(R.id.shortcut_clear_app)
@@ -153,7 +166,7 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
             mRunInforBar.hide();
             mProgramStageDialog.hide();
             mBottomBar.dismiss();
-//            mProgramChx.setChecked(false);
+            mProgramChx.setChecked(false);
 //            mRunInforBarChx.setChecked(false);
         } else {
             mAppBar.show();
@@ -180,6 +193,7 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
         mProgramStageDialog.show();
         super.show();
         initShow();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -189,6 +203,7 @@ public class ShortcutKey extends BaseSystemView implements View.OnTouchListener 
         mRunInforBar.dismiss();
         mProgramStageDialog.dismiss();
         mBottomBar.dismiss();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -54,7 +54,7 @@ public class ParameterSettingsFragment extends BaseFragment {
     protected void initView() {
         super.initView();
         if (mDataList == null) {
-            mDataList = new ArrayList<ParameterSet>();
+            mDataList = new ArrayList<>();
         }
         mAdpater = new ParameterSetAdapter(mDataList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(mContext, mDataList.size());
@@ -99,7 +99,10 @@ public class ParameterSettingsFragment extends BaseFragment {
         });
     }
 
-    public TreadmillProgramSetting getmProgramSetting() {
+    /**
+     * 获取程序模式配置
+     */
+    public TreadmillProgramSetting getProgramSetting() {
         if (mProgramType == null) {
             mProgramType = ProgramType.NORMAL;
         }
@@ -117,9 +120,34 @@ public class ParameterSettingsFragment extends BaseFragment {
                 programSetting.setSpeed(value);
             } else if (name.equals(getString(R.string.incline))) {
                 programSetting.setIncline(value);
+            } else if (name.equals(getString(R.string.weight))) {
+                programSetting.getProgramType().setWeight((int) value);
+            } else if (name.equals(getString(R.string.age))) {
+                programSetting.getProgramType().setAge((int) value);
+            } else if (name.equals(getString(R.string.heart_rate))) {
+                programSetting.getProgramType().setHeart((int) value);
             }
         }
         return programSetting;
+    }
+
+    /**
+     * 设定值范围检测
+     *
+     * @return : 空时为无超出范围的
+     */
+    public String checkRange() {
+        StringBuilder builder = new StringBuilder();
+        for (ParameterSet item : mDataList) {
+            float value = Float.valueOf(item.getValue());
+            if (value < item.getRange().min || value > item.getRange().max) {
+                String name = item.getName();
+                String range = String.format(getString(R.string.over_range), item.getRange().min, item.getRange().max);
+                builder.append(name + range);
+                builder.append("\n");
+            }
+        }
+        return builder.toString();
     }
 
     private void cancelPopupWindow() {

@@ -67,7 +67,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:background="@drawable/ic_fan_off"
-                    android:src="@drawable/btn_app_click"/>
+                    android:src="@drawable/btn_app_click"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 

@@ -1,12 +1,12 @@
 package com.tapc.platform.ui.activity.settings.user;
 
+import android.os.Environment;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.application.Config;
 import com.tapc.platform.model.app.AppInfoEntity;
 import com.tapc.platform.model.app.AppModel;
 import com.tapc.platform.model.common.BacklightModel;
@@ -133,7 +133,8 @@ public class UserDeviceFragment extends BaseFragment {
                 for (AppInfoEntity app : mlistAppInfo) {
                     AppUtils.clearAppUserData(mContext, app.getPkgName(), null);
                 }
-                FileUtils.RecursionDeleteFile(new File(Config.MEDIA_FILE));
+                String path = Environment.getExternalStorageDirectory().getPath();
+                FileUtils.RecursionDeleteFile(new File(path));
                 e.onNext("show");
                 e.onComplete();
             }

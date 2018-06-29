@@ -7,10 +7,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.library.common.AppSettings;
-import com.tapc.platform.library.common.CommonEnum;
-import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.library.workouting.WorkoutUpdateObserver;
 import com.tapc.platform.model.vaplayer.PlayEntity;
 import com.tapc.platform.model.vaplayer.VaPlayer;
 import com.tapc.platform.model.vaplayer.VaRecordPosition;
@@ -133,8 +131,8 @@ public class RunVaActivity extends RunBaseActivity {
     }
 
     @Override
-    protected void update(WorkoutUpdate workoutUpdate) {
-        switch (workoutUpdate) {
+    protected void update(WorkoutUpdateObserver workoutUpdate) {
+        switch (workoutUpdate.getWorkoutUpdate()) {
             case UI_STOP:
                 finish();
                 break;
@@ -145,11 +143,11 @@ public class RunVaActivity extends RunBaseActivity {
                 setPlayPause(false);
                 break;
             case UI_LEFT:
-                if (AppSettings.getPlatform() == CommonEnum.Platform.TCC8935) {
-                    mPlayer.initVideoSpeed(100000, 200000);
-                } else {
-                    mPlayer.initVideoSpeed(100, 200);
-                }
+//                if (AppSettings.getPlatform() == CommonEnum.Platform.TCC8935) {
+//                    mPlayer.initVideoSpeed(100000, 200000);
+//                } else {
+//                    mPlayer.initVideoSpeed(100, 200);
+//                }
                 break;
         }
     }
@@ -173,7 +171,7 @@ public class RunVaActivity extends RunBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        WorkOuting.getInstance().unsubscribeObserverNotification(this);
+        WorkOuting.getInstance().unSubscribeObserverNotification(this);
         if (mDisposable != null) {
             mDisposable.dispose();
             mDisposable = null;

@@ -32,6 +32,12 @@ public class RunInforView extends BaseView {
         array.recycle();
     }
 
+    public void setValue(String value) {
+        if (value != null) {
+            mValueTv.setText(value);
+        }
+    }
+
     @Override
     protected int getContentView() {
         return R.layout.view_run_infor;

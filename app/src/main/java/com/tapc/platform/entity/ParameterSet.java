@@ -11,12 +11,24 @@ public class ParameterSet {
     private String value;
     private String unit;
     private List<Object> defValues;
+    private Range range;
 
-    public ParameterSet(String name, String value, String unit, List<Object> defValues) {
+    public static class Range {
+        public float min;
+        public float max;
+
+        public Range(float min, float max) {
+            this.min = min;
+            this.max = max;
+        }
+    }
+
+    public ParameterSet(String name, String value, String unit, List<Object> defValues, Range range) {
         this.name = name;
         this.value = value;
         this.unit = unit;
         this.defValues = defValues;
+        this.range = range;
     }
 
     public String getName() {
@@ -49,5 +61,13 @@ public class ParameterSet {
 
     public void setDefValues(List<Object> defValues) {
         this.defValues = defValues;
+    }
+
+    public Range getRange() {
+        return range;
+    }
+
+    public void setRange(Range range) {
+        this.range = range;
     }
 }

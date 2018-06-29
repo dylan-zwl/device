@@ -59,14 +59,7 @@ public class ProgramAdapter extends BaseRecyclerViewAdapter<ProgramAdapter.Pragr
                 break;
         }
 
-//        holder.image.setDeleteOnClick(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int dd;
-//            }
-//        });
-
-//        holder.image.setRunList(item.getList());
+        holder.image.setProgramChart(item.getBlockList(), item.getLineList());
     }
 
     public class PragramViewHolder extends RecyclerView.ViewHolder {

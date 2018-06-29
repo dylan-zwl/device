@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.tapc.platform.library.controller.MachineStatusController;
 import com.tapc.platform.utils.IntentUtils;
 
-import static com.tapc.platform.library.common.SystemSettings.mContext;
 
 /**
  * Created by Administrator on 2017/3/24.
@@ -21,7 +20,7 @@ public class KeyModel {
         void receverMcuKey(int key);
     }
 
-    public void startListen(KeyListener listener) {
+    public void startListen(Context context, KeyListener listener) {
         if (mKeyboardReceiver == null) {
             mKeyboardReceiver = new BroadcastReceiver() {
                 @Override
@@ -30,13 +29,13 @@ public class KeyModel {
                     mListener.receverMcuKey(keycode);
                 }
             };
-            IntentUtils.registerReceiver(mContext, mKeyboardReceiver, MachineStatusController.DEVICE_KEY_EVENT);
+            IntentUtils.registerReceiver(context, mKeyboardReceiver, MachineStatusController.DEVICE_KEY_EVENT);
         }
         this.mListener = listener;
     }
 
-    public void stopListen() {
-        IntentUtils.unregisterReceiver(mContext, mKeyboardReceiver);
+    public void stopListen(Context context) {
+        IntentUtils.unregisterReceiver(context, mKeyboardReceiver);
         mKeyboardReceiver = null;
     }
 }

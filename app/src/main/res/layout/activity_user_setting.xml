@@ -40,7 +40,8 @@
                         android:paddingLeft="24dp"
                         android:text="@string/settings_language"
                         android:textColor="@color/commonColor2"
-                        android:textSize="@dimen/tx_size4">
+                        android:textSize="@dimen/tx_size4"
+                        android:visibility="gone">
 
                     </RadioButton>
 

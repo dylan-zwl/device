@@ -7,11 +7,15 @@ import android.widget.Button;
 import com.tapc.platform.R;
 import com.tapc.platform.ui.widget.BaseView;
 
+import java.util.List;
+
 import butterknife.BindView;
 
 public class ProgramImagView extends BaseView {
+    @BindView(R.id.program_chart)
+    ProgramChart mProgramChart;
     @BindView(R.id.program_delete)
-    Button deleteBtn;
+    Button mDeleteBtn;
 
     public ProgramImagView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -23,10 +27,19 @@ public class ProgramImagView extends BaseView {
     }
 
     public void setDeleteOnClick(OnClickListener l) {
-        deleteBtn.setOnClickListener(l);
+        mDeleteBtn.setOnClickListener(l);
     }
 
     public void setDeleteBtnVisibility(boolean visibility) {
-        deleteBtn.setVisibility(GONE);
+        mDeleteBtn.setVisibility(GONE);
+    }
+
+    public void setProgramChart(List<Float> blockList, List<Float> lineList) {
+        int row = blockList == null ? 0 : blockList.size();
+        int column = lineList == null ? 0 : lineList.size();
+        mProgramChart.init(row, column);
+        mProgramChart.setBlockList(blockList);
+        mProgramChart.setLineList(lineList);
+        mProgramChart.invalidate();
     }
 }

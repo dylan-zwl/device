@@ -10,8 +10,8 @@ import com.tapc.platform.library.util.WorkoutEnum.ProgramType;
 public enum GoalModeItem {
     TIME(ProgramType.TIME, R.drawable.ic_goal_time, R.string.time, false),
     DISTANCE(ProgramType.DISTANCE, R.drawable.ic_goal_disatance, R.string.distance, false),
-    CALORIE(ProgramType.CALORIE, R.drawable.ic_goal_calorie, R.string.calorie, false),
-    HEART(ProgramType.TIME, R.drawable.ic_goal_heart, R.string.heart_rate, false);
+    CALORIE(ProgramType.CALORIE, R.drawable.ic_goal_calorie, R.string.calorie, false);
+//    HEART(ProgramType.TIME, R.drawable.ic_goal_heart, R.string.heart_rate, false);
 
     private ProgramType programType;
     private int icon;

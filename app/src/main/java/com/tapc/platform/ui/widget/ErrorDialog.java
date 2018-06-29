@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tapc.platform.R;
-import com.tapc.platform.library.controller.MachineController;
 import com.tapc.platform.library.workouting.WorkOuting;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.IntentUtils;
@@ -44,15 +43,15 @@ public class ErrorDialog extends BaseSystemView {
 
     public ErrorDialog(Context context) {
         super(context);
-        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
-        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
+//        IntentUtils.registerReceiver(mContext, mErrorReceiver, DEVICE_ERROR_STATUS);
+//        IntentUtils.registerReceiver(mContext, mSafeKeyReceiver, DEVICE_SAFE_KEY_STATUS);
     }
 
     @Override
     protected void initView() {
         super.initView();
-        int safekey = MachineController.getInstance().getSafeKeyStatus();
-        setSafeKeyShow(safekey);
+//        int safekey = MachineController.getInstance().getSafeKeyStatus();
+//        setSafeKeyShow(safekey);
     }
 
     @Override

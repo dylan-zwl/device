@@ -1,6 +1,7 @@
 package com.tapc.platform.ui.activity.settings.system;
 
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,12 +17,17 @@ import com.tapc.platform.ui.fragment.BaseFragment;
 import com.tapc.platform.ui.view.SettingFunctionBtn;
 import com.tapc.platform.ui.widget.AlertDialog;
 import com.tapc.platform.ui.widget.LoadingDialog;
+import com.tapc.platform.utils.RxjavaUtils;
+import com.trello.rxlifecycle2.android.FragmentEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2017/10/20.
@@ -32,7 +38,7 @@ public class CtlParameterFragment extends BaseFragment {
     RecyclerView mRecyclerView;
 
     @BindView(R.id.setting_calibration_incline)
-    SettingFunctionBtn mInclineBtn;
+    SettingFunctionBtn mCalibreationBtn;
 
     private CtlParameterAdapter mAdapter;
     private List<CtlParameterItem> mList;
@@ -55,9 +61,12 @@ public class CtlParameterFragment extends BaseFragment {
         initParameter();
     }
 
+    /**
+     * 校准
+     */
     private void initCalibration() {
         mCalibrationModel = new CalibrationModel(mMachineController);
-        mInclineBtn.setBtnOnClickListener(new View.OnClickListener() {
+        mCalibreationBtn.setBtnOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AlertDialog(mContext).setMsgText("请确定设备是否支持?").setOnClickListener(new AlertDialog.Listener() {
@@ -88,18 +97,34 @@ public class CtlParameterFragment extends BaseFragment {
             public void data(byte[] bytes, int i) {
                 int value = Utility.getIntegerFromByteArray(bytes);
                 if (mCalibrationModel.checkCalCompleted(value)) {
-                    mLoadingDialog.setResult(true);
-                    mHandler.postDelayed(new Runnable() {
+                    RxjavaUtils.create(new ObservableOnSubscribe<Object>() {
                         @Override
-                        public void run() {
-                            mLoadingDialog.stop();
+                        public void subscribe(ObservableEmitter<Object> e) throws Exception {
+                            e.onNext("success");
+                            SystemClock.sleep(3000);
+                            e.onNext("stop");
                         }
-                    }, 3000);
+                    }, new Consumer() {
+                        @Override
+                        public void accept(Object o) throws Exception {
+                            switch ((String) o) {
+                                case "success":
+                                    mLoadingDialog.setResult(true);
+                                    break;
+                                case "stop":
+                                    mLoadingDialog.stop();
+                                    break;
+                            }
+                        }
+                    }, bindUntilEvent(FragmentEvent.DESTROY_VIEW));
                 }
             }
         });
     }
 
+    /**
+     * 参数设置
+     */
     private void initParameter() {
         mList = new ArrayList<>();
         mAdapter = new CtlParameterAdapter(mList);
@@ -117,9 +142,14 @@ public class CtlParameterFragment extends BaseFragment {
 
             @Override
             public void data(byte[] bytes, int i) {
-                for (int index = 0; index < 3; index++) {
-                    CtlParameterItem item = new CtlParameterItem("参数" + index, "");
-                    mList.add(item);
+                mList.clear();
+                for (int index = 0; index < bytes.length / 2; index++) {
+                    if (bytes.length >= (index * 2 + 2)) {
+                        int value = getDataInt(bytes, index * 2, 2);
+                        CtlParameterItem item = new CtlParameterItem("参数" + index, 0);
+                        item.setValue(value);
+                        mList.add(item);
+                    }
                 }
                 mHandler.post(new Runnable() {
                     @Override
@@ -131,13 +161,27 @@ public class CtlParameterFragment extends BaseFragment {
         });
     }
 
+    private int getDataInt(byte[] datas, int start, int bits) {
+        byte[] dataCache = new byte[2];
+        System.arraycopy(datas, start, dataCache, 0, bits);
+        return Utility.getIntegerFromByteArray(dataCache);
+    }
+
     @OnClick(R.id.ctl_parameter_save)
     void save() {
-        byte[] data = new byte[mList.size()];
+        byte[] data = new byte[mList.size() * 2];
         for (int i = 0; i < mList.size(); i++) {
-            data[i] = Byte.valueOf(mList.get(i).getValue());
+            byte[] temp = Utility.getByteArrayFromInteger(mList.get(i).getValue(), 2);
+            System.arraycopy(temp, 0, data, i * 2, 2);
         }
         mMachineController.setMachineParam(data);
-        new AlertDialog(mContext).setMsgText("保存成功!").setButtonVisibility(View.GONE).setTimeOut(3000).show();
+        new AlertDialog(mContext).setMsgText("已设置").setButtonVisibility(View.GONE).setTimeOut(3000).show();
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startGetMachineParam();
+            }
+        }, 500);
     }
 }

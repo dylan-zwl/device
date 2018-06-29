@@ -2,6 +2,7 @@ package com.tapc.platform.ui.adpater;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -44,6 +45,7 @@ public class CtlParameterAdapter extends BaseRecyclerViewAdapter<CtlParameterAda
         if (name != null) {
             holder.name.setText(name);
         }
+        holder.value.setText("" + item.getValue());
         holder.value.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -52,7 +54,11 @@ public class CtlParameterAdapter extends BaseRecyclerViewAdapter<CtlParameterAda
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                item.setValue(holder.value.getText().toString());
+                String temp = holder.value.getEditableText().toString();
+                if (TextUtils.isEmpty(temp)) {
+                    temp = "0";
+                }
+                item.setValue(Integer.valueOf(temp).intValue());
             }
 
             @Override

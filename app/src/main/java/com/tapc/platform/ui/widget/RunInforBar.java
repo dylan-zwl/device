@@ -14,6 +14,7 @@ import com.tapc.platform.library.data.TreadmillWorkout;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutGoal;
 import com.tapc.platform.library.util.WorkoutEnum.WorkoutUpdate;
 import com.tapc.platform.library.workouting.WorkOuting;
+import com.tapc.platform.library.workouting.WorkoutUpdateObserver;
 import com.tapc.platform.ui.adpater.RunInforAdapter;
 import com.tapc.platform.ui.view.BaseSystemView;
 import com.tapc.platform.utils.WindowManagerUtils;
@@ -108,10 +109,10 @@ public class RunInforBar extends BaseSystemView implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         if (isShown()) {
-            WorkoutUpdate workoutUpdate = (WorkoutUpdate) arg;
-            if (workoutUpdate != null) {
+            WorkoutUpdateObserver workoutUpdateObserver = (WorkoutUpdateObserver) arg;
+            if (workoutUpdateObserver != null) {
                 TreadmillWorkout workout = (TreadmillWorkout) mWorkOuting.getWorkout();
-                if (workout == null || workoutUpdate != WorkoutUpdate.UI_UPDATE) {
+                if (workout == null || workoutUpdateObserver.getWorkoutUpdate() != WorkoutUpdate.UI_UPDATE) {
                     return;
                 }
                 if (mDataList.size() == 0) {
@@ -154,6 +155,6 @@ public class RunInforBar extends BaseSystemView implements Observer {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mWorkOuting.unsubscribeObserverNotification(this);
+        mWorkOuting.unSubscribeObserverNotification(this);
     }
 }

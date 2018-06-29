@@ -31,7 +31,7 @@ public class CalibrationModel {
     }
 
     public boolean checkCalCompleted(int data) {
-        if (data == 0xff) {
+        if (data != 0) {
             return true;
         }
         return false;

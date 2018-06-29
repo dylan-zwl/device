@@ -5,7 +5,6 @@ import com.tapc.platform.entity.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -30,10 +29,8 @@ public class RunCommonActivity extends RunBaseActivity {
         super.initView();
         mTapcApp.setHomeActivity(this.getClass());
 
-        mImages = new ArrayList<Object>();
-        mImages.add(R.drawable.bg_advertisement_nomal);
-        mImages.add(R.drawable.bg_countdown);
-        initImageShow();
+//        mImages = new ArrayList<Object>();
+//        initImageShow();
     }
 
     private void initImageShow() {

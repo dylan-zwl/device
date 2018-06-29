@@ -42,7 +42,7 @@
             android:paddingBottom="8dp"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:paddingTop="20dp"
+            android:paddingTop="40dp"
             android:text="@string/detect_face_in"
             android:textColor="#F6A623"
             android:textSize="18sp"/>

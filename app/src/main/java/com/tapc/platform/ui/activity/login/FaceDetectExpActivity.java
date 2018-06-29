@@ -3,7 +3,6 @@ package com.tapc.platform.ui.activity.login;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.SystemClock;
-import android.text.TextUtils;
 import android.widget.Switch;
 
 import com.baidu.idl.face.platform.FaceConfig;
@@ -12,23 +11,14 @@ import com.baidu.idl.face.platform.FaceSDKManager;
 import com.baidu.idl.face.platform.FaceStatusEnum;
 import com.baidu.idl.face.platform.LivenessTypeEnum;
 import com.baidu.idl.face.platform.ui.FaceDetectActivity;
-import com.google.gson.Gson;
 import com.tapc.platform.R;
 import com.tapc.platform.application.Config;
 import com.tapc.platform.model.net.FaceNetModel;
-import com.tapc.platform.model.net.dao.FaceIdentifyAck;
-import com.tapc.platform.model.net.dao.FaceUserAddAck;
-import com.tapc.platform.okhttplibrary.callback.StringCallback;
 import com.tapc.platform.ui.widget.DefaultDialog;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.Call;
 
 public class FaceDetectExpActivity extends FaceDetectActivity {
     private DefaultDialog mDefaultDialog;
@@ -41,28 +31,28 @@ public class FaceDetectExpActivity extends FaceDetectActivity {
         super.onCreate(savedInstanceState);
         mFaceNetModel = new FaceNetModel();
         mSwitch = (Switch) findViewById(R.id.detect_switch);
-        mFaceNetModel.getToken("9t92jz3UxVcI3QVlIUXGEMpN", "NNABdnS4A9hT9ugX1bWcEa41VqizKz82", new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String access_token = jsonObject.getString("access_token");
-                    if (!TextUtils.isEmpty(access_token)) {
-                        mFaceNetModel.setAccessToken(access_token);
-                    } else {
-                        showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
-                }
-            }
-        });
+//        mFaceNetModel.getToken("9t92jz3UxVcI3QVlIUXGEMpN", "NNABdnS4A9hT9ugX1bWcEa41VqizKz82", new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//                showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                try {
+//                    JSONObject jsonObject = new JSONObject(response);
+//                    String access_token = jsonObject.getString("access_token");
+//                    if (!TextUtils.isEmpty(access_token)) {
+//                        mFaceNetModel.setAccessToken(access_token);
+//                    } else {
+//                        showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                    showMessageDialog("人脸识别", "获取Token失败，无法继续使用！");
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -152,42 +142,42 @@ public class FaceDetectExpActivity extends FaceDetectActivity {
     }
 
     private void login(HashMap<String, String> base64ImageMap) {
-        mFaceNetModel.identify(base64ImageMap, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                showMessageDialog("人脸识别", "网络错误");
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                FaceIdentifyAck faceIdentifyAck = new Gson().fromJson(response, FaceIdentifyAck.class);
-                if (faceIdentifyAck != null) {
-                    String uid = faceIdentifyAck.getResult()[0].getUid();
-                    String groupId = faceIdentifyAck.getResult()[0].getGroup_id();
-                    if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(groupId)) {
-                        showMessageDialog("人脸识别", " 用户组：" + groupId + "用户id： " + uid + " 登录成功 ");
-                    }
-                }
-            }
-        });
+//        mFaceNetModel.identify(base64ImageMap, new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//                showMessageDialog("人脸识别", "网络错误");
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                FaceIdentifyAck faceIdentifyAck = new Gson().fromJson(response, FaceIdentifyAck.class);
+//                if (faceIdentifyAck != null) {
+//                    String uid = faceIdentifyAck.getResult()[0].getUid();
+//                    String groupId = faceIdentifyAck.getResult()[0].getGroup_id();
+//                    if (!TextUtils.isEmpty(uid) && !TextUtils.isEmpty(groupId)) {
+//                        showMessageDialog("人脸识别", " 用户组：" + groupId + "用户id： " + uid + " 登录成功 ");
+//                    }
+//                }
+//            }
+//        });
     }
 
     private void addUser(HashMap<String, String> base64ImageMap) {
         String uid = "" + SystemClock.currentThreadTimeMillis();
-        mFaceNetModel.addUser(uid, base64ImageMap, new StringCallback() {
-            @Override
-            public void onError(Call call, Exception e, int id) {
-                showMessageDialog("人脸识别", "网络错误");
-            }
-
-            @Override
-            public void onResponse(String response, int id) {
-                FaceUserAddAck faceUserAddAck = new Gson().fromJson(response, FaceUserAddAck.class);
-                if (faceUserAddAck != null && faceUserAddAck.getError_code() == 0) {
-                    showMessageDialog("人脸识别", "注册成功");
-                }
-            }
-        });
+//        mFaceNetModel.addUser(uid, base64ImageMap, new StringCallback() {
+//            @Override
+//            public void onError(Call call, Exception e, int id) {
+//                showMessageDialog("人脸识别", "网络错误");
+//            }
+//
+//            @Override
+//            public void onResponse(String response, int id) {
+//                FaceUserAddAck faceUserAddAck = new Gson().fromJson(response, FaceUserAddAck.class);
+//                if (faceUserAddAck != null && faceUserAddAck.getError_code() == 0) {
+//                    showMessageDialog("人脸识别", "注册成功");
+//                }
+//            }
+//        });
     }
 
     @Override
